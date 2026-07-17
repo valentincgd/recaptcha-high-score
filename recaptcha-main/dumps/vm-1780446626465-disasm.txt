@@ -1,0 +1,2 @@
+0x0000: OP_122 {"op":"OP_122","offset":0,"argCount":205,"unknown":true}
+0x002b: OP_881052 {"op":"OP_881052","offset":43,"argCount":116,"unknown":true}

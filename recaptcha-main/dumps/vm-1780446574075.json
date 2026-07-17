@@ -1,0 +1,238 @@
+{
+  "script": {
+    "errors": [
+      "recaptcha.anchor.Main.init absent (script incomplet)"
+    ],
+    "logs": [],
+    "enterpriseLoader": true,
+    "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+    "fromCache": true,
+    "bytes": 895157,
+    "domLoad": true,
+    "grecaptchaReady": true,
+    "enterpriseReady": false
+  },
+  "anchor": {
+    "anchorToken": "03AFcWeA5aV1nTLgq45Ll32hQwZjHhtiSGiLUraXQXuE2sm2iCyk1AwSbjYoSO50lDmv1_B3GaaofSCImZQwfVn3JzPB-Z8TJ-D8fWypuX4w1GSMyvs7hGs8z4mKrMf_RYaE5QTS3AN5rTInY-p5TEvMr-uDqLKFaqyktdQlWyTzeeY-TCtxYsiDgM9fmSvgGcxKwSecMAQZ8oxbbvmxNwjKfMp7tFumrYxriFEtBIlDB3-V5HYUIzSi-Q40e3TINVgMoxRUbNbTbymp2Hwl21DWiztjBUTNpwBtmpYuk-4yHuqwjWgiFBUjixnOX_E9D103jNSY3ujnVPyfD2sqiM9xBDeKQ3LjCd9kdUDN9cp8N0lVstkUq2N59J4D561DiEStnJ0pcI-4al4dcxWntFoGu-NMivtYAwI-1jbgl4TKVV1xHHK1n-g92XYF_DXwoIIfUeCFo8utUYuEN4UZbojxJc_G6AioNu8RTXvLzygL86q1CSmwHKo-NX2dK-E5xyhTumfjhEWn1dzX_fP8F_pi-3jPWVoHQGgu2pHmEqEfAZtV7BQTKN3D5fQ7onPMHpQEuquWaMCZjzcp7P2OFZylDPZXWIpSPpdZ3nWwcT1UnMnbK4ktV_RUbuRnbiRXUEtWyR-LNYUZTa_XjCBXdtAtFxMcNb71l2Pr-Fie_KmQfNHRi4xl1_WwMJweJTkGDmO_2p-KC3Xns5d0RBzR50PQuLzaj9DejZrzvFvjPYLbjvt4e5_fq3JyRi5SaX-dsenw3edOUY2dnQ7BFjq-DOJXu22Hj0n-NldmYm2c0ZZ-K8UuRqk9np1bZ-JbyoZorz2PLCzpTBQOVXHqIDwPrYsyf8VyNglEuIGmHW3S24kq7QZoHdvdlC0bZ0Fdb3pn03tTO5iYUAY4kxc6DK66n2Ooe6DA6P4_W_973oiZRwplFW7f7CS8kZU3USOrbbK-fMTRptg8mwtIedDcWHQLCIYcShhhXG0LQ7aSvwyGmd3qAmhpXHYil5B3eoMicz5r29EcsA1P_znE0wcFPBE5rHVts9GnDhu5G2ssqt625x7DRzqwUEuRhR7HHs_mJbE2ZNmQsjHtMk1Ed9RJE2v_YOuJxmVtslSc2goxApcwPddbykj1rtaRDTS_UgyuGUxQzaofcCQE868GLibu0LZ5gYfsZFdoDL1XjXkZMnTDCtgGEVYWJeD41x5P_W3eNJFPiqI3T7wWQt_n0eRFl8Ojzp6NHVXIeOFNJxvX725qIMIP_XAunz7LUYskcVTJMNQ7XWvdxlOPVJ9SyMpbYcAGn0xXrW8O36lryDeFFbGTvIiY2_YhYge2OeP9GIwBOmJvJB3VnF4QDJanj3RAf73tD0IchdsnM84oAhj6-AsBIAAeevvk9-V0eirwSY6vyBqEf-dBCqTNiZOjqjHoqzyeTVNvyffQSmrD4SANH4Uk0eC4JomG3lZ2ON09tTRtj-z7hZ1vVJiai6wwGu1VUaspdQU4BDQS4QRMt0_g6-MqELYVJBiZku_o1aB2cx_Do8UWb_Wtln70n1V1oiieYzfT30XsNZP0s1EbPrEmdxCd_4Y_yaIEspbUqyOu23hG3j_0khtbo0FH8FviGcJVgKra8GGJsG9_JoLJtEYoFpii7jyxUPD95LCadkIo6ffYZ4EAl768gVXi5LOlknifoL0_jHgHBhQQiWHLtDf22TGDIWpEWDjvhF5qO4SD-xwodCe8SUtCYiHkPbqqHgiDZBlr9vRSVVgMPsx0HdEROSWdfeAf7gC0yN2psfmxaWKvKEbcmXPGw2RX-ARdKd-KXQCib9lHzb0U5PojeQsXmBSXbF1rz5enfSBvM3dLm3EWtSQZ3LeCQRCK34PXC1cXb1tUdkcvTB917SACnxlMCuJlPEhbI6QrzIqO3jXRmryE5rBpykcO_IUjr4GWpl",
+    "encryptionKey": 1780532973904,
+    "bftSignature": "0dAFcWeA413urnq8C0rwbB1XnXz1ucpiRRtWAk5kbcHElM_ZXVd3NaSu0XVjXRW9ouzyBsQ3iyXv4lj9IgLrkdiS953ga-XVbvEQ",
+    "vmBytecodeKeys": [
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        221,
+        5,
+        168
+      ],
+      [
+        90,
+        183,
+        190,
+        224
+      ]
+    ],
+    "collectorIndexes": null
+  },
+  "bytecode": {
+    "configDecryptedLen": 399,
+    "innerBytecodeLen": 76,
+    "encryptionKey": null,
+    "signalKeys": [],
+    "sends": [],
+    "instructions": [
+      {
+        "op": "OP_2019",
+        "offset": 0,
+        "argCount": 233,
+        "unknown": true
+      }
+    ],
+    "errors": [],
+    "vmSeed": 115,
+    "vmKeys": [
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        221,
+        5,
+        168
+      ]
+    ]
+  },
+  "collectors": [
+    {
+      "signalKey": 417,
+      "plaintext": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1310,
+      "plaintext": "[\"Google Inc. (NVIDIA)\",\"ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)\",32]",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "1366",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 360,
+      "plaintext": "768",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 1628,
+      "plaintext": "\"https://auth.ticketmaster.com\"",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 16,
+      "plaintext": "-1127255922",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 34,
+      "plaintext": "[]",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 31,
+      "plaintext": "",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 3553,
+      "plaintext": "false",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "1",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 4,
+      "plaintext": "\"6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb6d\"",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 5,
+      "plaintext": "0",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 32,
+      "plaintext": "https://auth.ticketmaster.com/",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "0",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "Win32",
+      "elapsed": 3
+    },
+    {
+      "signalKey": 1626,
+      "plaintext": "[\"fr-FR\"]",
+      "elapsed": 3
+    }
+  ],
+  "grecaptcha": null,
+  "runtime": {
+    "sends": [],
+    "errors": [],
+    "logs": []
+  },
+  "meta": {
+    "siteKey": "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb",
+    "action": "login",
+    "version": "hsFBb1u5wWWWkWP4in1ua2cQ",
+    "scriptUrl": "https://www.gstatic.com/recaptcha/releases/hsFBb1u5wWWWkWP4in1ua2cQ/recaptcha__fr.js",
+    "dumpedAt": "2026-06-03T00:29:34.075Z"
+  },
+  "report": {
+    "summary": {
+      "scriptLoaded": true,
+      "anchorTokenLen": 1934,
+      "encryptionKey": 1780532973904,
+      "sendCount": 0,
+      "instructionCount": 1,
+      "errors": [
+        "recaptcha.anchor.Main.init absent (script incomplet)"
+      ]
+    },
+    "script": {
+      "errors": [
+        "recaptcha.anchor.Main.init absent (script incomplet)"
+      ],
+      "logs": [],
+      "enterpriseLoader": true,
+      "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+      "fromCache": true,
+      "bytes": 895157,
+      "domLoad": true,
+      "grecaptchaReady": true,
+      "enterpriseReady": false
+    },
+    "anchor": {
+      "anchorToken": "03AFcWeA5aV1nTLgq45Ll32hQwZjHhtiSGiLUraXQXuE2sm2iCyk1AwSbjYoSO50lDmv1_B3GaaofSCImZQwfVn3JzPB-Z8TJ-D8fWypuX4w1GSMyvs7hGs8z4mKrMf_RYaE5QTS3AN5rTInY-p5TEvMr-uDqLKFaqyktdQlWyTzeeY-TCtxYsiDgM9fmSvgGcxKwSecMAQZ8oxbbvmxNwjKfMp7tFumrYxriFEtBIlDB3-V5HYUIzSi-Q40e3TINVgMoxRUbNbTbymp2Hwl21DWiztjBUTNpwBtmpYuk-4yHuqwjWgiFBUjixnOX_E9D103jNSY3ujnVPyfD2sqiM9xBDeKQ3LjCd9kdUDN9cp8N0lVstkUq2N59J4D561DiEStnJ0pcI-4al4dcxWntFoGu-NMivtYAwI-1jbgl4TKVV1xHHK1n-g92XYF_DXwoIIfUeCFo8utUYuEN4UZbojxJc_G6AioNu8RTXvLzygL86q1CSmwHKo-NX2dK-E5xyhTumfjhEWn1dzX_fP8F_pi-3jPWVoHQGgu2pHmEqEfAZtV7BQTKN3D5fQ7onPMHpQEuquWaMCZjzcp7P2OFZylDPZXWIpSPpdZ3nWwcT1UnMnbK4ktV_RUbuRnbiRXUEtWyR-LNYUZTa_XjCBXdtAtFxMcNb71l2Pr-Fie_KmQfNHRi4xl1_WwMJweJTkGDmO_2p-KC3Xns5d0RBzR50PQuLzaj9DejZrzvFvjPYLbjvt4e5_fq3JyRi5SaX-dsenw3edOUY2dnQ7BFjq-DOJXu22Hj0n-NldmYm2c0ZZ-K8UuRqk9np1bZ-JbyoZorz2PLCzpTBQOVXHqIDwPrYsyf8VyNglEuIGmHW3S24kq7QZoHdvdlC0bZ0Fdb3pn03tTO5iYUAY4kxc6DK66n2Ooe6DA6P4_W_973oiZRwplFW7f7CS8kZU3USOrbbK-fMTRptg8mwtIedDcWHQLCIYcShhhXG0LQ7aSvwyGmd3qAmhpXHYil5B3eoMicz5r29EcsA1P_znE0wcFPBE5rHVts9GnDhu5G2ssqt625x7DRzqwUEuRhR7HHs_mJbE2ZNmQsjHtMk1Ed9RJE2v_YOuJxmVtslSc2goxApcwPddbykj1rtaRDTS_UgyuGUxQzaofcCQE868GLibu0LZ5gYfsZFdoDL1XjXkZMnTDCtgGEVYWJeD41x5P_W3eNJFPiqI3T7wWQt_n0eRFl8Ojzp6NHVXIeOFNJxvX725qIMIP_XAunz7LUYskcVTJMNQ7XWvdxlOPVJ9SyMpbYcAGn0xXrW8O36lryDeFFbGTvIiY2_YhYge2OeP9GIwBOmJvJB3VnF4QDJanj3RAf73tD0IchdsnM84oAhj6-AsBIAAeevvk9-V0eirwSY6vyBqEf-dBCqTNiZOjqjHoqzyeTVNvyffQSmrD4SANH4Uk0eC4JomG3lZ2ON09tTRtj-z7hZ1vVJiai6wwGu1VUaspdQU4BDQS4QRMt0_g6-MqELYVJBiZku_o1aB2cx_Do8UWb_Wtln70n1V1oiieYzfT30XsNZP0s1EbPrEmdxCd_4Y_yaIEspbUqyOu23hG3j_0khtbo0FH8FviGcJVgKra8GGJsG9_JoLJtEYoFpii7jyxUPD95LCadkIo6ffYZ4EAl768gVXi5LOlknifoL0_jHgHBhQQiWHLtDf22TGDIWpEWDjvhF5qO4SD-xwodCe8SUtCYiHkPbqqHgiDZBlr9vRSVVgMPsx0HdEROSWdfeAf7gC0yN2psfmxaWKvKEbcmXPGw2RX-ARdKd-KXQCib9lHzb0U5PojeQsXmBSXbF1rz5enfSBvM3dLm3EWtSQZ3LeCQRCK34PXC1cXb1tUdkcvTB917SACnxlMCuJlPEhbI6QrzIqO3jXRmryE5rBpykcO_IUjr4GWpl",
+      "encryptionKey": 1780532973904,
+      "bftSignature": "0dAFcWeA413urnq8C0rwbB1XnXz1ucpiRRtWAk5kbcHElM_ZXVd3NaSu0XVjXRW9ouzyBsQ3iyXv4lj9IgLrkdiS953ga-XVbvEQ",
+      "vmBytecodeKeys": [
+        [
+          3,
+          1,
+          1
+        ],
+        [
+          221,
+          5,
+          168
+        ],
+        [
+          90,
+          183,
+          190,
+          224
+        ]
+      ],
+      "collectorIndexes": null
+    },
+    "bytecode": {
+      "encryptionKey": null,
+      "signalKeys": [],
+      "sendsPreview": [],
+      "opcodeHistogram": [
+        {
+          "op": "OP_2019",
+          "count": 1
+        }
+      ]
+    },
+    "sends": [],
+    "recommendations": [
+      "encryptionKey VM introuvable — désassemblage config bytecode incomplet.",
+      "Aucun SEND capturé — exécuter le bytecode main dynamique (pas seulement config)."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+[package]
+name = "recaptcha_vm"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+swc_core = { version = "58.0.4", features = [
+    "ecma_ast",
+    "ecma_parser",
+    "ecma_visit",
+    "ecma_codegen",
+    "common",
+    "ecma_transforms"
+] }
+
+
+once_cell = "1.21.4"
+rustc-hash = "2.1.2"
+anyhow = "1.0"
+petgraph = "0.8.3"
+base64 = "0.22.1"
+rand = "0.8"

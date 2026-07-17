@@ -1,0 +1,18 @@
+[project]
+name = "recaptcha-bypass"
+version = "2.1.0"
+description = "reCAPTCHA v3 bypass server with multi-session isolation and anti-detection"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.31.0",
+    "blackboxprotobuf>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
+
+[tool.setuptools]
+py-modules = ["bypass", "server", "test"]

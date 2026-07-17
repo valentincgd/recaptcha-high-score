@@ -1,0 +1,8 @@
+# Disassembly config bytecode — 2026-06-03T04:08:56.827Z
+# anchor https://www.google.com/recaptcha/enterprise/anchor?ar=1&k=6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb&co=aHR0cHM6Ly9hdXRoLnRpY2tldG1hc3Rlci5jb206NDQz&hl=fr&v=hsFBb1u5wWWWkWP4in1ua2cQ&size=invisible&anchor-ms=20000&execute-ms=30000&cb=w6vpf4hnuurz
+# Ne pas confondre avec recaptcha__fr.js (JS obfusqué ~800k lignes)
+0x0000: OP_91975810 {"op":"OP_91975810","offset":0,"argCount":41,"unknown":true}
+0x0023: OP_122 {"op":"OP_122","offset":35,"argCount":75,"unknown":true}
+0x0056: OP_2717 {"op":"OP_2717","offset":86,"argCount":101,"unknown":true}
+
+# … 0 instructions omitted

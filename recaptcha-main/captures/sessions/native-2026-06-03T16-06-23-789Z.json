@@ -1,0 +1,19 @@
+{
+  "savedAt": "2026-06-03T16:06:23.789Z",
+  "source": "dynamic-pure",
+  "profileId": "chrome_mac_amd",
+  "fingerprintSeed": "03AFcWeA5E1vemGpUCMoSU7d",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 6537,
+  "encryptionKey": -1822244012,
+  "sends": [],
+  "last05AL": "05ALvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODehaFw0CCLjvpV2ncocdkWuRhSYu4n7uj-B6lQUiirDPJ1WH8I89E2OxBy4OYHbODeh",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

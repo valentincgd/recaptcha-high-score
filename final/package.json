@@ -1,0 +1,20 @@
+{
+  "name": "recaptcha-v3-voieb",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Générateur de token reCAPTCHA v3 en Node pur (Voie B, sans navigateur). Score 0.9 sur le démo Google.",
+  "main": "index.mjs",
+  "bin": {
+    "recaptcha-v3": "cli.mjs"
+  },
+  "scripts": {
+    "serve": "node server.mjs",
+    "demo": "node cli.mjs --demo",
+    "list": "node cli.mjs --list"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18"
+  }
+}

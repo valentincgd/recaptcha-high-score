@@ -1,0 +1,16 @@
+{
+  "templatePath": null,
+  "anchorLength": 1764,
+  "anchorPrefix": "03AFcWeA4LFRgB2aZ_pExp_tjUw4O5oP",
+  "secondaryTokenLength": 1276,
+  "secondaryTokenPreview": "05AL2ClC52mrpWXgce7HCBWWctLFqYbaema-2GWSEz4DaYWs…",
+  "challengeType": "q",
+  "f5HashSample": "-1160123485",
+  "action": "login",
+  "siteKey": "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb",
+  "encryptedBlobBytes": 11589,
+  "segments": {
+    "telemetry": "tbMywxMDAsNDM2XSxbMSwxMiw1NzNdLFsyLDQyNyw5MDJdXSxbWzIsNjAsNjkzLjM5OTk5OTk5ODUwOTldXSxbbnVsbCxudWxsLG51bGwsWzcsNi4zNzE0Mjg1NzEzNzUzNTMsMC4wMDA1NzQ3NDU5NzEyOTY1NjA5LDI2XSxbNzcxLDAuMTU3NDU3ODQ2OTg4NzMxNzgsMC4wMDE1NjQ0NDMwNzAyMjk5OTEzLDRdLDAsMCwwXSxbImF1dGgudGlja2V0bWFzdGVyLmNvbSIsImFhLnMudG1vbC5pbyIsInd3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbSIsInd3dy5nb29nbGUuY29tIiwid3d3LmdzdGF0aWMuY29tIiwiY2RuLmNvb2tpZWxhdy5vcmciLCJzMS5zLnRtb2wuaW8iXSxbMSw5MDBdXQ",
+    "events": "W1tbNTAwNiwxODc5XSxbNjQ2MDcsNl0sWzM1ODM3LDVdLFs0NTQ2NCw1XSxbMzE2MTcsMjldLFszNzE3OCwyOV1dXQ"
+  }
+}

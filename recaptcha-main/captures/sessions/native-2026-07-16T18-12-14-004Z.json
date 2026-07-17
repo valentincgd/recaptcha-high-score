@@ -1,0 +1,18 @@
+{
+  "savedAt": "2026-07-16T18:12:14.004Z",
+  "source": "dynamic-pure",
+  "profileId": "custom",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 6556,
+  "encryptionKey": 1900506260,
+  "sends": [],
+  "last05AL": "05AL6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI4L86RxTr6yuDAJFVo6ovWntKBcRhNwNoYrcaxRzLaSOjgpl1IaIP2HNqh8xBtQtI",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

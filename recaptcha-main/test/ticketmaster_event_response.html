@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+    <head>
+        <noscript>
+            <link
+                rel="stylesheet"
+                type="text/css"
+                charset="utf-8"
+                href="/epsf/asset/tm.css"
+            />
+            <title>Let's Get Your Identity Verified</title>
+            <div class="container">
+                <div class="box">
+                    <div class="c1">Let's Get Your Identity Verified</div>
+                    <div class="c2">
+                        Your browser hit a snag and we need to make sure you're
+                        not a bot. There are a couple of reasons why this may
+                        have happened:
+                    </div>
+                    <ul class="c3">
+                        <li>
+                            You were browsing too quickly for our site to catch
+                            up.
+                        </li>
+                        <li>You disabled your cookies.</li>
+                        <li>
+                            A third-party browser plugin, such as Ghostery or
+                            NoScript, is preventing Javascript from running.
+                        </li>
+                    </ul>
+                    <div class="c4">
+                        To stay on track, please make sure your cookies and
+                        JavaScript are enabled, then go ahead and reload your
+                        screen to continue using our site.
+                    </div>
+                </div>
+                <div class="box2">
+                    <div class="c5">e09e399a-a469-468c-8511-257051a6e743</div>
+                    <div data-cs-mask class="c6">81.65.127.63</div>
+                </div>
+            </div>
+        </noscript>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+        <meta
+            http-equiv="cache-control"
+            content="no-cache, no-store, must-revalidate"
+        />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <script>
+            function showBlockPage() {
+                document.title = "Your Browsing Activity Has Been Paused";
+            }
+            setTimeout(showBlockPage, 10000);
+        </script>
+        <script>
+            var tc = "tm" == "ln" ? { "en-us": "en" } : "";
+            var al = "";
+            var rid = "e09e399a-a469-468c-8511-257051a6e743";
+            var ip = "81.65.127.63";
+            var rr = "https://www.ticketmaster.com/benson-bootyjtyjour-pittsburgh-pennsylvania-07-07-2026/event/1600647921872DC4";
+            var host = "www.ticketmaster.com";
+            var action = "block";
+            var tg = "";
+            var ss = "tm.css";
+            var epsPageName = "";
+            var path = window.location.pathname;
+            var search = window.location.search;
+            var umbrella = true;
+            var brand = "tm";
+            function isWidget(uri, parms) {
+                return (
+                    uri != undefined &&
+                    uri.indexOf("authorization.oauth2") != -1 &&
+                    parms != undefined &&
+                    parms.indexOf("placementId") != -1
+                );
+            }
+            function getWidgetModeHeader(uri, parameters) {
+                if (isWidget(uri, parameters)) {
+                    var w = document.createElement("script");
+                    w.src = "";
+                    w.charset = "utf-8";
+                    document.head.appendChild(w);
+                    var cs = document.createElement("link");
+                    cs.setAttribute("type", "text/css");
+                    cs.setAttribute("href", "");
+                    cs.setAttribute("rel", "stylesheet");
+                    document.head.appendChild(cs);
+                }
+            }
+            getWidgetModeHeader(path, search);
+        </script>
+        <script>
+            function preloadAsset(path, asType) {
+                if (path && window.epsfBase) {
+                    const link = document.createElement("link");
+                    link.rel = "preload";
+                    link.as = asType;
+                    link.href = window.epsfBase + path;
+                    link.crossOrigin = "anonymous";
+                    document.head.appendChild(link);
+                }
+            }
+
+            // Preload translation JSON
+            if (window.action && window.action.trim()) {
+                preloadAsset("/asset/" + window.action + ".json", "fetch");
+            }
+
+            // Preload brand CSS
+            if (window.brand && window.brand.trim()) {
+                preloadAsset("/asset/" + window.brand + ".css", "style");
+            }
+        </script>
+
+            <script type='text/javascript' src='/eps-mgr' async defer></script>
+            <script type='text/javascript' charset='utf-8' src='/epsf/asset/shared.js'></script>
+    </head>
+    <body onload="load('',false)">
+        <div class="container">
+            <div>
+                <div class="bg"></div>
+                <div class="lg"></div>
+            </div>
+            <div id="boxes_container">
+                <div class="box">
+                    <div class="c1" id="t1"></div>
+                    <div class="c2" id="t2"></div>
+                    <ul class="c3" id="t3"></ul>
+                    <div class="c4" id="t4"></div>
+                </div>
+                <div class="be" id="be"></div>
+                <div class="box2">
+                    <div class="c5" id="t5"></div>
+                    <div data-cs-mask class="c6" id="t6"></div>
+                </div>
+            </div>
+        </div>
+
+        <abuse-component
+            ip="81.65.127.63"
+            rid="e09e399a-a469-468c-8511-257051a6e743"
+            action="block"
+            dbp-with-signin=""
+            reload="true"
+        ></abuse-component>
+
+    </body>
+</html>

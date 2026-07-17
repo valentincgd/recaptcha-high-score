@@ -1,0 +1,90 @@
+{
+  "savedAt": "2026-06-03T16:16:25.278Z",
+  "source": "dynamic-jsdom",
+  "reloadBytes": 0,
+  "secondarySource": "none",
+  "sendCount": 0,
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": [],
+    "executeType": "undefined"
+  },
+  "errorMainReport": {
+    "installed": true,
+    "durationMs": 42410,
+    "anchor": {
+      "keys": [
+        "ErrorMain",
+        "Main"
+      ],
+      "mainKeys": [
+        "init",
+        "__initWrapped"
+      ],
+      "executeType": "undefined",
+      "hasErrorMain": true
+    },
+    "errorMainSeen": true,
+    "errorMainSeenMs": 744,
+    "initCalls": 1,
+    "errorMainInit": null,
+    "consoleErrors": 0,
+    "consoleWarns": 0,
+    "windowErrors": 0,
+    "rejections": 0,
+    "likelyCause": "init-failed-ErrorMain",
+    "recentConsole": [],
+    "recentErrors": [],
+    "recentRejections": [],
+    "snapshots": [
+      {
+        "at": 1780503343609,
+        "label": "anchor-wired",
+        "keys": [
+          "ErrorMain",
+          "Main"
+        ],
+        "mainKeys": [
+          "init"
+        ],
+        "hasErrorMain": true
+      },
+      {
+        "at": 1780503343609,
+        "label": "ErrorMain-appeared",
+        "keys": [
+          "ErrorMain",
+          "Main"
+        ],
+        "errorMainKeys": [
+          "init",
+          "__initWrapped"
+        ],
+        "mainKeys": [
+          "init",
+          "__initWrapped"
+        ],
+        "executeType": "undefined"
+      },
+      {
+        "at": 1780503344000,
+        "label": "after-Main.init-sync",
+        "keys": [
+          "ErrorMain",
+          "Main"
+        ],
+        "mainKeys": [
+          "init",
+          "__initWrapped"
+        ],
+        "executeType": "undefined",
+        "hasErrorMain": true
+      }
+    ],
+    "workerBootError": null,
+    "workerMsg": null
+  },
+  "anchorSignals": 18
+}

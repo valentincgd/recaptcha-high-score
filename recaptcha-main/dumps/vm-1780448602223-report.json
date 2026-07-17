@@ -1,0 +1,70 @@
+{
+  "summary": {
+    "scriptLoaded": true,
+    "anchorTokenLen": 1934,
+    "encryptionKey": 1780534977082,
+    "sendCount": 0,
+    "instructionCount": 3,
+    "errors": [
+      "execute: execute timeout"
+    ]
+  },
+  "script": {
+    "errors": [
+      "execute: execute timeout"
+    ],
+    "logs": [],
+    "enterpriseLoader": true,
+    "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+    "fromCache": true,
+    "bytes": 895157,
+    "domLoad": true,
+    "grecaptchaReady": true,
+    "enterpriseReady": true,
+    "initHasConf": true,
+    "anchorInit": "Main.init"
+  },
+  "anchor": {
+    "anchorToken": "03AFcWeA4700UaUNctIfxi643eiouq4M1YG4cdzDjkx3-oW93twRamllcd7o03xNVDGpbS4t8EYCEg4-Z7Z97uU3dF228zZaxNnRfLTt-15aN9kiMOQ6mWXAjP0S1Ku5gEGpAZaOgr3CStUxYlaAm2mARQG1sd9IppCkP7bTmYT5uw39DvBjQoN9QPqtMqbvsc4FKoYGpT-DcvA0KQgU-iwJCf7mqkiE3Lq3s3RtjYtvPTdwghWhIgnInO_I-Qo1TUhQtaYe5SmiobdM0cgMBlnfnbjCpZr0sQUT0DUGwKt3u1u2T7z3nVOnvT5qqmFzCQcozRzNzX2hNsckrpMGOPQ3BAV4vwvIOjyRXkGxaQvbvyTWWSt1XuRPb5qdDUo-IL1ZBuO5-RHFs199YuQ-tol66-LMZ1mMMF81QaUHPKJ9jwejLIZLSRyFIR4BpxZm0oIsC9C-nXPyfIZHFJrtqVATSZ_m8UbAfQeHkJJ_NnPq3pRTLoMQh94lUu1jYGnbXuy5uv6f2IvZMZihJQsE6OeTn1Vu9G0n8Es_bbc5HGOay8NL0WIlSE73T0IdejkuKanPk3UGeVH1Iee0TosiXxHqQtSXA_tzoZnzOPL8_QVHkQq_DchqBa0NybXVhinyAsTodCKI7Ox5KUPjgDCb_FYkIUzOPYEzTzt-1-g-8vEOuBeVzmxIZ3Lmx9py0F9UH_xPBMUc1ZbOkDaqEVY-1IPgrZuKk8LBGqB67Lw9cc2rVv_Eens4JqYZMz6V1yykfBq7FG7NaZ7lmBLF1QvlWEQCSD7jZUUtgkjbttgG_Q30POUgLZoXNA6NTY4fhhkK8WyJAf_D8s7wBVRfxJDNNhUtFOkyIRgk0D8XA_aDBFzuaWjMaAnOWAMk9V79wtXTfoN9hutUWWwi40O6c4odi46JgXZyRhkwObUKNa6_eDuKRJG0hHRBnOrbCmSq0FtF9TR6yA7Xyyprfey4PUnYmjphncjLtx3Jswc3ZxESAC-D_DR0FLdY1DB61MoRq3fpDZFnYyut21M5WnvFKJ32HFDd2oUzcz3jufh8SED02WWmFrrCS9Ozk6Hoj-EcHhqGwzdb17gH0psla3gPH-CdFtMemnbDJOTbbyv8i7fEsCFrSy96odFs8VGMFvIu0y7Z08-5ZileyRF5zPDUBi7MDI5unLHyB7WwWIea3sxcAnqIpC_whUdfXvwZVvZKcjH-QkI4bde9Eacfoa6NHzq4KarRB1eMKQZ-JamemgE1uZkLqck9gGp1yfmdVKhe7rViM_92yyuoPk2bwziBxcq7L-CyTurPRh58Y1T8lAeYnFUjbuyrjcBudek1s-whUAidrwa7W2dOn84jTSySCp5XkKHud_DbSjDVmyXjoZq8MK8ZtVBeioZfs3ZHE4Me6DZo1qQvkXC1cqmma5NL165CxS6t70KhjhkOOFBbDrPBeH3Ct-FYl5ARM0qvuFVFeDALho85rKXlfE_oc4eS0S9hCi_daCwG6vfC3mvhALkUFWHfpDMS2FAiggn2iETNZloYG-YhMUA4buZsgyLTaDYFcPZnV03QX2TJUgDUsG2MV_Uq24tbjOI4RKLpLRrJIDIFdQbYEJOscGOwn1cEhl-jzyYivwA_IPzFE20tO0YUIg9p8WSj0njFBvhEbiuF-22YxtwhcHUEOcfXl6gf7p3y4_nXKe3ubTW2s_67FKXrLC92fMljW8h62xh9zGKK4b7Th2iBz-rsHvFSjdZYLVLq5tFAdizuo2dvoN2gKy375cVKnyk3F8z5maSD4D303P7vi3paH3Qf_I5FhGatOY0p-e_1owrO7lFrJhSMe65mGGgGMEcoQk2K6Sf0CMgA_yo7Kno_0Hu-2sD13BpIlmjjaJ7Ojz60GXLwLJ3z5Hsq6DE_SeTboXKtUzj2rgfqUd6J7xR36UFbODpu8J",
+    "encryptionKey": 1780534977082,
+    "bftSignature": "0dAFcWeA4i8YL8KdmzhWZyld7GP7Td0IlVjPjtL7-JWVsPyVp2YHzWTsMpshvhEKtrMMbFPdPXp1pFornjIrFu6beIkWzat5730Q",
+    "vmBytecodeKeys": [
+      [
+        208,
+        198,
+        168,
+        35,
+        2
+      ],
+      [
+        41,
+        40,
+        1
+      ]
+    ],
+    "collectorIndexes": null
+  },
+  "bytecode": {
+    "encryptionKey": -1876450758,
+    "signalKeys": [],
+    "sendsPreview": [],
+    "opcodeHistogram": [
+      {
+        "op": "OP_91975810",
+        "count": 1
+      },
+      {
+        "op": "OP_122",
+        "count": 1
+      },
+      {
+        "op": "OP_2717",
+        "count": 1
+      }
+    ]
+  },
+  "sends": [],
+  "recommendations": [
+    "Aucun SEND capturé — exécuter le bytecode main dynamique (pas seulement config)."
+  ]
+}

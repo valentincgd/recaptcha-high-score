@@ -1,0 +1,2 @@
+0x0000: OP_0 {"op":"OP_0","offset":0,"argCount":0,"unknown":true}
+0x0009: OP_77 {"op":"OP_77","offset":9,"argCount":68,"unknown":true}

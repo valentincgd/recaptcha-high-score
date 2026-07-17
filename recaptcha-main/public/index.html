@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>reCAPTCHA Token API</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; background: #0f1115; color: #e8eaed; }
+    body { max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+    label { display: block; margin-top: 1rem; font-size: 0.85rem; color: #9aa0a6; }
+    input, textarea, select { width: 100%; box-sizing: border-box; margin-top: 0.35rem;
+      padding: 0.6rem 0.75rem; border: 1px solid #3c4043; border-radius: 8px;
+      background: #1a1d23; color: #e8eaed; font: inherit; }
+    button { margin-top: 1.25rem; padding: 0.65rem 1.25rem; border: none; border-radius: 8px;
+      background: #8ab4f8; color: #0f1115; font-weight: 600; cursor: pointer; margin-right: 0.5rem; }
+    button:disabled { opacity: 0.5; cursor: wait; }
+    pre { margin-top: 1.5rem; padding: 1rem; background: #1a1d23; border-radius: 8px;
+      overflow: auto; font-size: 0.8rem; white-space: pre-wrap; word-break: break-all; }
+    .ok { color: #81c995; }
+    .err { color: #f28b82; }
+    code { background: #1a1d23; padding: 0.1rem 0.35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>reCAPTCHA — API Ticketmaster</h1>
+  <p><code>POST /api/token</code> — tu choisis <code>siteKey</code> et <code>enterprise</code> dans le body.</p>
+
+  <label>Clé API (optionnel)<input id="apiKey" type="password" placeholder="RECAPTCHA_API_KEY" /></label>
+  <label>siteKey<input id="siteKey" type="text" placeholder="6LdoaXQr… ou 6LcvL3Ur…" /></label>
+  <label>Enterprise
+    <select id="enterprise">
+      <option value="true">true — /recaptcha/enterprise/</option>
+      <option value="false">false — /recaptcha/api2/</option>
+    </select>
+  </label>
+  <label>action<input id="action" type="text" placeholder="login ou LoginPage" /></label>
+  <button type="button" id="btnGeneric">POST /api/token</button>
+  <button type="button" id="btnTm">POST /api/token/tm</button>
+
+  <pre id="out">—</pre>
+
+  <script>
+    const out = document.getElementById("out");
+    const btnTm = document.getElementById("btnTm");
+    const btnGeneric = document.getElementById("btnGeneric");
+
+    function buildBody() {
+      const body = {
+        enterprise: document.getElementById("enterprise").value === "true",
+        mode: document.getElementById("enterprise").value === "true" ? "enterprise" : "api2",
+      };
+      const siteKey = document.getElementById("siteKey").value.trim();
+      if (siteKey) body.siteKey = siteKey;
+      const action = document.getElementById("action").value.trim();
+      if (action) body.action = action;
+      return body;
+    }
+
+    async function call(path) {
+      btnTm.disabled = true;
+      btnGeneric.disabled = true;
+      out.textContent = "Génération…";
+      out.className = "";
+
+      const headers = { "Content-Type": "application/json" };
+      const apiKey = document.getElementById("apiKey").value.trim();
+      if (apiKey) headers["X-Api-Key"] = apiKey;
+
+      const body = buildBody();
+
+      try {
+        const res = await fetch(path, { method: "POST", headers, body: JSON.stringify(body) });
+        const data = await res.json();
+        out.textContent = JSON.stringify(data, null, 2);
+        out.className = data.success ? "ok" : "err";
+      } catch (err) {
+        out.textContent = err.message;
+        out.className = "err";
+      } finally {
+        btnTm.disabled = false;
+        btnGeneric.disabled = false;
+      }
+    }
+
+    btnGeneric.addEventListener("click", () => call("/api/token"));
+    btnTm.addEventListener("click", () => call("/api/token/tm"));
+  </script>
+</body>
+</html>

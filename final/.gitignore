@@ -1,0 +1,11 @@
+# Dépendances (restaurées via `npm install` dans vendor/rcjsdom et à la racine)
+node_modules/
+vendor/rcjsdom/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Divers
+*.log
+.DS_Store

@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "scriptLoaded": true,
+    "anchorTokenLen": 1934,
+    "encryptionKey": 1780533298037,
+    "sendCount": 0,
+    "instructionCount": 1,
+    "errors": [
+      "anchor.init: Unexpected token 'a', \"ainput,bgd\"... is not valid JSON",
+      "execute: execute timeout"
+    ]
+  },
+  "script": {
+    "errors": [
+      "anchor.init: Unexpected token 'a', \"ainput,bgd\"... is not valid JSON",
+      "execute: execute timeout"
+    ],
+    "logs": [],
+    "enterpriseLoader": true,
+    "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+    "fromCache": true,
+    "bytes": 895157,
+    "domLoad": true,
+    "grecaptchaReady": true,
+    "enterpriseReady": true,
+    "initHasConf": true
+  },
+  "anchor": {
+    "anchorToken": "03AFcWeA6r3j_cDpdIROLcPVId9NnSCtjmSh_iF9L4NMxz23-KetTZbL5KThyesklxYMprgnQrRPpyOeVVDpM7s9XBW0A-oYi21kYoJ0iNCw4_qBCebRWixQblF3Po6kvg6-1jfT8YtpMdk4xO_ysWzjlUv5lkGLZ8VtA1n5hqXVZzksoqaughINM3-Gj2iMmIeXPwiPIuJ16kyImz20snfae59Q3pntQ-7efnaoOUJN-mhmm3zQ8-2S44TtJuEDafaogRqY-ExwUu4p0r7BiIZJfhN5BmphHXLIhMXHu4o0CiyA6DEfN2WLZidyjReK3KIL9bWCtqHtXVx5114rb2CryJWCTZHufIWNOYc6VR6bMeTs8it7hqCRSwPk-xvTw8CdpqgsKitdXsm3JPzM52_aorTpAvHzXdCDzz39gI2iE6iv1sgus1g-_i32ataIQ3dcrqM6ZfEb2ofMGanVggSw40p3sJVh-d5T63UFPP4PghEH2IbW759749WRsH0aeUbzN3YbmDipTR55bP9YM_-QUjpfUBOZjoyGzzCCqzSh29AYH2L8pcf7mJITOByhI9r0-AljhStn5ouNd8KNnnwctxuRDMzSecqwB0pjJUaxII0BUOZA5zE4mNIKrIs28rIBa83ld0BAj1GnhSKVha2x8cjf9VeEhRN2plxx0NnBtLzDa4FKQjggZt9R0YLFWv5Kx-QjbZH3B9Uy-IV_DyweZtPNxe6aVwxM4g8AKXlNMacL_cQMzkJR6fcd080k7xXFge3jmyoOzI6A_ci9VH5lLBU4i5vP2cDcWMHhciAyuh8LZFQziBTZArZeePWWnLYInqJ1R76s8oKjuPcbtRLDQ4vq246Dna1kRlSvGJABsSpF8fCQ3tVy4n-xAkRSLNscnPjTsnbmruhvNR2Qqq4jKCBkQl8fy4M3if2ASPaZ1tVICvKrm7WvwQkh2CXlNk9fNQITWYE5DGyUD6yYr_Kjd8jQwFXFvBzc1qm2g9Oh43uzPqBt1vNQjaCHtcbbQ3V03wr8OzGicMwY0hs6e_jJbIiC9pVbnIGxBZIA_OrYNyBofUmlSGQtOVuhxdmhmQuZWwblEuL-Rkg80t5V8tP7k72ez-iYALYKphiztlHBXUd-bid2ovB-8eyfaRnkO4Au9FeFKZ4nC8UhdWFWL_mfjqggRVNCirzH1t3Z4SKICEpZzFHptq1lbXKWRYqWPACzIZERyvxHhAcRl__iFsBO_rS9rnUZKRW4KX6_XGSydl8p_tJHvUvxa_afit9xMGXSwrWCwnBlpLw0QvpV2SWdwV6lQhItSAWD9eiTBHPoxrCd2dAURddw92PAGyr7BKVg6AbJdhLwYSquZZGVBHWH28UAOvm7rflo6FkoOgaSwwoxlcQNHVxAI0VA5QU-mgsMsrfITPtIe_t0MPBJ3rKPeh8Mzyse-sIAHq6tDBJXJYgxMs_MaIqUzAAQRW0KEArhL7WGM02tH02rmIPeXLsmlN9ozu1_Pvxpd97MdB5yG1nS0JIBCB0Ht2W8f8IuBgPXORvJSzCCcdWAWVEVRvSseO308AJs9UvaLMz_ZwUD_HffQkRv16OQsZjbL6KHQySPETL_Lk1efsYk4yKBZAcnB3kFjryQQKCM9Gp0U0EuTbfy_DHkeaNnAW9sKoV915pYJVEZQenRveuQa000PMmchKz8ODH0Bi7l-z0xAPBG3wpFhJtAP71HU-HL10GzWt6ktIFppULhrwXw-5913X2NVcie4ZZp9_UKnJsdQg2HU4VjBYhUZZ73RYsbJL5fc4n907UDPvHDZrdcSHKSFtn6Pn2PQFHJkansE4SMKqMAMOEwPLWI38B2snGEE3RKN1zbbS6-IbjXRbayK6ZCU4PY79IczMdj9__fqp3aAvv7_x1tn-9gmbx6eAYlm_TKJGlt6KtMn8Cqe2",
+    "encryptionKey": 1780533298037,
+    "bftSignature": "0dAFcWeA4HpAox3H-te6rnZpFORKUYRNWcm7LdWhwxV147LT6QGfcrHsiRqDZPjK0RLmjQ7JXkXVodX5_-3mJSbbA91D-jStKAGQ",
+    "vmBytecodeKeys": [
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        177
+      ],
+      [
+        137,
+        110,
+        225
+      ]
+    ],
+    "collectorIndexes": null
+  },
+  "bytecode": {
+    "encryptionKey": null,
+    "signalKeys": [],
+    "sendsPreview": [],
+    "opcodeHistogram": [
+      {
+        "op": "GET_PROP",
+        "count": 1
+      }
+    ]
+  },
+  "sends": [],
+  "recommendations": [
+    "encryptionKey VM introuvable — désassemblage config bytecode incomplet.",
+    "Aucun SEND capturé — exécuter le bytecode main dynamique (pas seulement config)."
+  ]
+}

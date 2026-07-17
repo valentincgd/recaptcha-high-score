@@ -1,0 +1,19 @@
+{
+  "savedAt": "2026-06-03T16:24:54.100Z",
+  "source": "dynamic-pure",
+  "profileId": "chrome_win_intel",
+  "fingerprintSeed": "6LcvL3UrAAAAAO_9u8Seiuf-",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 15585,
+  "encryptionKey": -1821156472,
+  "sends": [],
+  "last05AL": "05ALrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7mlhIM8CuZrgd8j3DofZIzGGj8vuQlxEbGFBosciO5LA9cDXjI_5oTmmDcPOwFRk7m",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

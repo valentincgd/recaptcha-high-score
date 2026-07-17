@@ -1,0 +1,8 @@
+cargo:rustc-env=VERGEN_CARGO_DEBUG=true
+cargo:rustc-env=VERGEN_CARGO_FEATURES=common,ecma_ast,ecma_codegen,ecma_parser,ecma_transforms,ecma_visit,swc_atoms,swc_common,swc_ecma_ast,swc_ecma_codegen,swc_ecma_parser,swc_ecma_transforms_base,swc_ecma_visit,__common,__ecma,__ecma_transforms,__parser,__visit
+cargo:rustc-env=VERGEN_CARGO_OPT_LEVEL=0
+cargo:rustc-env=VERGEN_CARGO_TARGET_TRIPLE=x86_64-pc-windows-msvc
+cargo:rustc-env=VERGEN_CARGO_DEPENDENCIES=anyhow 1.0.100,swc_allocator 4.0.1,testing 20.0.0,vergen 9.0.0
+cargo:rerun-if-changed=build.rs
+cargo:rerun-if-env-changed=VERGEN_IDEMPOTENT
+cargo:rerun-if-env-changed=SOURCE_DATE_EPOCH

@@ -1,0 +1,19 @@
+{
+  "name": "recaptcha-tm-alt-final",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "fingerprints:generate": "node tools/generate-fingerprints.mjs --count 520 --min-chrome 145",
+    "build:go": "cd go && go build -o recaptcha-api.exe .",
+    "start:go": "cd go && go run .",
+    "cli": "node cli.mjs"
+  },
+  "dependencies": {
+    "canvas": "^3.2.3",
+    "https-proxy-agent": "^7.0.6",
+    "jsdom": "^29.1.1",
+    "recaptcha-enterprise-flow": "file:.."
+  }
+}

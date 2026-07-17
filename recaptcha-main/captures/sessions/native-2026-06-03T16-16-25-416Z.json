@@ -1,0 +1,19 @@
+{
+  "savedAt": "2026-06-03T16:16:25.416Z",
+  "source": "dynamic-pure",
+  "profileId": "chrome_win_intel",
+  "fingerprintSeed": "6LdoaXQrAAAAADQviABd-eBy",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 15514,
+  "encryptionKey": -1821685054,
+  "sends": [],
+  "last05AL": "05ALnaOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9hphSqlI2naOK5otTj62fTF8LOSqWTEIdBJByKFoWH6uqZINzDaW_zlcruyK2zko9",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

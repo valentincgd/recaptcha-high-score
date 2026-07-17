@@ -1,0 +1,18 @@
+{
+  "savedAt": "2026-06-03T16:20:10.944Z",
+  "source": "dynamic-jsdom",
+  "reloadBytes": 0,
+  "secondarySource": "none",
+  "sendCount": 0,
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": [],
+    "executeType": "undefined"
+  },
+  "errorMainReport": {
+    "installed": false
+  },
+  "anchorSignals": 18
+}

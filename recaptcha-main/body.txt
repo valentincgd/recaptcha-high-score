@@ -1,0 +1,20 @@
+# DOCUMENTATION — structure reload protobuf (format plat TM)
+# Ce fichier n'est PAS lu par l'API. Il sert d'exemple après décodage manuel.
+# Génération réelle : DynamicFlatReloadBuilder.build() à chaque POST /api/token
+
+# Champs générés dynamiquement :
+#   1  version          ← GET enterprise.js / api.js
+#   2  anchorToken      ← GET anchor (live)
+#   5  fingerprintHash  ← hash tableau Collectors
+#   6  challengeType    ← "q"
+#   7  secondaryToken   ← VM / SecondaryTokenGenerator (05AL)
+#   8  action           ← body API
+#   14 siteKey          ← body API
+#   16 encryptedBlob    ← Collectors + SignalEncryptor + encryptionKey
+#   20 telemetry       ← FlatTelemetryBuilder (performance)
+#   21 auxToken        ← AuxTokenGenerator (0aAL)
+#   22 binaryPayload   ← BrowserObjectsHasher (BDA)
+#   25 eventCounters   ← EventCounterBuilder
+#   28/29 anchor-ms / execute-ms
+
+# Debug (hors API) : node tools/decode-reload-to-body.mjs chemin/vers/fichier.bin

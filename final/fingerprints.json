@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "note": "5 profils navigateur 100% complets et cohérents (UA <-> platform <-> webgl <-> écran <-> langue). Un profil est tiré au hasard à chaque appel (voir fingerprints.mjs).",
+  "profiles": [
+    {
+      "id": "win11_nvidia_rtx3060",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "platform": "Win32",
+      "language": "en-US",
+      "languages": ["en-US", "en"],
+      "width": 1920,
+      "height": 1080,
+      "devicePixelRatio": 1,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "extensionCount": 47
+      },
+      "title": "Sign in",
+      "scrollY": 0,
+      "localStorageLength": 3,
+      "inputIds": ["email", "password"]
+    },
+    {
+      "id": "win11_intel_uhd770",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "platform": "Win32",
+      "language": "fr-FR",
+      "languages": ["fr-FR", "fr", "en-US", "en"],
+      "width": 1536,
+      "height": 864,
+      "devicePixelRatio": 1.25,
+      "webgl": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 770 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "extensionCount": 42
+      },
+      "title": "Connexion",
+      "scrollY": 0,
+      "localStorageLength": 5,
+      "inputIds": ["username", "pwd"]
+    },
+    {
+      "id": "win10_amd_rx6700xt",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "platform": "Win32",
+      "language": "en-GB",
+      "languages": ["en-GB", "en"],
+      "width": 2560,
+      "height": 1440,
+      "devicePixelRatio": 1,
+      "webgl": {
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon RX 6700 XT Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "extensionCount": 45
+      },
+      "title": "Log in",
+      "scrollY": 0,
+      "localStorageLength": 2,
+      "inputIds": ["login-email", "login-password"]
+    },
+    {
+      "id": "macos_apple_m2",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
+      "platform": "MacIntel",
+      "language": "en-US",
+      "languages": ["en-US", "en"],
+      "width": 1512,
+      "height": 982,
+      "devicePixelRatio": 2,
+      "webgl": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)",
+        "extensionCount": 43
+      },
+      "title": "Sign in",
+      "scrollY": 0,
+      "localStorageLength": 1,
+      "inputIds": ["email", "password"]
+    },
+    {
+      "id": "win11_nvidia_gtx1660",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "platform": "Win32",
+      "language": "de-DE",
+      "languages": ["de-DE", "de", "en-US", "en"],
+      "width": 1366,
+      "height": 768,
+      "devicePixelRatio": 1,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "extensionCount": 46
+      },
+      "title": "Anmelden",
+      "scrollY": 0,
+      "localStorageLength": 4,
+      "inputIds": ["benutzername", "passwort"]
+    }
+  ]
+}

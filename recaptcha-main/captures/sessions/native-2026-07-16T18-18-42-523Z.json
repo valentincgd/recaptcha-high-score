@@ -1,0 +1,18 @@
+{
+  "savedAt": "2026-07-16T18:18:42.523Z",
+  "source": "dynamic-pure",
+  "profileId": "custom-demo",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 6680,
+  "encryptionKey": 1900894979,
+  "sends": [],
+  "last05AL": "05ALbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkVN0FD_t7JbVib8tLxExqwQ5iyNi8MvkE1tUljfNbp71C7cNrRkRKQwZCStCcsPEkV",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

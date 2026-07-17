@@ -1,0 +1,11 @@
+C:\Users\Valentin\Downloads\recaptcha-main\recaptcha-vm-main\target\debug\deps\ascii-de3619848a958c0a.d: C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\lib.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_char.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_str.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_string.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\free_functions.rs
+
+C:\Users\Valentin\Downloads\recaptcha-main\recaptcha-vm-main\target\debug\deps\libascii-de3619848a958c0a.rlib: C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\lib.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_char.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_str.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_string.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\free_functions.rs
+
+C:\Users\Valentin\Downloads\recaptcha-main\recaptcha-vm-main\target\debug\deps\libascii-de3619848a958c0a.rmeta: C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\lib.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_char.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_str.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_string.rs C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\free_functions.rs
+
+C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\lib.rs:
+C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_char.rs:
+C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_str.rs:
+C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\ascii_string.rs:
+C:\Users\Valentin\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\ascii-1.1.0\src\free_functions.rs:

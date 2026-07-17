@@ -1,0 +1,19 @@
+{
+  "savedAt": "2026-06-03T16:05:19.545Z",
+  "source": "dynamic-pure",
+  "profileId": "chrome_win_nvidia",
+  "fingerprintSeed": "03AFcWeA407p93ErY-peEFLM",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 6552,
+  "encryptionKey": -1822308296,
+  "sends": [],
+  "last05AL": "05AL0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgElrNC4UNTx0mEYrPpVQozI6yUJjkqp5AkFLtiY0tzRUGk4LvJ1wIToaS0pDEKJZgEl",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

@@ -1,0 +1,2 @@
+0x0000: XOR {"op":"XOR","offset":0,"dest":1,"lhs":"undef","rhs":"undef"}
+0x000a: OP_127 {"op":"OP_127","offset":10,"argCount":157,"unknown":true}

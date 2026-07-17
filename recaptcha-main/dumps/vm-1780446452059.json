@@ -1,0 +1,235 @@
+{
+  "script": {
+    "errors": [
+      "anchor.init: Unexpected token 'a', \"ainput,bgd\"... is not valid JSON"
+    ],
+    "logs": [],
+    "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+    "fromCache": true,
+    "bytes": 895157,
+    "domLoad": true,
+    "vmLoad": true,
+    "grecaptchaReady": false,
+    "enterpriseReady": false
+  },
+  "anchor": {
+    "anchorToken": "03AFcWeA4VeNXUDxu4kNnywTf_vLFqRpfiVuHZP-1djXYtvJryOXjkbum_b-k6wBKI06V9F_Yzc8rKYiV23NJtnMUlo4B0nf-pDExyVjiB_nqeFlg5PpXI3Y4wRLtfkoL94RUHOtxyMtTZNZwB8CLmBqhlirSAvHc5L8kHSEV4DBgV_k6AMnytq6cz9HrmOO0MQ2nS7FsfOz6uSKVn3iNWR1A948IACuI8emrbZP40AaT6M_5a8ysWTWr5BUlHiKGKy9TdWu52pT-4ZixB3ftf_fL4SufvZRWV2G3HL1lW08JfAGocT-fuP5Cf6lIUt0Es4X5x03z1jz2ryir91IzmmhbmzyZ-oW4WRiVgicHZJql76Wes9Bl7LJhzld6VHE1fFCvcMd5sm9Zdjlf6-zPeWtJKLrwzOw1uaIzNGYz1i8naT9_8H5lJFZqHBDG6te_lRKDYrH5gJflAUbnvvOruWug1vLTGeiJTk1iltpnaPsDitLwl9qWn9D28nUQGPdo3JyTQXRrtqaECU-Oz6BpVYnl0gnpg5IKM8kQhukT-5D5_NmdcWb6xN7DOAd00kxasC_X-uDdfMSc1V0s_IX4v5PF_dvdBvd7h35qVsrAd3UD1xPVS6zJxPxmitpuM9jBvJIs22N4NCdzc4bzRGRHTQM1koH4Zr8keO1xp-D4UamrFXu3GoG1ISWMPJIhlvo1suDGnapqyr8ShnCz3L04QStFbtuoxbFcjfuuifbG0J25zdGrKjf4G41e8Staie_FhbHTuum-msYtDoNRxIcEIW68Jv6gacaHaWoRbueEwAxTlRmhVpO22_lx9OS9QH_jjUZCpLNnjme1lCOkHagBuwiDzK02B-sJg4QhsCLtKfNh3ESpT_P1gSgj5QHLUBK-VsnZdDtop2sxKSNWjL9mJWcUvUgyAbzwCjYLeXK9GehoWd1LmUh7z75hijCXtPH8NmYe1tQ9uTIdZ-jBYJtfvdoolwj4aYAkKbc5rUk3gMPyDilhcVXdahy81FHojVzQHRz7-y_X33aakbDUG351_5JQnY5ptFLN89RWtJDDmd4CBrE8uHpbhKR6o4iekUVUBpYKnLYbSQ6GL6IQxCcDGsyYiR8Y5P_aL_XZOKSG2gzFejjms4vUExbx7mjIdDBiyXGXHC5N9aK5aTrWs_aZ5WrEy55MoN1Utpq4ERxk0ust_w9Y-3Pyq327gsyCJ0n7ZQO1UY2kqpH-JBy6j88cGh17MXxAVvGCWX0xDePR-2ZKLMvgBmTW7-wxmLyHsjwQXl99lWpkHj7c9-qgvu86GUab6xPatvSAmfX64GgSfH76VCdd_w_jscOL9toiMC1zS0-I3cxHUPLAD9Y8LaVraCXUzI7RHYwpxGziG5RPH-ay9CLZAQdryNSfXEDOh1K2P9SHqVVK2cUW4dHQj4_6KzwFiMevM48bbOd5HsXSWSrE9ATjf7s6OD7hwAGztY-Xi73vBUJK_2f0mB4e1QZPji4q8XOgK0h2hCDLkHhB8QY52QlA01ixdqo6gJTBCq1RcWcYylNpVJ4B3eSPHEbbAPVF6SczmV35msc-9bdiLHLG6gdVc_emhJ-1MDG1yF-auaeVox4vYu7pii9n4zEYKIpR17mo3cfSi_ZZcrWc07Wf8RHmgZRy_5g9s4IbxqD-DbxWeaTtsmhZTGi8Rv5kmD1DXvCM1LD1n9Q7P2xj9vkKtAtGAUKhWlBgshUJk2xTLDehN74oLpDqOv-1wQI8626uyxUcENPf7ZFQMFQ9dShENqg-g95MhLqU_mBjKVfp8ngaroP6ExHakoSryzWwMhCS2PsvbycmSrfkseeGglNyY1SMacvULPQ6d758UCXAQB9mlEHDarnLVv-COmNq3yrZPjetq4HfmoWMB2XVZtblNqZIQEdUhF3wq2EvfKd1ur2L19PquK_Ak",
+    "encryptionKey": 1780532851961,
+    "bftSignature": "0dAFcWeA5I01N84--egbAGRDC-Wel0oAVYuK6tGMM8TSDHg1OxiY5xjrbGTPK8WMGeoXpR44JukXFDG_vob-IEJ0rYWZR6sFXivg",
+    "vmBytecodeKeys": [
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        131,
+        106
+      ],
+      [
+        27,
+        183,
+        113,
+        144
+      ]
+    ],
+    "collectorIndexes": null
+  },
+  "bytecode": {
+    "configDecryptedLen": 399,
+    "innerBytecodeLen": 78,
+    "encryptionKey": null,
+    "signalKeys": [],
+    "sends": [],
+    "instructions": [
+      {
+        "op": "XOR",
+        "offset": 0,
+        "dest": 1,
+        "lhs": "undef",
+        "rhs": "undef"
+      },
+      {
+        "op": "OP_127",
+        "offset": 10,
+        "argCount": 157,
+        "unknown": true
+      }
+    ],
+    "errors": []
+  },
+  "collectors": [
+    {
+      "signalKey": 417,
+      "plaintext": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1310,
+      "plaintext": "[\"Google Inc. (NVIDIA)\",\"ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)\",32]",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "1366",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 360,
+      "plaintext": "768",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 1628,
+      "plaintext": "\"https://auth.ticketmaster.com\"",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 16,
+      "plaintext": "-1127255922",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 34,
+      "plaintext": "[]",
+      "elapsed": 6
+    },
+    {
+      "signalKey": 31,
+      "plaintext": "",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 3553,
+      "plaintext": "false",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "1",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 4,
+      "plaintext": "\"6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb6d\"",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 5,
+      "plaintext": "0",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 32,
+      "plaintext": "https://auth.ticketmaster.com/",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "0",
+      "elapsed": 10
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "Win32",
+      "elapsed": 11
+    },
+    {
+      "signalKey": 1626,
+      "plaintext": "[\"fr-FR\"]",
+      "elapsed": 11
+    }
+  ],
+  "grecaptcha": null,
+  "runtime": {
+    "sends": [],
+    "errors": [],
+    "logs": []
+  },
+  "meta": {
+    "siteKey": "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb",
+    "action": "login",
+    "version": "hsFBb1u5wWWWkWP4in1ua2cQ",
+    "scriptUrl": "https://www.gstatic.com/recaptcha/releases/hsFBb1u5wWWWkWP4in1ua2cQ/recaptcha__fr.js",
+    "dumpedAt": "2026-06-03T00:27:32.059Z"
+  },
+  "report": {
+    "summary": {
+      "scriptLoaded": false,
+      "anchorTokenLen": 1934,
+      "encryptionKey": 1780532851961,
+      "sendCount": 0,
+      "instructionCount": 2,
+      "errors": [
+        "anchor.init: Unexpected token 'a', \"ainput,bgd\"... is not valid JSON"
+      ]
+    },
+    "script": {
+      "errors": [
+        "anchor.init: Unexpected token 'a', \"ainput,bgd\"... is not valid JSON"
+      ],
+      "logs": [],
+      "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+      "fromCache": true,
+      "bytes": 895157,
+      "domLoad": true,
+      "vmLoad": true,
+      "grecaptchaReady": false,
+      "enterpriseReady": false
+    },
+    "anchor": {
+      "anchorToken": "03AFcWeA4VeNXUDxu4kNnywTf_vLFqRpfiVuHZP-1djXYtvJryOXjkbum_b-k6wBKI06V9F_Yzc8rKYiV23NJtnMUlo4B0nf-pDExyVjiB_nqeFlg5PpXI3Y4wRLtfkoL94RUHOtxyMtTZNZwB8CLmBqhlirSAvHc5L8kHSEV4DBgV_k6AMnytq6cz9HrmOO0MQ2nS7FsfOz6uSKVn3iNWR1A948IACuI8emrbZP40AaT6M_5a8ysWTWr5BUlHiKGKy9TdWu52pT-4ZixB3ftf_fL4SufvZRWV2G3HL1lW08JfAGocT-fuP5Cf6lIUt0Es4X5x03z1jz2ryir91IzmmhbmzyZ-oW4WRiVgicHZJql76Wes9Bl7LJhzld6VHE1fFCvcMd5sm9Zdjlf6-zPeWtJKLrwzOw1uaIzNGYz1i8naT9_8H5lJFZqHBDG6te_lRKDYrH5gJflAUbnvvOruWug1vLTGeiJTk1iltpnaPsDitLwl9qWn9D28nUQGPdo3JyTQXRrtqaECU-Oz6BpVYnl0gnpg5IKM8kQhukT-5D5_NmdcWb6xN7DOAd00kxasC_X-uDdfMSc1V0s_IX4v5PF_dvdBvd7h35qVsrAd3UD1xPVS6zJxPxmitpuM9jBvJIs22N4NCdzc4bzRGRHTQM1koH4Zr8keO1xp-D4UamrFXu3GoG1ISWMPJIhlvo1suDGnapqyr8ShnCz3L04QStFbtuoxbFcjfuuifbG0J25zdGrKjf4G41e8Staie_FhbHTuum-msYtDoNRxIcEIW68Jv6gacaHaWoRbueEwAxTlRmhVpO22_lx9OS9QH_jjUZCpLNnjme1lCOkHagBuwiDzK02B-sJg4QhsCLtKfNh3ESpT_P1gSgj5QHLUBK-VsnZdDtop2sxKSNWjL9mJWcUvUgyAbzwCjYLeXK9GehoWd1LmUh7z75hijCXtPH8NmYe1tQ9uTIdZ-jBYJtfvdoolwj4aYAkKbc5rUk3gMPyDilhcVXdahy81FHojVzQHRz7-y_X33aakbDUG351_5JQnY5ptFLN89RWtJDDmd4CBrE8uHpbhKR6o4iekUVUBpYKnLYbSQ6GL6IQxCcDGsyYiR8Y5P_aL_XZOKSG2gzFejjms4vUExbx7mjIdDBiyXGXHC5N9aK5aTrWs_aZ5WrEy55MoN1Utpq4ERxk0ust_w9Y-3Pyq327gsyCJ0n7ZQO1UY2kqpH-JBy6j88cGh17MXxAVvGCWX0xDePR-2ZKLMvgBmTW7-wxmLyHsjwQXl99lWpkHj7c9-qgvu86GUab6xPatvSAmfX64GgSfH76VCdd_w_jscOL9toiMC1zS0-I3cxHUPLAD9Y8LaVraCXUzI7RHYwpxGziG5RPH-ay9CLZAQdryNSfXEDOh1K2P9SHqVVK2cUW4dHQj4_6KzwFiMevM48bbOd5HsXSWSrE9ATjf7s6OD7hwAGztY-Xi73vBUJK_2f0mB4e1QZPji4q8XOgK0h2hCDLkHhB8QY52QlA01ixdqo6gJTBCq1RcWcYylNpVJ4B3eSPHEbbAPVF6SczmV35msc-9bdiLHLG6gdVc_emhJ-1MDG1yF-auaeVox4vYu7pii9n4zEYKIpR17mo3cfSi_ZZcrWc07Wf8RHmgZRy_5g9s4IbxqD-DbxWeaTtsmhZTGi8Rv5kmD1DXvCM1LD1n9Q7P2xj9vkKtAtGAUKhWlBgshUJk2xTLDehN74oLpDqOv-1wQI8626uyxUcENPf7ZFQMFQ9dShENqg-g95MhLqU_mBjKVfp8ngaroP6ExHakoSryzWwMhCS2PsvbycmSrfkseeGglNyY1SMacvULPQ6d758UCXAQB9mlEHDarnLVv-COmNq3yrZPjetq4HfmoWMB2XVZtblNqZIQEdUhF3wq2EvfKd1ur2L19PquK_Ak",
+      "encryptionKey": 1780532851961,
+      "bftSignature": "0dAFcWeA5I01N84--egbAGRDC-Wel0oAVYuK6tGMM8TSDHg1OxiY5xjrbGTPK8WMGeoXpR44JukXFDG_vob-IEJ0rYWZR6sFXivg",
+      "vmBytecodeKeys": [
+        [
+          3,
+          1,
+          1
+        ],
+        [
+          131,
+          106
+        ],
+        [
+          27,
+          183,
+          113,
+          144
+        ]
+      ],
+      "collectorIndexes": null
+    },
+    "bytecode": {
+      "encryptionKey": null,
+      "signalKeys": [],
+      "sendsPreview": [],
+      "opcodeHistogram": [
+        {
+          "op": "XOR",
+          "count": 1
+        },
+        {
+          "op": "OP_127",
+          "count": 1
+        }
+      ]
+    },
+    "sends": [],
+    "recommendations": [
+      "Script Google non initialisé — vérifier polyfills (BrowserPolyfills) ou charger via <script> dans JSDOM.",
+      "encryptionKey VM introuvable — désassemblage config bytecode incomplet.",
+      "Aucun SEND capturé — exécuter le bytecode main dynamique (pas seulement config)."
+    ]
+  }
+}

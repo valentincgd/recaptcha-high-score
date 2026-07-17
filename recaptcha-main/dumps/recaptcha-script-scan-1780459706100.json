@@ -1,0 +1,17 @@
+{
+  "source": "cache",
+  "bytes": 895157,
+  "lines": 1720,
+  "hits": {
+    "recaptcha.anchor.Main.init": 1,
+    "recaptcha.anchor.Main.execute": 0,
+    "05AL token prefix": 0,
+    "grecaptcha.enterprise.execute": 0,
+    "POST reload path": 0,
+    "opcode SEND (minified rare)": 0,
+    "register 586 / encryption": 0
+  },
+  "sample_recaptcha.anchor.Main.init": [
+    "recaptcha.anchor.Main.init"
+  ]
+}

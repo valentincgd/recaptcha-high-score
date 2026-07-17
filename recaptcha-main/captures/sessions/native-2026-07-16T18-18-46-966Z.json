@@ -1,0 +1,18 @@
+{
+  "savedAt": "2026-07-16T18:18:46.966Z",
+  "source": "dynamic-pure",
+  "profileId": "custom-demo",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 6701,
+  "encryptionKey": 1900899396,
+  "sends": [],
+  "last05AL": "05ALchwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY_mskZ0R5chwLQHHSluvsECyX_XB9x2Q4fGME5UxZ8BQrwnnyFOPMkiS3f3hdRWwY",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}

@@ -1,0 +1,917 @@
+{
+  "script": {
+    "errors": [
+      "execute: execute timeout"
+    ],
+    "logs": [],
+    "enterpriseLoader": true,
+    "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+    "fromCache": true,
+    "bytes": 895157,
+    "domLoad": true,
+    "grecaptchaReady": true,
+    "enterpriseReady": true,
+    "initHasConf": true,
+    "anchorInit": "Main.init"
+  },
+  "anchor": {
+    "anchorToken": "03AFcWeA4700UaUNctIfxi643eiouq4M1YG4cdzDjkx3-oW93twRamllcd7o03xNVDGpbS4t8EYCEg4-Z7Z97uU3dF228zZaxNnRfLTt-15aN9kiMOQ6mWXAjP0S1Ku5gEGpAZaOgr3CStUxYlaAm2mARQG1sd9IppCkP7bTmYT5uw39DvBjQoN9QPqtMqbvsc4FKoYGpT-DcvA0KQgU-iwJCf7mqkiE3Lq3s3RtjYtvPTdwghWhIgnInO_I-Qo1TUhQtaYe5SmiobdM0cgMBlnfnbjCpZr0sQUT0DUGwKt3u1u2T7z3nVOnvT5qqmFzCQcozRzNzX2hNsckrpMGOPQ3BAV4vwvIOjyRXkGxaQvbvyTWWSt1XuRPb5qdDUo-IL1ZBuO5-RHFs199YuQ-tol66-LMZ1mMMF81QaUHPKJ9jwejLIZLSRyFIR4BpxZm0oIsC9C-nXPyfIZHFJrtqVATSZ_m8UbAfQeHkJJ_NnPq3pRTLoMQh94lUu1jYGnbXuy5uv6f2IvZMZihJQsE6OeTn1Vu9G0n8Es_bbc5HGOay8NL0WIlSE73T0IdejkuKanPk3UGeVH1Iee0TosiXxHqQtSXA_tzoZnzOPL8_QVHkQq_DchqBa0NybXVhinyAsTodCKI7Ox5KUPjgDCb_FYkIUzOPYEzTzt-1-g-8vEOuBeVzmxIZ3Lmx9py0F9UH_xPBMUc1ZbOkDaqEVY-1IPgrZuKk8LBGqB67Lw9cc2rVv_Eens4JqYZMz6V1yykfBq7FG7NaZ7lmBLF1QvlWEQCSD7jZUUtgkjbttgG_Q30POUgLZoXNA6NTY4fhhkK8WyJAf_D8s7wBVRfxJDNNhUtFOkyIRgk0D8XA_aDBFzuaWjMaAnOWAMk9V79wtXTfoN9hutUWWwi40O6c4odi46JgXZyRhkwObUKNa6_eDuKRJG0hHRBnOrbCmSq0FtF9TR6yA7Xyyprfey4PUnYmjphncjLtx3Jswc3ZxESAC-D_DR0FLdY1DB61MoRq3fpDZFnYyut21M5WnvFKJ32HFDd2oUzcz3jufh8SED02WWmFrrCS9Ozk6Hoj-EcHhqGwzdb17gH0psla3gPH-CdFtMemnbDJOTbbyv8i7fEsCFrSy96odFs8VGMFvIu0y7Z08-5ZileyRF5zPDUBi7MDI5unLHyB7WwWIea3sxcAnqIpC_whUdfXvwZVvZKcjH-QkI4bde9Eacfoa6NHzq4KarRB1eMKQZ-JamemgE1uZkLqck9gGp1yfmdVKhe7rViM_92yyuoPk2bwziBxcq7L-CyTurPRh58Y1T8lAeYnFUjbuyrjcBudek1s-whUAidrwa7W2dOn84jTSySCp5XkKHud_DbSjDVmyXjoZq8MK8ZtVBeioZfs3ZHE4Me6DZo1qQvkXC1cqmma5NL165CxS6t70KhjhkOOFBbDrPBeH3Ct-FYl5ARM0qvuFVFeDALho85rKXlfE_oc4eS0S9hCi_daCwG6vfC3mvhALkUFWHfpDMS2FAiggn2iETNZloYG-YhMUA4buZsgyLTaDYFcPZnV03QX2TJUgDUsG2MV_Uq24tbjOI4RKLpLRrJIDIFdQbYEJOscGOwn1cEhl-jzyYivwA_IPzFE20tO0YUIg9p8WSj0njFBvhEbiuF-22YxtwhcHUEOcfXl6gf7p3y4_nXKe3ubTW2s_67FKXrLC92fMljW8h62xh9zGKK4b7Th2iBz-rsHvFSjdZYLVLq5tFAdizuo2dvoN2gKy375cVKnyk3F8z5maSD4D303P7vi3paH3Qf_I5FhGatOY0p-e_1owrO7lFrJhSMe65mGGgGMEcoQk2K6Sf0CMgA_yo7Kno_0Hu-2sD13BpIlmjjaJ7Ojz60GXLwLJ3z5Hsq6DE_SeTboXKtUzj2rgfqUd6J7xR36UFbODpu8J",
+    "encryptionKey": 1780534977082,
+    "bftSignature": "0dAFcWeA4i8YL8KdmzhWZyld7GP7Td0IlVjPjtL7-JWVsPyVp2YHzWTsMpshvhEKtrMMbFPdPXp1pFornjIrFu6beIkWzat5730Q",
+    "vmBytecodeKeys": [
+      [
+        208,
+        198,
+        168,
+        35,
+        2
+      ],
+      [
+        41,
+        40,
+        1
+      ]
+    ],
+    "collectorIndexes": null
+  },
+  "bytecode": {
+    "configDecryptedLen": 391,
+    "innerBytecodeLen": 95,
+    "encryptionKey": -1876450758,
+    "signalKeys": [],
+    "sends": [],
+    "instructions": [
+      {
+        "op": "OP_91975810",
+        "offset": 0,
+        "argCount": 41,
+        "unknown": true
+      },
+      {
+        "op": "OP_122",
+        "offset": 35,
+        "argCount": 75,
+        "unknown": true
+      },
+      {
+        "op": "OP_2717",
+        "offset": 86,
+        "argCount": 101,
+        "unknown": true
+      }
+    ],
+    "errors": [],
+    "vmSeed": 61,
+    "vmKeys": [
+      [
+        176,
+        170,
+        107
+      ],
+      [
+        76
+      ]
+    ],
+    "encryptionKeySource": "anchor-session"
+  },
+  "collectors": [
+    {
+      "signalKey": 417,
+      "plaintext": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "elapsed": 0
+    },
+    {
+      "signalKey": 1310,
+      "plaintext": "[\"Google Inc. (NVIDIA)\",\"ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)\",32]",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "1366",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 360,
+      "plaintext": "768",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 1628,
+      "plaintext": "\"https://auth.ticketmaster.com\"",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 16,
+      "plaintext": "-1127255922",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 34,
+      "plaintext": "[]",
+      "elapsed": 1
+    },
+    {
+      "signalKey": 31,
+      "plaintext": "",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 3553,
+      "plaintext": "false",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "1",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 4,
+      "plaintext": "\"6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb6d\"",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 5,
+      "plaintext": "1",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 32,
+      "plaintext": "https://auth.ticketmaster.com/",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "0",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "Win32",
+      "elapsed": 2
+    },
+    {
+      "signalKey": 1626,
+      "plaintext": "[\"fr-FR\"]",
+      "elapsed": 2
+    }
+  ],
+  "grecaptcha": null,
+  "encryptedSignals": [
+    {
+      "signalKey": 417,
+      "plaintext": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          133,
+          166,
+          104,
+          68,
+          106,
+          69,
+          75,
+          226,
+          231,
+          151,
+          134,
+          153,
+          124,
+          188,
+          151,
+          155,
+          72,
+          64,
+          107,
+          66,
+          0,
+          247,
+          252,
+          127,
+          125,
+          159,
+          120,
+          139,
+          95,
+          67,
+          49,
+          48,
+          88,
+          251,
+          10,
+          218,
+          190,
+          205,
+          120,
+          153,
+          105,
+          113,
+          91,
+          137,
+          64,
+          41,
+          69,
+          18,
+          49,
+          247,
+          223,
+          180,
+          172,
+          138,
+          107,
+          122,
+          71,
+          61,
+          249,
+          233,
+          246,
+          217,
+          13,
+          211,
+          222,
+          142,
+          122,
+          125,
+          76,
+          169,
+          111,
+          112,
+          33,
+          201,
+          19,
+          12,
+          27,
+          236,
+          239,
+          96,
+          68,
+          138,
+          138,
+          165,
+          107,
+          104,
+          23,
+          206,
+          243,
+          209,
+          230,
+          165,
+          166,
+          91,
+          74,
+          107,
+          72,
+          73,
+          69,
+          82,
+          14,
+          246,
+          42,
+          252,
+          211,
+          162,
+          159,
+          90,
+          62,
+          102,
+          68,
+          24,
+          139,
+          66,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          218,
+          49,
+          6,
+          5,
+          54,
+          38,
+          146,
+          98,
+          115,
+          110,
+          129,
+          181,
+          150,
+          1,
+          34,
+          40,
+          235,
+          242,
+          33,
+          29,
+          187,
+          138,
+          173,
+          119,
+          103,
+          169,
+          82,
+          44,
+          19,
+          34,
+          173,
+          159,
+          141,
+          21,
+          220,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 1641,
+      "plaintext": "\"https://auth.ticketmaster.com/\"",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          190,
+          241,
+          162,
+          251,
+          138,
+          212,
+          28,
+          70,
+          51,
+          10,
+          119,
+          9,
+          68,
+          139,
+          6,
+          232,
+          135,
+          232,
+          117,
+          203,
+          69,
+          110,
+          109,
+          19,
+          93,
+          253,
+          0,
+          182,
+          247,
+          226,
+          73,
+          149,
+          169,
+          108,
+          180,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 1310,
+      "plaintext": "[\"Google Inc. (NVIDIA)\",\"ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 SUPER Direct3D11 vs_5_0 ps_5_0, D3D11)\",32]",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          92,
+          200,
+          200,
+          1,
+          202,
+          193,
+          251,
+          225,
+          65,
+          69,
+          123,
+          57,
+          3,
+          42,
+          31,
+          234,
+          205,
+          209,
+          149,
+          153,
+          198,
+          155,
+          57,
+          30,
+          37,
+          13,
+          25,
+          71,
+          57,
+          215,
+          141,
+          166,
+          149,
+          156,
+          196,
+          172,
+          86,
+          41,
+          37,
+          226,
+          15,
+          76,
+          44,
+          204,
+          172,
+          181,
+          93,
+          131,
+          214,
+          164,
+          114,
+          80,
+          82,
+          29,
+          215,
+          51,
+          45,
+          214,
+          121,
+          155,
+          105,
+          104,
+          151,
+          116,
+          76,
+          41,
+          53,
+          243,
+          255,
+          2,
+          19,
+          221,
+          193,
+          197,
+          140,
+          156,
+          144,
+          142,
+          32,
+          251,
+          251,
+          26,
+          22,
+          55,
+          250,
+          201,
+          117,
+          118,
+          143,
+          145,
+          178,
+          117,
+          68,
+          240,
+          253,
+          186,
+          221,
+          1,
+          255,
+          145,
+          108,
+          117,
+          55,
+          64,
+          124,
+          104,
+          56,
+          71,
+          208,
+          139,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "1366",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          44,
+          99,
+          83,
+          248,
+          240,
+          5,
+          116,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 360,
+      "plaintext": "768",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          28,
+          62,
+          27,
+          253,
+          156,
+          224,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 1628,
+      "plaintext": "\"https://auth.ticketmaster.com\"",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          5,
+          128,
+          121,
+          30,
+          245,
+          9,
+          153,
+          141,
+          194,
+          225,
+          154,
+          116,
+          121,
+          8,
+          77,
+          119,
+          94,
+          11,
+          224,
+          0,
+          194,
+          181,
+          252,
+          234,
+          128,
+          104,
+          53,
+          51,
+          62,
+          113,
+          19,
+          107,
+          162,
+          114,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 16,
+      "plaintext": "-1127255922",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          194,
+          13,
+          12,
+          196,
+          182,
+          212,
+          178,
+          69,
+          144,
+          136,
+          63,
+          3,
+          40,
+          36,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 34,
+      "plaintext": "[]",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          64,
+          101,
+          55,
+          68,
+          66,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 31,
+      "plaintext": "",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          223,
+          33,
+          54,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 3553,
+      "plaintext": "false",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          184,
+          250,
+          134,
+          194,
+          161,
+          38,
+          6,
+          214,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "1",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          219,
+          64,
+          55,
+          9,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 4,
+      "plaintext": "\"6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb6d\"",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          221,
+          150,
+          135,
+          176,
+          132,
+          117,
+          161,
+          135,
+          77,
+          247,
+          8,
+          209,
+          208,
+          5,
+          245,
+          167,
+          167,
+          171,
+          76,
+          76,
+          163,
+          89,
+          54,
+          238,
+          54,
+          208,
+          250,
+          240,
+          18,
+          156,
+          115,
+          112,
+          98,
+          119,
+          128,
+          102,
+          64,
+          5,
+          228,
+          246,
+          221,
+          230,
+          1,
+          100,
+          162,
+          53,
+          137,
+          128
+        ]
+      }
+    },
+    {
+      "signalKey": 5,
+      "plaintext": "1",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          239,
+          91,
+          135,
+          29,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 32,
+      "plaintext": "https://auth.ticketmaster.com/",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          163,
+          210,
+          173,
+          186,
+          134,
+          76,
+          248,
+          229,
+          58,
+          41,
+          57,
+          246,
+          187,
+          184,
+          154,
+          183,
+          154,
+          165,
+          125,
+          117,
+          32,
+          31,
+          67,
+          15,
+          45,
+          178,
+          230,
+          169,
+          148,
+          121,
+          169,
+          117,
+          62,
+          32
+        ]
+      }
+    },
+    {
+      "signalKey": 352,
+      "plaintext": "0",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          69,
+          58,
+          136,
+          167,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 291,
+      "plaintext": "Win32",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          159,
+          176,
+          108,
+          30,
+          64,
+          43,
+          197,
+          124,
+          0
+        ]
+      }
+    },
+    {
+      "signalKey": 1626,
+      "plaintext": "[\"fr-FR\"]",
+      "encrypted": {
+        "type": "Buffer",
+        "data": [
+          20,
+          16,
+          65,
+          242,
+          136,
+          178,
+          135,
+          86,
+          198,
+          5,
+          68,
+          197,
+          0
+        ]
+      }
+    }
+  ],
+  "runtime": {
+    "sends": [],
+    "errors": [],
+    "logs": []
+  },
+  "meta": {
+    "siteKey": "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb",
+    "action": "login",
+    "version": "hsFBb1u5wWWWkWP4in1ua2cQ",
+    "scriptUrl": "https://www.gstatic.com/recaptcha/releases/hsFBb1u5wWWWkWP4in1ua2cQ/recaptcha__fr.js",
+    "dumpedAt": "2026-06-03T01:03:22.223Z"
+  },
+  "report": {
+    "summary": {
+      "scriptLoaded": true,
+      "anchorTokenLen": 1934,
+      "encryptionKey": 1780534977082,
+      "sendCount": 0,
+      "instructionCount": 3,
+      "errors": [
+        "execute: execute timeout"
+      ]
+    },
+    "script": {
+      "errors": [
+        "execute: execute timeout"
+      ],
+      "logs": [],
+      "enterpriseLoader": true,
+      "cachePath": "C:\\Users\\Valentin\\Downloads\\recaptcha-main\\cache\\recaptcha-scripts\\7cbb3ea3c75b39f1.js",
+      "fromCache": true,
+      "bytes": 895157,
+      "domLoad": true,
+      "grecaptchaReady": true,
+      "enterpriseReady": true,
+      "initHasConf": true,
+      "anchorInit": "Main.init"
+    },
+    "anchor": {
+      "anchorToken": "03AFcWeA4700UaUNctIfxi643eiouq4M1YG4cdzDjkx3-oW93twRamllcd7o03xNVDGpbS4t8EYCEg4-Z7Z97uU3dF228zZaxNnRfLTt-15aN9kiMOQ6mWXAjP0S1Ku5gEGpAZaOgr3CStUxYlaAm2mARQG1sd9IppCkP7bTmYT5uw39DvBjQoN9QPqtMqbvsc4FKoYGpT-DcvA0KQgU-iwJCf7mqkiE3Lq3s3RtjYtvPTdwghWhIgnInO_I-Qo1TUhQtaYe5SmiobdM0cgMBlnfnbjCpZr0sQUT0DUGwKt3u1u2T7z3nVOnvT5qqmFzCQcozRzNzX2hNsckrpMGOPQ3BAV4vwvIOjyRXkGxaQvbvyTWWSt1XuRPb5qdDUo-IL1ZBuO5-RHFs199YuQ-tol66-LMZ1mMMF81QaUHPKJ9jwejLIZLSRyFIR4BpxZm0oIsC9C-nXPyfIZHFJrtqVATSZ_m8UbAfQeHkJJ_NnPq3pRTLoMQh94lUu1jYGnbXuy5uv6f2IvZMZihJQsE6OeTn1Vu9G0n8Es_bbc5HGOay8NL0WIlSE73T0IdejkuKanPk3UGeVH1Iee0TosiXxHqQtSXA_tzoZnzOPL8_QVHkQq_DchqBa0NybXVhinyAsTodCKI7Ox5KUPjgDCb_FYkIUzOPYEzTzt-1-g-8vEOuBeVzmxIZ3Lmx9py0F9UH_xPBMUc1ZbOkDaqEVY-1IPgrZuKk8LBGqB67Lw9cc2rVv_Eens4JqYZMz6V1yykfBq7FG7NaZ7lmBLF1QvlWEQCSD7jZUUtgkjbttgG_Q30POUgLZoXNA6NTY4fhhkK8WyJAf_D8s7wBVRfxJDNNhUtFOkyIRgk0D8XA_aDBFzuaWjMaAnOWAMk9V79wtXTfoN9hutUWWwi40O6c4odi46JgXZyRhkwObUKNa6_eDuKRJG0hHRBnOrbCmSq0FtF9TR6yA7Xyyprfey4PUnYmjphncjLtx3Jswc3ZxESAC-D_DR0FLdY1DB61MoRq3fpDZFnYyut21M5WnvFKJ32HFDd2oUzcz3jufh8SED02WWmFrrCS9Ozk6Hoj-EcHhqGwzdb17gH0psla3gPH-CdFtMemnbDJOTbbyv8i7fEsCFrSy96odFs8VGMFvIu0y7Z08-5ZileyRF5zPDUBi7MDI5unLHyB7WwWIea3sxcAnqIpC_whUdfXvwZVvZKcjH-QkI4bde9Eacfoa6NHzq4KarRB1eMKQZ-JamemgE1uZkLqck9gGp1yfmdVKhe7rViM_92yyuoPk2bwziBxcq7L-CyTurPRh58Y1T8lAeYnFUjbuyrjcBudek1s-whUAidrwa7W2dOn84jTSySCp5XkKHud_DbSjDVmyXjoZq8MK8ZtVBeioZfs3ZHE4Me6DZo1qQvkXC1cqmma5NL165CxS6t70KhjhkOOFBbDrPBeH3Ct-FYl5ARM0qvuFVFeDALho85rKXlfE_oc4eS0S9hCi_daCwG6vfC3mvhALkUFWHfpDMS2FAiggn2iETNZloYG-YhMUA4buZsgyLTaDYFcPZnV03QX2TJUgDUsG2MV_Uq24tbjOI4RKLpLRrJIDIFdQbYEJOscGOwn1cEhl-jzyYivwA_IPzFE20tO0YUIg9p8WSj0njFBvhEbiuF-22YxtwhcHUEOcfXl6gf7p3y4_nXKe3ubTW2s_67FKXrLC92fMljW8h62xh9zGKK4b7Th2iBz-rsHvFSjdZYLVLq5tFAdizuo2dvoN2gKy375cVKnyk3F8z5maSD4D303P7vi3paH3Qf_I5FhGatOY0p-e_1owrO7lFrJhSMe65mGGgGMEcoQk2K6Sf0CMgA_yo7Kno_0Hu-2sD13BpIlmjjaJ7Ojz60GXLwLJ3z5Hsq6DE_SeTboXKtUzj2rgfqUd6J7xR36UFbODpu8J",
+      "encryptionKey": 1780534977082,
+      "bftSignature": "0dAFcWeA4i8YL8KdmzhWZyld7GP7Td0IlVjPjtL7-JWVsPyVp2YHzWTsMpshvhEKtrMMbFPdPXp1pFornjIrFu6beIkWzat5730Q",
+      "vmBytecodeKeys": [
+        [
+          208,
+          198,
+          168,
+          35,
+          2
+        ],
+        [
+          41,
+          40,
+          1
+        ]
+      ],
+      "collectorIndexes": null
+    },
+    "bytecode": {
+      "encryptionKey": -1876450758,
+      "signalKeys": [],
+      "sendsPreview": [],
+      "opcodeHistogram": [
+        {
+          "op": "OP_91975810",
+          "count": 1
+        },
+        {
+          "op": "OP_122",
+          "count": 1
+        },
+        {
+          "op": "OP_2717",
+          "count": 1
+        }
+      ]
+    },
+    "sends": [],
+    "recommendations": [
+      "Aucun SEND capturé — exécuter le bytecode main dynamique (pas seulement config)."
+    ]
+  }
+}

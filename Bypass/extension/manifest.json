@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "pioneerfort — reCAPTCHA v3 Bypass",
+  "version": "2.1",
+  "description": "Automatically solves reCAPTCHA v3 challenges with multi-session isolation",
+  "permissions": ["storage", "tabs", "webNavigation"],
+  "host_permissions": ["https://extension.mmpharma.dev/*", "<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js", "inject-iframe.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "reCAPTCHA v3 Bypass v2.1"
+  }
+}

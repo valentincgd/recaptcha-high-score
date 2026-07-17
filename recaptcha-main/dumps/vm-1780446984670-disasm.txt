@@ -1,0 +1,1 @@
+0x0000: GET_PROP {"op":"GET_PROP","offset":0,"argCount":52}

@@ -1,0 +1,24 @@
+{
+  "name": "recaptcha-field16-jsdom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Génère le champ 16 (/reload) de reCAPTCHA v3 Enterprise en exécutant le vrai script dans jsdom - recherche/éducatif",
+  "type": "commonjs",
+  "scripts": {
+    "setup": "npm install && node tools/fetch_scripts.js && node tools/extract_xbv_key.js",
+    "fetch": "node tools/fetch_scripts.js",
+    "extract-key": "node tools/extract_xbv_key.js",
+    "token": "node token.js",
+    "gen": "node field16_jsdom.js",
+    "antcpt": "node antcpt.js",
+    "verify": "node tools/verify_token.js"
+  },
+  "dependencies": {
+    "jsdom": "^24.1.3",
+    "node-tls-client": "^2.1.0",
+    "puppeteer": "^24.43.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "selfsigned": "^5.5.0"
+  }
+}

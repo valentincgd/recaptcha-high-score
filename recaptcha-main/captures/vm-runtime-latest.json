@@ -1,0 +1,18 @@
+{
+  "savedAt": "2026-07-16T18:21:37.019Z",
+  "source": "dynamic-pure",
+  "profileId": "custom-demo",
+  "secondarySource": "derived-05AL",
+  "signalCount": 18,
+  "reloadBytes": 6680,
+  "encryptionKey": 1901069437,
+  "sends": [],
+  "last05AL": "05ALYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq8YLGfdcWYe7SDuJg3dJCge_Gmb-6Rj7Kc4rm_9824-byjOpAX9piA-fmG7eaxDbq",
+  "bytecodes": [],
+  "vmDump": {
+    "sends": [],
+    "bytecodes": [],
+    "errors": [],
+    "logs": []
+  }
+}
