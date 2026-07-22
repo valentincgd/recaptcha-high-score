@@ -65,6 +65,18 @@ function chromeHeadersFor(host, urlPath, existing) {
   return add;
 }
 
+/**
+ * setProxy — change l'upstream résidentiel utilisé par le pont, À CHAUD (sans reboot jsdom).
+ * node-tls-client accepte le proxy PAR requête (forward() lit _cfg.proxy à chaque appel), donc
+ * il suffit de muter _cfg.proxy avant l'execute() suivant → le /reload sort par la nouvelle IP.
+ * Permet un proxy TOURNANT par token sur une fenêtre chaude (farm captcha).
+ * @param {string|null} proxy  URL proxy (http://user:pass@host:port) ou null pour IP directe.
+ */
+function setProxy(proxy) {
+  _cfg.proxy = proxy || undefined;
+  return _cfg.proxy;
+}
+
 async function ensureSession(proxy, clientIdentifier) {
   if (!_initP) _initP = tlsc.initTLS();
   await _initP;
@@ -84,12 +96,22 @@ async function ensureSession(proxy, clientIdentifier) {
  * tlsFetch — fetch Chrome-TLS direct (pour NOS propres requêtes : loader, worker, ipify).
  * Retourne { status, headers, text(), buffer() }.
  */
-async function tlsFetch(url, { method = 'GET', headers = {}, body, followRedirects = true } = {}) {
+async function tlsFetch(url, { method = 'GET', headers = {}, body, followRedirects = true, cookies } = {}) {
   const s = await ensureSession(_cfg.proxy, _cfg.clientIdentifier);
   const m = String(method).toLowerCase();
   const opts = { proxy: _cfg.proxy, headers, followRedirects };
+  // cookies : { name: value } mergés dans le jar de session (node-tls-client mergeCookies) → permet de
+  // FORCER un _GRECAPTCHA vieilli persistant (réputation) plutôt que le cookie frais posé par Google.
+  if (cookies && Object.keys(cookies).length) opts.cookies = cookies;
   // isByteRequest patché → body attendu en base64 (byte-exact côté Go)
   if (body != null) opts.body = (Buffer.isBuffer(body) ? body : Buffer.from(String(body))).toString('base64');
+  if (process.env.RC_DUMP_TLSFETCH && /\/(reload|anchor)\??/.test(url)) {
+    try {
+      const jarCk = (typeof s.cookies === 'function') ? await s.cookies().catch(() => null) : (s.cookies || null);
+      const kind = /anchor/.test(url) ? 'anchor' : 'reload';
+      require('fs').appendFileSync(process.env.RC_DUMP_TLSFETCH, JSON.stringify({ kind, url, headers, cookiesOpt: opts.cookies || null, sessionCookies: jarCk }) + '\n');
+    } catch (_) {}
+  }
   const r = await s[m](url, opts);
   const raw = await r.text(); // .text() → contenu décodé (gzip/br gérés par la lib Go)
   return {
@@ -123,6 +145,9 @@ async function forward(req, res, scheme, log) {
   const chunks = [];
   for await (const c of req) chunks.push(c);
   const body = Buffer.concat(chunks);
+  // RC_LOG_REQS : journalise CHAQUE requête sortante de jsdom (méthode + URL + taille body) → séquence
+  // complète, pour comparer au flow flat (trouver les appels que flat saute et qui montent le score).
+  if (process.env.RC_LOG_REQS) { try { require('fs').appendFileSync(process.env.RC_LOG_REQS, `${req.method || 'GET'} ${target}  body=${body.length}\n`); } catch (_) {} }
   // Contrôle d'intégrité (RC_VERIFY_BODY) : hash des octets du /reload SORTANTS du pont, à comparer
   // avec le hash de la copie capturée à l'XHR (field16_jsdom onReload) → prouve byte-exact ou non.
   if (process.env.RC_VERIFY_BODY === '1' && body.length && /\/(api2|enterprise)\/reload/.test(req.url)) {
@@ -134,10 +159,17 @@ async function forward(req, res, scheme, log) {
     const m = String(req.method || 'GET').toLowerCase();
     const relayed = pickReqHeaders(req.headers);
     Object.assign(relayed, chromeHeadersFor(host, req.url, relayed)); // complète en headers Chrome réalistes
+    if (process.env.RC_LOG_REQHDRS) { try { require('fs').appendFileSync(process.env.RC_LOG_REQHDRS, JSON.stringify({ method: req.method, url: target, headers: relayed }) + '\n'); } catch (_) {} }
     const opts = { proxy: _cfg.proxy, headers: relayed, followRedirects: false };
+    if (process.env.RC_DUMP_REQHDRS && /\/(api2|enterprise)\/reload/.test(req.url)) {
+      try { require('fs').writeFileSync(process.env.RC_DUMP_REQHDRS, JSON.stringify({ url: target, headers: relayed }, null, 1)); } catch (_) {}
+    }
     if (body.length) opts.body = body.toString('base64'); // isByteRequest patché → base64 = byte-exact (protobuf /reload)
     const r = await s[m](target, opts);
     const buf = Buffer.from(await r.text(), 'utf8');
+    // RC_DUMP_ANCHOR_HTML : capture l'HTML de la réponse /anchor (contient recaptcha-token + clé DC) →
+    // permet de rejouer le token anchor genuine de jsdom dans un reload flat (test d'isolation).
+    if (process.env.RC_DUMP_ANCHOR_HTML && /\/(api2|enterprise)\/anchor/.test(req.url)) { try { require('fs').writeFileSync(process.env.RC_DUMP_ANCHOR_HTML, buf); } catch (_) {} }
     // DEBUG cookies (RC_DEBUG_COOKIES=1) : trace le _GRECAPTCHA sur les /reload pour prouver le chaînage
     if (process.env.RC_DEBUG_COOKIES === '1' && /\/(api2|enterprise)\/reload/.test(req.url)) {
       const jarCk = (typeof s.cookies === 'function') ? await s.cookies().catch(() => null) : null;
@@ -211,4 +243,4 @@ async function startBridge({ proxy, clientIdentifier = 'chrome_150', identity = 
   };
 }
 
-module.exports = { startBridge, tlsFetch, ensureSession };
+module.exports = { startBridge, tlsFetch, ensureSession, setProxy };

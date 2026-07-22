@@ -1,4 +1,5 @@
 import { HashUtil } from "../HashUtil.js";
+import { readFileSync, existsSync } from "node:fs";
 
 /** Collecteurs DOM exécutés dans BrowserEnvironment (sans recaptcha__fr.js). */
 export class Collectors {
@@ -47,6 +48,21 @@ export class Collectors {
     push(String(window.scrollY ?? 0), 352);
     push(window.navigator.platform ?? "Win32", 291);
     push(JSON.stringify([window.navigator.language ?? "fr-FR"]), 1626);
+
+    // RC_ENUM=1 : injecte l'énumération d'environnement réelle capturée (scripts/env_enum.json) —
+    // ~523 signaux (noms de propriétés window/globalThis) que le vrai script émet et que le pur
+    // omettait (cause racine du rejet TM). signalKey = hash capturé. Test constructif.
+    if (process.env.RC_ENUM === "1") {
+      try {
+        if (!Collectors._envEnum) {
+          const u = new URL("../../vendor/rcjsdom/scripts/env_enum.json", import.meta.url);
+          Collectors._envEnum = existsSync(u) ? JSON.parse(readFileSync(u, "utf8")) : [];
+        }
+        for (const e of Collectors._envEnum) {
+          out.push({ signalKey: (e.h >>> 0) % 2048, plaintext: `"${e.v}"`, elapsed: 0 });
+        }
+      } catch (_) { /* pas d'énumération dispo */ }
+    }
 
     return out;
   }

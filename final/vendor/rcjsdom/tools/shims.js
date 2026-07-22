@@ -472,6 +472,7 @@ function makePort(scheduler, dbg) {
       const ports = extractPorts(transfer, transfer2);
       const target = port._partner;
       if (dbg) dbg(`port send ports=${ports.length} ${preview(data)}`);
+      if (process.env.RC_PORTHOOK === '1' && global.__port) { try { global.__port(data); } catch (_) {} }
       if (!target) return;
       const deliver = () => {
         const ev = { data, ports, type: 'message', target, source: port, origin: '' };
@@ -716,6 +717,24 @@ function installWorkerShim(window, cfg) {
       if (process.env.RC_WORKER_GRAPH === '1') { try { enrichWorkerGlobal(g, window); } catch (_) {} }
       if (global.__cc) { try { g.__cc = global.__cc; } catch (_) {} }   // canal capture cipher (RC_CIPHER_CAP)
       if (global.__cc2) { try { g.__cc2 = global.__cc2; } catch (_) {} } // canal capture hashString
+      if (global.__b64) { try { g.__b64 = global.__b64; } catch (_) {} } // canal capture encodeur base64 (reverse field16)
+      if (global.__dsc) { try { g.__dsc = global.__dsc; } catch (_) {} } // canal capture deriveSignalCode (reverse field16)
+      if (global.__bloomAdd) { try { g.__bloomAdd = global.__bloomAdd; } catch (_) {} } // canal capture bloom Ot.add (field16)
+      if (global.__bloomOut) { try { g.__bloomOut = global.__bloomOut; } catch (_) {} } // canal capture bloom Ot.toString (field16)
+      if (global.__f16enc) { try { g.__f16enc = global.__f16enc; } catch (_) {} } // canal capture encodeur field16
+      if (global.__f16msg) { try { g.__f16msg = global.__f16msg; } catch (_) {} } // canal capture message field16
+      if (process.env.RC_U8HOOK === '1' && g.Uint8Array) { // hook alloc Uint8Array ~2660 DANS le worker (cipher field16)
+        try {
+          const OU = g.Uint8Array;
+          g.Uint8Array = new Proxy(OU, { construct(T, args) { const o = Reflect.construct(T, args); try { const n = typeof args[0] === 'number' ? args[0] : (o && o.length); if (n >= 2400 && n <= 2900 && global.__u8) global.__u8(n, 'WORKER\n' + (new Error()).stack); } catch (_) {} return o; } });
+        } catch (_) {}
+      }
+      if (process.env.RC_JOINHOOK === '1' && g.Array && g.Array.prototype) { // hook join DANS le worker (field16 y est construit)
+        try {
+          const AP = g.Array.prototype, oj = AP.join;
+          AP.join = function (sep) { const r = oj.apply(this, arguments); try { if (typeof r === 'string' && r.length > 2500 && global.__join) global.__join(r.length, r.slice(0, 24), 'WORKER\n' + (new Error()).stack); } catch (_) {} return r; };
+        } catch (_) {}
+      }
       // RC_COV : pré-seed le collecteur de couverture du worker vers un tableau Node partagé (lu par field16_jsdom)
       if (process.env.RC_COV) { try { g.__COVSET = global.__RC_WORKER_COV = global.__RC_WORKER_COV || []; } catch (_) {} }
       this._workerGlobal = g;

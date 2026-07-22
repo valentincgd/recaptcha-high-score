@@ -45,6 +45,9 @@ export function solveViaJsdom({
   hl = "fr",
   mode = "enterprise",
   executeTimes,
+  mouse = false,        // souris simulée → remplit le champ 25 + signaux comportementaux (+score)
+  mouseMs,              // durée de la trajectoire souris (défaut générateur 1600)
+  preExecuteMs,         // warm-up avant execute() : laisse la session vivre (+score, champ 20)
   timeoutMs = 150000,
   verbose = false,
 }) {
@@ -62,11 +65,16 @@ export function solveViaJsdom({
       RC_ORIGIN: origin,
       RC_HL: hl,
       RC_MODE: mode,
+      // Cache scripts/ rafraîchi 1× par le serveur (cacheReady) → pas de re-download concurrent
+      // (4 cold spawns parallèles réécrivant scripts/ = fichier corrompu → 500). Overridable.
+      RC_NO_FETCH: process.env.RC_NO_FETCH ?? "1",
     };
     if (pageUrl) env.RC_PAGE_URL = pageUrl;
     if (proxy) env.RC_PROXY = proxy;
     if (executeTimes) env.RC_EXECUTE_TIMES = String(executeTimes);
-    // RC_NO_FETCH laissé libre : par défaut le générateur re-télécharge le vrai script.
+    if (mouse) env.RC_MOUSE = "1";
+    if (mouseMs) env.RC_MOUSE_MS = String(mouseMs);
+    if (preExecuteMs) env.RC_PRE_EXECUTE_MS = String(preExecuteMs);
 
     const child = spawn(process.execPath, [BRIDGE], { cwd: PARENT_ROOT, env });
     let out = "";

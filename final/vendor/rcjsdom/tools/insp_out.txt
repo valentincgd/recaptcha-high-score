@@ -1,0 +1,58 @@
+--- run recaptcha__fr.js in node:vm ---
+window.postMessage: recaptcha-setup | ports=0
+PORT 1p1 start()
+loaded OK (no fatal throw)
+Main.init: function arity 2
+missing (top20): AsyncContext AsyncContext.Snapshot ___grecaptcha_cfg.gor ___grecaptcha_cfg.enterprise ___grecaptcha_cfg.es
+mainArg len=35839
+PORT 2p1 onmessage= set
+PORT 2p2 → 0
+★★ new Worker(https://www.google.com/recaptcha/enterprise/webworker.js?hl=) → exécute le script en mode worker
+WORKER→anchor: recaptcha-setup ports=1
+★★ harness grab le port du worker → écoute réponses + routera les requêtes
+PORT 3p2 start()
+PORT 3p1 start()
+  ✓ script worker chargé
+anchor Worker.addEventListener(message)
+window.postMessage: recaptcha-setup | ports=1 chan4p2
+★★ PARENT récupère le port de l'anchor (chan4) et écoute
+PORT 4p2 start()
+PORT 4p1 start()
+=== INSPECT au point d'envoi ===
+A type=object keys=C,X,U,M,l,W,H,O
+A.v = function(B,z){return this.M=z,{value:B}}
+P[34] = function(B,z,K,J,C,b,A,v,T){return(((B&23)==(T=[3,35,1],B)&&(v=V[T[1]](5,z.name,z.id)),B)>>T[2]&T[0])==T[2]&&(v=l[T[1]](9,function(Q,n){if(Q[(n=[1,"M","v"],n)[1]]==n[0])return Q[n[2]](Y[7](8,n[0],z,new mg(b,J,C)),z);(K[n[A= Q.X,2]].postMessage(A),Q).R()})),v}
+b type=object keys=m,P,H,W,A,v,X,i,M
+b.v (port envoi) __chan=4 __side=p1
+b.A.port1 __chan=4p1 | port2 __chan=4p2
+=== START STEPPING depuis __bgReqMsg ===
+★REQ C id=b010w9psnr18 | z=obj{M,v,SK} {"M":[],"v":"[\"conf\",null,\"6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb\",0,null, | msg={}
+  P[34] result type=object keys= then=true
+  thenable proto methods=constructor,then,catch,finally
+  STEP 65 → vb.send col=493
+=== 120 steps atteints. Chaîne d'appels (fns uniques) ===
+(anon) → dJ.v → B.next → T → get → vb.send
+★REQ z id=t06lecd9dhyw | z=obj{v} {"v":[["recaptcha/enterprise.js",3],["recaptcha/releases/A7KpaEASfhDcK0nXxgQEyyY | msg={}
+  P[34] result type=object keys= then=true
+  thenable proto methods=constructor,then,catch,finally
+Main.init() returned: undefined 
+★★ PARENT signale prêt (origin auth.ticketmaster)
+PORT 3p2 start()
+★★ PARENT poste recaptcha-setup sur le port
+PORT 4p2 → recaptcha-setup
+REJECT: reCAPTCHA Timeout (C)
+REJECT: reCAPTCHA Timeout (z)
+PORT 4p1 RECV: recaptcha-setup
+PORT 4p2 RECV: recaptcha-setup +ports
+REJECT: 1
+timers drainés, tokens 0*A*: aucun
+cfg keys après run: enterprise
+listeners enregistrés: test×0
+missing PENDANT run (nouveaux): el.childNodes W.decodeURI().replace W.performance.timeOrigin W.performance.now closure_listenable_73881 O O.add O.add().key el.contentWindow el.contentWindow.JSON el.contentWindow.JSON.stringify el.closure_listenable_73881 el.O el.O.add el.O.add().key el.contentWindow.document el.contentWindow.JSON.stringify().then el.contentWindow.JSON.parse el.contentWindow.JSON.parse().0 el.contentWindow.JSON.parse().1 el.contentWindow.JSON.parse().2 el.contentWindow.JSON.parse().0.0
+botguard.bg appels (main): 0
+anchorReqs reçus sur port parent: 1 ["recaptcha-setup"]
+workers créés: 1
+  worker bg.bg appels: 0 []
+blobs créés: 0 
+pas de worker source capturée
+=== fin trace ===

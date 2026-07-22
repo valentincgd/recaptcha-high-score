@@ -51,19 +51,21 @@ let MODE     = process.env.RC_MODE    || 'enterprise';   // 'enterprise' (enterp
 // X-Browser-Validation : OFF par défaut. Un vrai Brave ne l'envoie pas ; l'injecter par-dessus un
 // fingerprint jsdom faible ajoute une incohérence qui peut BAISSER le score. RC_XBV_INJECT=1 pour tester.
 let INJECT_XBV = process.env.RC_XBV_INJECT === '1';
-// Simulation de mouvements souris → remplit le champ 25 ([[[5006,N]]]) + signaux VM. ON par défaut.
-let MOUSE = process.env.RC_MOUSE !== '0';
+// Simulation de mouvements souris → remplit le champ 25 ([[[5006,N]]]) + signaux VM.
+// OFF par défaut (mode « 0 délai »). RC_MOUSE=1 pour réactiver (meilleur score, +MOUSE_MS de latence).
+let MOUSE = process.env.RC_MOUSE === '1';
 let MOUSE_MS = Number(process.env.RC_MOUSE_MS) || 1600;
 // Mode de trajectoire souris : 'human' (Bézier/Fitts/tremor, défaut) | 'robotic' (ancien sinus déterministe, pour A/B)
 let MOUSE_MODE = process.env.RC_MOUSE_MODE || 'human';
 // Nombre d'appels execute() successifs dans LA MÊME session. Le 1er token v3 est « froid » (peu de
 // signaux) → score bas ; les suivants scorent plus haut (la VM a accumulé timing/comportement).
 // Observé : 1er reload=0.3, 2ᵉ=0.7. On garde le DERNIER token. RC_EXECUTE_TIMES pour changer.
-let EXECUTE_TIMES  = Number(process.env.RC_EXECUTE_TIMES) || 2;
-let EXECUTE_GAP_MS = Number(process.env.RC_EXECUTE_GAP_MS) || 3000;   // pause entre deux execute()
+// Mode « 0 délai » : 1 seul execute() par défaut (token froid, score plus bas). RC_EXECUTE_TIMES=2 pour réchauffer.
+let EXECUTE_TIMES  = Number(process.env.RC_EXECUTE_TIMES) || 1;
+let EXECUTE_GAP_MS = Number(process.env.RC_EXECUTE_GAP_MS || 0);   // pause entre deux execute() (0 par défaut)
 // Warm-up AVANT execute() : laisse la session « vivre » (temps + événements non-pointeur) pour accumuler
 // des samples timing/événements dans le champ 20 (le vrai body a un compteur ~2× le nôtre = session + longue).
-let PRE_EXECUTE_MS = Number(process.env.RC_PRE_EXECUTE_MS || 4000);
+let PRE_EXECUTE_MS = Number(process.env.RC_PRE_EXECUTE_MS || 0);   // mode « 0 délai » : pas de warm-up (RC_PRE_EXECUTE_MS=4000 pour réactiver)
 // A/B « body minimal » (hypothèse BypassV3 : le fingerprint synthétique DESSERT le score). RC_MINIMAL_BODY=1
 // réécrit le body /reload sortant en ne gardant QUE certains champs (défaut 1,2,6,8,14 = comme BypassV3).
 // RC_MINIMAL_KEEP="1,2,6,7,8,14,21" pour tester « sans fingerprint MAIS avec la confiance (7/21) ».
@@ -155,6 +157,18 @@ const log = (() => {
   const t0 = Date.now();
   return (tag, msg) => { if (!QUIET) console.log(`[+${String(Date.now() - t0).padStart(5)}ms] ${tag.padEnd(14)} ${msg}`); };
 })();
+
+// step() — journal de HAUT NIVEAU des étapes du chargement du captcha. Contrairement à log() il :
+//   - écrit sur stderr (jamais stdout → ne pollue pas la ligne __FINAL_JSON__ lue par final_bridge.cjs)
+//   - est TOUJOURS émis, même quand QUIET=true (le bridge passe quiet:true) → étapes visibles dans stderr
+//   - est numéroté + horodaté depuis le début du run() pour suivre la progression et repérer un blocage.
+// RC_NO_STEPLOG=1 pour couper.
+const steps = { t0: Date.now(), n: 0 };
+function step(msg) {
+  if (process.env.RC_NO_STEPLOG === '1') return;
+  steps.n++;
+  process.stderr.write(`[STEP ${String(steps.n).padStart(2)} +${String(Date.now() - steps.t0).padStart(5)}ms] ${msg}\n`);
+}
 
 // Les erreurs async du VM reCAPTCHA (Promises/worker) peuvent échapper à jsdom et tuer Node.
 // On les loggue sans crasher, pour que le harnais continue jusqu'au /reload ou au timeout.
@@ -360,6 +374,7 @@ function makeLoader(cache, captures) {
           const hasToken = /recaptcha-token/.test(html) || /"rresp"|cfg\['?rresp'?\]|botguard|bgdata|"finput"/.test(html);
           const m = html.match(/id="recaptcha-token"[^>]*value="([^"]*)"/);
           captures.anchor = { bytes: html.length, hasToken, tokenPreview: m ? m[1].slice(0, 24) : null };
+          if (process.env.RC_DUMP_ANCHOR) { try { require('fs').writeFileSync(process.env.RC_DUMP_ANCHOR, String(u)); } catch (_) {} }
           log('anchor-resp', `${html.length}B token=${hasToken}${m ? ' value=' + m[1].slice(0, 20) + '…' : ''}`);
           if (!hasToken && html.length < 4000) log('anchor-body', html.replace(/\s+/g, ' ').slice(0, 300));
           return buf;
@@ -462,7 +477,11 @@ function instrumentNetwork(window, captures, label = 'main') {
       log('xhr', `[${label}] ${info.method} ${String(info.url).slice(0, 84)}`);
       const isReload = info.url && /\/reload\?/.test(info.url);
       if (isReload) {
+        if (process.env.RC_RELOAD_STACK === '1') { try { console.error('RELOAD_SEND_STACK:\n' + (new Error().stack || '').split('\n').slice(0, 20).join('\n')); } catch (_) {} }
         onReload(info.url, body, captures, `xhr/${label}`, info.headers);
+        // RC_CAPTURE_ONLY=1 : capture le body et NE L'ENVOIE PAS (pas d'erreur, pas d'auto-replay). L'anchor
+        // n'est donc PAS consommé par jsdom → on peut re-poster le body genuine soi-même (soumission unique).
+        if (process.env.RC_CAPTURE_ONLY === '1') { log('reload-capture', 'body capturé, envoi jsdom bloqué (capture-only)'); return; }
         // RC_RELOAD_CHROME=1 : ne PAS envoyer le reload via node-tls (détecté). On a le body ;
         // il sera rejoué via un vrai Chrome en fin de run(). jsdom XHR reste pending (OK, grâce timeout).
         if (process.env.RC_RELOAD_CHROME === '1') { log('reload-skip', 'envoi jsdom bloqué → replay Chrome exclusif'); return; }
@@ -487,7 +506,9 @@ function instrumentNetwork(window, captures, label = 'main') {
       this.addEventListener('load', () => {
         if (isReload) {
           log('reload-resp', `HTTP ${this.status} (${(this.responseText || '').length}B)`);
+          step(`         réponse /reload : HTTP ${this.status} (${(this.responseText || '').length}B)${this.status === 200 ? ' ✔ accepté' : ''}`);
           captures.reloadResponse = { status: this.status, text: this.responseText };
+          if (process.env.RC_DUMP_RRESP) { try { require('fs').writeFileSync(process.env.RC_DUMP_RRESP, String(this.responseText || '')); } catch (_) {} }
           if (DEBUG) log('reload-body', String(this.responseText || '').replace(/\s+/g, ' ').slice(0, 200));
         }
       });
@@ -519,6 +540,43 @@ function instrumentNetwork(window, captures, label = 'main') {
   }
   // sendBeacon (au cas où /reload passe par là)
   const nav = window.navigator;
+  // RC_FP_* : injection contrôlée d'attributs fingerprint (reverse des signaux device field16).
+  // Un attribut à la fois → on isole quel signal change. Env-guardé (inerte en prod).
+  if (process.env.RC_FP_INJECT === '1') {
+    const def = (obj, prop, val) => { try { Object.defineProperty(obj, prop, { get: () => val, configurable: true }); } catch (_) {} };
+    if (process.env.RC_FP_UA)        def(nav, 'userAgent', process.env.RC_FP_UA);
+    if (process.env.RC_FP_PLATFORM)  def(nav, 'platform', process.env.RC_FP_PLATFORM);
+    if (process.env.RC_FP_HC)        def(nav, 'hardwareConcurrency', Number(process.env.RC_FP_HC));
+    if (process.env.RC_FP_DM)        def(nav, 'deviceMemory', Number(process.env.RC_FP_DM));
+    if (process.env.RC_FP_LANG)      { def(nav, 'language', process.env.RC_FP_LANG); def(nav, 'languages', process.env.RC_FP_LANG.split(',')); }
+    if (process.env.RC_FP_W)         { def(window, 'innerWidth', Number(process.env.RC_FP_W)); try { def(window.screen, 'width', Number(process.env.RC_FP_W)); def(window.screen, 'availWidth', Number(process.env.RC_FP_W)); } catch (_) {} }
+    if (process.env.RC_FP_H)         { def(window, 'innerHeight', Number(process.env.RC_FP_H)); try { def(window.screen, 'height', Number(process.env.RC_FP_H)); def(window.screen, 'availHeight', Number(process.env.RC_FP_H)); } catch (_) {} }
+    if (process.env.RC_FP_DPR)       def(window, 'devicePixelRatio', Number(process.env.RC_FP_DPR));
+    if (process.env.RC_FP_WEBGL_VENDOR || process.env.RC_FP_WEBGL_RENDERER) {
+      const vend = process.env.RC_FP_WEBGL_VENDOR, rend = process.env.RC_FP_WEBGL_RENDERER;
+      try {
+        const HP = window.HTMLCanvasElement && window.HTMLCanvasElement.prototype;
+        if (HP) {
+          const orig = HP.getContext;
+          HP.getContext = function (type, ...a) {
+            const ctx = orig ? orig.call(this, type, ...a) : null;
+            if (ctx && /webgl/i.test(String(type))) {
+              const og = ctx.getParameter && ctx.getParameter.bind(ctx);
+              ctx.getParameter = function (p) {
+                if (p === 0x9245 && vend) return vend;     // UNMASKED_VENDOR_WEBGL
+                if (p === 0x9246 && rend) return rend;     // UNMASKED_RENDERER_WEBGL
+                if (p === 0x1F00 && vend) return vend;     // VENDOR
+                if (p === 0x1F01 && rend) return rend;     // RENDERER
+                return og ? og(p) : null;
+              };
+            }
+            return ctx;
+          };
+        }
+      } catch (_) {}
+    }
+    log('fp-inject', `UA=${!!process.env.RC_FP_UA} plat=${process.env.RC_FP_PLATFORM||''} W=${process.env.RC_FP_W||''} webgl=${process.env.RC_FP_WEBGL_RENDERER?'y':'n'}`);
+  }
   const origBeacon = nav.sendBeacon && nav.sendBeacon.bind(nav);
   try {
     nav.sendBeacon = function (url, data) {
@@ -579,7 +637,10 @@ function onReload(url, body, captures, via, headers) {
   const buf = toBuffer(body);
   if (!buf) { log('reload!', `body /reload capturé via ${via} mais type non-binaire (${typeof body})`); return; }
   captures.reload = { url: String(url), body: buf, via, headers: headers || {} };
+  if (process.env.RC_DUMP_RELOAD) { try { require('fs').writeFileSync(process.env.RC_DUMP_RELOAD, buf); } catch (_) {} }
+  if (process.env.RC_DUMP_META) { try { require('fs').writeFileSync(process.env.RC_DUMP_META, JSON.stringify({ url: String(url), headers: headers || {}, via })); } catch (_) {} }
   log('reload!', `body /reload CAPTURÉ via ${via} (${buf.length} octets)`);
+  step(`étape 16 — body /reload capturé via ${via} (${buf.length} octets) → extraction du champ 16…`);
   if (process.env.RC_VERIFY_BODY === '1') {
     const h = require('crypto').createHash('sha256').update(buf).digest('hex').slice(0, 16);
     log('xhr-body', `/reload CAPTURÉ à l'XHR: ${buf.length} octets sha256=${h}  (comparer avec bridge-body)`);
@@ -589,6 +650,7 @@ function onReload(url, body, captures, via, headers) {
     captures.field16 = field16;
     const summary = pb.summarize(buf);
     log('field16', field16 ? `len=${field16.length} : ${field16.slice(0, 48)}…` : '(absent du protobuf)');
+    step(field16 ? `étape 17 — champ 16 extrait (len=${field16.length})` : 'étape 17 — champ 16 ABSENT du protobuf /reload');
     captures.reloadSummary = summary;
     if (DEBUG) {
       log('payload', 'protobuf /reload décodé (' + Object.keys(summary).length + ' champs) :');
@@ -655,21 +717,30 @@ async function run(opts = {}) {
   if (opts.tls !== undefined) TLS_CHROME = opts.tls;
   if (opts.tlsClient) TLS_CID = opts.tlsClient;
 
+  // Réinitialise le chrono des étapes pour CE run.
+  steps.t0 = Date.now(); steps.n = 0;
+  step(`run() démarré — sitekey=${SITE_KEY.slice(0, 12)}… action='${ACTION}' mode=${MODE} hl=${HL} proxy=${PROXY ? 'oui' : 'non'} tls=${TLS_CHROME ? TLS_CID : 'off'} probe=${PROBE}`);
+
   // Re-télécharge le vrai recaptcha__<hl>.js frais À CHAQUE RUN (le cache disque est écrasé).
   // RC_NO_FETCH=1 pour réutiliser le cache existant (offline / debug rapide).
   if (process.env.RC_NO_FETCH !== '1') {
+    step('étape 1 — téléchargement du vrai recaptcha__*.js (frais)…');
     try {
       const { fetchScripts } = require('./tools/fetch_scripts');
       const m = await fetchScripts({ quiet: true });
       log('fetch', `recaptcha__${m.hl}.js re-téléchargé (version=${m.version}, ${m.scriptBytes}B)`);
     } catch (e) { log('fetch-err', `re-download KO: ${e.message} (fallback cache existant)`); }
+  } else {
+    step('étape 1 — téléchargement ignoré (RC_NO_FETCH=1, cache réutilisé)');
   }
 
   const cache = loadCache();
   log('cache', `version=${cache.meta.version} hl=${cache.meta.hl} main=${cache.meta.scriptBytes}B`);
+  step(`étape 2 — cache chargé (version=${cache.meta.version} hl=${cache.meta.hl} main=${cache.meta.scriptBytes}B)`);
 
   // Pont TLS Chrome : démarre le proxy local MITM (jsdom + nos fetch sortent en JA3/JA4+H2 Chrome).
   if (TLS_CHROME) {
+    step('étape 3 — démarrage du pont TLS Chrome (MITM local)…');
     try {
       const ch = CHROME_HEADERS || {};
       const bridgeIdentity = {
@@ -690,16 +761,20 @@ async function run(opts = {}) {
   }
 
   // Vérif IP de sortie (celle que Google verra sur /reload → détermine le score)
+  step('étape 4 — vérification de l\'IP de sortie…');
   if (PROXY || BRIDGE) {
     try {
       const ipr = await netGet('https://api.ipify.org?format=json', { 'User-Agent': IDENTITY.userAgent });
       const ipj = await ipr.json();
       log('proxy', `IP de sortie = ${ipj.ip}${BRIDGE ? ' (via TLS Chrome)' : ''}${PROXY ? ' [résidentiel]' : ''}`);
-    } catch (e) { log('proxy-err', `IP check KO: ${e.message} (on continue)`); }
+      step(`         IP de sortie = ${ipj.ip}${PROXY ? ' [résidentiel]' : ''}`);
+    } catch (e) { log('proxy-err', `IP check KO: ${e.message} (on continue)`); step(`         IP check KO: ${e.message}`); }
   } else {
     log('proxy', 'aucun (IP directe/datacenter — score plafonné)');
+    step('         aucun proxy (IP directe/datacenter — score plafonné)');
   }
 
+  step('étape 5 — pré-fetch du webworker.js…');
   const worker = await prefetchWorker(cache.meta.version, cache.meta.hl);
 
   const captures = { requests: [], field16: null, reload: null };
@@ -864,6 +939,7 @@ async function run(opts = {}) {
 
   const pageUrl = opts.pageUrl || PAGE_URL || (ORIGIN + '/event/' + EVENT_ID);
   log('page', `URL vue par la VM = ${pageUrl}  (domain=${new URL(pageUrl).host})`);
+  step(`étape 6 — construction de la fenêtre jsdom (page = ${new URL(pageUrl).host})…`);
   const cookieJar = loadCookieJar();   // jar PERSISTANT → _GRECAPTCHA vieillit entre les runs (confiance)
   const dom = new JSDOM(html, {
     url: pageUrl,
@@ -876,8 +952,50 @@ async function run(opts = {}) {
     virtualConsole: vconsole,
   });
   const { window } = dom;
+  // RC_DUMP_BTOA : capture TOUTES les sorties btoa >=200 chars (bytecode VM + tokens 05AL/0aAL SEND).
+  if (process.env.RC_DUMP_BTOA) {
+    try {
+      window.__btoaCap = [];
+      const ob = window.btoa ? window.btoa.bind(window) : (s) => Buffer.from(s, 'binary').toString('base64');
+      window.btoa = function (s) { const r = ob(s); try { if (typeof r === 'string' && r.length >= 200) window.__btoaCap.push(r); } catch (_) {} return r; };
+    } catch (_) {}
+  }
+  // RC_DUMP_ATOB : capture les INPUTS atob >=200 chars (= bytecode VM main décodé + blobs). L'input atob est la
+  // string base64 AVANT décodage → c'est là que le bytecode main passe (le script le décode via atob).
+  if (process.env.RC_DUMP_ATOB) {
+    try {
+      window.__atobCap = [];
+      const oa = window.atob ? window.atob.bind(window) : (s) => Buffer.from(s, 'base64').toString('binary');
+      window.atob = function (s) { try { if (typeof s === 'string' && s.length >= 200) window.__atobCap.push(s); } catch (_) {} return oa(s); };
+    } catch (_) {}
+  }
   if (global.__cc) { try { window.__cc = global.__cc; } catch (_) {} }   // canal capture cipher (RC_CIPHER_CAP)
   if (global.__cc2) { try { window.__cc2 = global.__cc2; } catch (_) {} } // canal capture hashString
+  if (global.__b64) { try { window.__b64 = global.__b64; } catch (_) {} } // canal capture encodeur base64 (reverse field16)
+  if (global.__dsc) { try { window.__dsc = global.__dsc; } catch (_) {} } // canal capture deriveSignalCode (reverse field16)
+  if (global.__bloomAdd) { try { window.__bloomAdd = global.__bloomAdd; } catch (_) {} } // canal capture bloom filter Ot.add (field16)
+  if (global.__bloomOut) { try { window.__bloomOut = global.__bloomOut; } catch (_) {} } // canal capture bloom Ot.toString (field16)
+  if (global.__f16enc) { try { window.__f16enc = global.__f16enc; } catch (_) {} } // canal capture encodeur field16
+  if (global.__f16msg) { try { window.__f16msg = global.__f16msg; } catch (_) {} } // canal capture message field16
+  // RC_U8HOOK : logge les allocations Uint8Array de taille ~2660 (= buffer sortie cipher field16) + stack.
+  if (process.env.RC_U8HOOK === '1') {
+    try {
+      const OU = window.Uint8Array;
+      const P = new Proxy(OU, { construct(T, args) { const o = Reflect.construct(T, args); try { const n = typeof args[0] === 'number' ? args[0] : (o && o.length); if (n >= 2400 && n <= 2900 && global.__u8) global.__u8(n, (new Error()).stack); } catch (_) {} return o; } });
+      window.Uint8Array = P;
+    } catch (_) {}
+  }
+  // RC_JOINHOOK : pinpoint le builder du field16 — logge tout Array.join() produisant une string longue.
+  if (process.env.RC_JOINHOOK === '1') {
+    try {
+      const AP = window.Array.prototype, oj = AP.join;
+      AP.join = function (sep) {
+        const r = oj.apply(this, arguments);
+        try { if (typeof r === 'string' && r.length > 2500 && global.__join) global.__join(r.length, r.slice(0, 24), (new Error()).stack); } catch (_) {}
+        return r;
+      };
+    } catch (_) {}
+  }
 
   // rc::a (Idx 4) + localStorage réaliste (Idx 5 length, Idx 58 clé échantillonnée)
   try {
@@ -905,14 +1023,17 @@ async function run(opts = {}) {
 
   captures.frames = new Set();
   attach(window, captures, cache, worker, 'main');
+  step('étape 7 — shims navigateur installés (frame main), capture réseau active');
 
   // Injecte le loader frais (enterprise.js|api.js) pour CETTE clé/mode ; il insérera
   // <script src=…recaptcha__*.js> → servi par le cache.
+  step(`étape 8 — récupération du loader ${modeInfo().loader}…`);
   const loaderSrc = await fetchLoader(SITE_KEY);
   log('inject', `${modeInfo().loader} (loader, mode=${MODE})`);
   const s = window.document.createElement('script');
   s.textContent = loaderSrc;
   window.document.head.appendChild(s);
+  step(`étape 9 — loader injecté → chargement de recaptcha__${HL}.js (le VM démarre)`);
 
   // Attendre que grecaptcha[.enterprise] soit prêt, puis execute()
   const grec = () => modeInfo().grec(window);
@@ -951,6 +1072,10 @@ async function run(opts = {}) {
       busy = true;
       try {
         const u = new URL(req.url, 'http://x'); const action = u.searchParams.get('action') || ACTION;
+        // Proxy TOURNANT par token : on mute l'upstream du pont TLS à chaud avant l'execute() →
+        // le /reload sort par cette IP, SANS rebooter jsdom (fenêtre reste chaude). Vide = IP directe.
+        const qProxy = u.searchParams.get('proxy');
+        if (qProxy !== null && BRIDGE) { PROXY = parseProxy(qProxy) || null; tlsBridge.setProxy(PROXY); }
         const r = await executeOnce(action); served++;
         res.writeHead(200, { 'content-type': 'application/json' });
         res.end(JSON.stringify({ token: r.token || null, reloadStatus: r.reloadStatus, field16Len: r.field16 ? r.field16.length : 0, clientHints }));
@@ -965,33 +1090,42 @@ async function run(opts = {}) {
   }
 
   const deadline = Date.now() + TIMEOUT;
+  step(`étape 10 — attente que grecaptcha${MODE === 'standard' ? '' : '.enterprise'} soit prêt (timeout ${TIMEOUT}ms)…`);
   await new Promise((resolve) => {
     const tick = setInterval(() => {
       // fini quand la séquence de N execute() est terminée (dernier token capturé), ou timeout
-      if (captures.__allDone || Date.now() > deadline) { clearInterval(tick); return resolve(); }
+      if (captures.__allDone || Date.now() > deadline) {
+        clearInterval(tick);
+        if (!captures.__allDone) step(`étape 10 — TIMEOUT (${TIMEOUT}ms) atteint sans achever la séquence execute()`);
+        return resolve();
+      }
       if (!PROBE && !captures.__executed && grecaptchaReady()) {
         captures.__executed = true;
+        step('étape 11 — grecaptcha prêt → lancement de la séquence execute()');
         const g = grec();
         // Un execute() = un /reload → un token frais. On en enchaîne EXECUTE_TIMES dans la MÊME
         // session : le 1er est « froid » (score bas), les suivants réchauffent le score. Dernier gardé.
         const doExecute = (n) => new Promise((res) => {
           log('execute', `#${n}/${EXECUTE_TIMES} grecaptcha${MODE === 'standard' ? '' : '.enterprise'}.execute(${SITE_KEY.slice(0, 12)}…, {action:'${ACTION}'})`);
+          step(`étape 14 — execute() #${n}/${EXECUTE_TIMES} (action='${ACTION}') → POST /reload…`);
           try {
             g.ready(() => {
               Promise.resolve(g.execute(SITE_KEY, { action: ACTION }))
-                .then(tok => { captures.token = tok; captures.tokenCount = (captures.tokenCount || 0) + 1; log('token', `#${n} ` + String(tok).slice(0, 40) + '…'); res(tok); })
-                .catch(e => { log('execute-err', e.message); res(null); });
+                .then(tok => { captures.token = tok; captures.tokenCount = (captures.tokenCount || 0) + 1; log('token', `#${n} ` + String(tok).slice(0, 40) + '…'); step(`étape 15 — token #${n} reçu (${String(tok).slice(0, 24)}…)`); res(tok); })
+                .catch(e => { log('execute-err', e.message); step(`étape 15 — execute() #${n} ERREUR: ${e.message}`); res(null); });
             });
-          } catch (e) { log('execute-err', e.message); res(null); }
+          } catch (e) { log('execute-err', e.message); step(`étape 14 — execute() #${n} ERREUR: ${e.message}`); res(null); }
         });
         (async () => {
           // Warm-up : fait « vivre » la page (temps + événements non-pointeur : scroll/focus/visibility/rAF)
           // pour accumuler des samples timing/événements dans le champ 20, SANS toucher le champ 25 (souris).
           if (PRE_EXECUTE_MS > 0) {
+            step(`étape 12 — warm-up session ${PRE_EXECUTE_MS}ms (champ 20)…`);
             try { await sessionWarmup(window, PRE_EXECUTE_MS); log('warmup', `${PRE_EXECUTE_MS}ms d'activité pré-execute (champ 20)`); }
             catch (e) { log('warmup-err', e.message); }
           }
           if (MOUSE) {
+            step(`étape 13 — simulation souris ${MOUSE_MS}ms (mode ${MOUSE_MODE}, champ 25)…`);
             try { const c = await simulateMouse(window, MOUSE_MS); log('mouse', `${c} pointermove simulés (champ 25)`); }
             catch (e) { log('mouse-err', e.message); }
           }
@@ -1003,13 +1137,56 @@ async function run(opts = {}) {
               await new Promise(r => setTimeout(r, EXECUTE_GAP_MS));
             }
           }
-          // petite grâce pour laisser remonter le dernier rresp si execute() a résolu avant le reload-resp
-          await new Promise(r => setTimeout(r, 800));
+          // Grâce fonctionnelle (PAS un délai de score) : attend que la réponse HTTP /reload remonte
+          // pour renseigner reloadStatus/accepted. On boucle court jusqu'à l'avoir, plafonné par RC_GRACE_MS.
+          const graceMax = Number(process.env.RC_GRACE_MS || 500);
+          const graceDl = Date.now() + graceMax;
+          while (Date.now() < graceDl && !captures.reloadResponse) await new Promise(r => setTimeout(r, 20));
           captures.__allDone = true;
         })();
       }
     }, 200);
   });
+
+  // RC_DUMP_F22 : dumpe la LISTE EXACTE des valeurs insérées dans le bloom field22 (hook Vi.prototype.add
+  // du script recaptcha_f22dump.js → window.__F22). Sert au reverse byte-exact de field22.
+  if (process.env.RC_DUMP_F22) {
+    try {
+      const vals = (window && window.__F22) ? window.__F22.slice() : [];
+      fs.writeFileSync(process.env.RC_DUMP_F22, JSON.stringify(vals));
+      log('f22dump', `${vals.length} valeurs bloom field22 capturées → ${process.env.RC_DUMP_F22}`);
+    } catch (e) { log('f22dump-err', e.message); }
+  }
+  if (process.env.RC_DUMP_DSC) {
+    try {
+      const vals = (window && window.__DSC) ? window.__DSC.slice() : [];
+      fs.writeFileSync(process.env.RC_DUMP_DSC, JSON.stringify(vals));
+      log('dscdump', `${vals.length} appels deriveSignalCode capturés → ${process.env.RC_DUMP_DSC}`);
+    } catch (e) { log('dscdump-err', e.message); }
+  }
+  if (process.env.RC_DUMP_S55) {
+    try {
+      const vals = (window && window.__S55) ? window.__S55.slice() : [];
+      fs.writeFileSync(process.env.RC_DUMP_S55, JSON.stringify(vals));
+      log('s55dump', `${vals.length} JSON.stringify [[[type,… capturés → ${process.env.RC_DUMP_S55}`);
+    } catch (e) { log('s55dump-err', e.message); }
+  }
+  if (process.env.RC_DUMP_BTOA) {
+    try {
+      const vals = (window && window.__btoaCap) ? window.__btoaCap.slice() : [];
+      fs.writeFileSync(process.env.RC_DUMP_BTOA, JSON.stringify(vals));
+      const bc = vals.filter(v => v.length >= 800).length; const s05 = vals.filter(v => /05AL|0aAL/.test(v)).length;
+      log('btoadump', `${vals.length} btoa capturés (${bc} gros >=800, ${s05} avec 05AL/0aAL) → ${process.env.RC_DUMP_BTOA}`);
+    } catch (e) { log('btoadump-err', e.message); }
+  }
+  if (process.env.RC_DUMP_ATOB) {
+    try {
+      const vals = (window && window.__atobCap) ? window.__atobCap.slice() : [];
+      fs.writeFileSync(process.env.RC_DUMP_ATOB, JSON.stringify(vals));
+      const bc = vals.filter(v => v.length >= 800).length;
+      log('atobdump', `${vals.length} atob capturés (${bc} gros >=800) → ${process.env.RC_DUMP_ATOB}`);
+    } catch (e) { log('atobdump-err', e.message); }
+  }
 
   // ---- #2 : rejouer le /reload via un VRAI Chrome (TLS/H2 authentique) --------------------
   // Le token jsdom part via node-tls-client (détecté). Avec RC_RELOAD_CHROME=1, on rejoue le body
@@ -1104,6 +1281,7 @@ async function run(opts = {}) {
       } else log('HFDUMP', 'window.__HFDUMP absent (pas de branche HF exécutée)');
     } catch (e) { log('hfdump-err', e.message); }
   }
+  step(`étape 18 — terminé : token=${captures.token ? 'oui' : 'non'} field16=${captures.field16 ? 'len=' + captures.field16.length : 'non'} reload=HTTP ${captures.reloadResponse ? captures.reloadResponse.status : '—'} accepté=${accepted ? 'oui' : 'non'}`);
   try { window.close(); } catch (_) {}
   if (BRIDGE) { try { await BRIDGE.close(); } catch (_) {} BRIDGE = null; }
   return {

@@ -1,0 +1,15 @@
+{
+  "name": "recaptcha-flat-clean",
+  "version": "1.0.1",
+  "private": true,
+  "type": "module",
+  "description": "API de génération de token reCAPTCHA v3 (+ login Ticketmaster), 100% JS pur (sans jsdom ni node:vm). Autonome.",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node server.mjs",
+    "cli": "node index.mjs"
+  },
+  "dependencies": {
+    "node-tls-client": "^2.1.0"
+  }
+}

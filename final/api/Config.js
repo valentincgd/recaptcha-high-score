@@ -145,10 +145,18 @@ export class Config {
       acceptLanguage = "en-US,en;q=0.9";
     }
 
-    // sec-ch-ua : version majeure Chrome depuis l'UA.
+    // sec-ch-ua : PRIORITÉ au profil (fp.brands = grease EXACT du vrai Chrome, ex Chrome 150 =
+    // "Not;A=Brand";v="8"). Le template hardcodé "Not/A)Brand";v="99" est un grease PÉRIMÉ (ère Chrome
+    // ~100) que le vrai Chrome 150 n'envoie JAMAIS → tell détecté par Google/tm-bl sur /reload. On
+    // reconstruit depuis fp.brands (ordre inclus) si présent, sinon fallback template.
     const m = /Chrome\/(\d+)/.exec(ua);
     const major = m ? m[1] : "148";
-    const secChUa = `"Chromium";v="${major}", "Google Chrome";v="${major}", "Not/A)Brand";v="99"`;
+    let secChUa;
+    if (Array.isArray(fp.brands) && fp.brands.length) {
+      secChUa = fp.brands.map((b) => `"${b[0]}";v="${b[1]}"`).join(", ");
+    } else {
+      secChUa = `"Chromium";v="${major}", "Google Chrome";v="${major}", "Not/A)Brand";v="99"`;
+    }
 
     // sec-ch-ua-platform depuis platform/UA.
     const plat = String(fp.platform || "");
@@ -173,7 +181,8 @@ export class Config {
       "sec-fetch-dest": "script",
       "sec-fetch-mode": "no-cors",
       "sec-fetch-site": "cross-site",
-      "sec-gpc": "1",
+      // PAS de sec-gpc sur les requêtes Google : jsdom (qui PASSE) ne l'envoie pas ; le header en trop
+      // distinguait flat sur le GET anchor → token anchor de qualité différente (vérifié : diff de longueur).
       "user-agent": this.userAgent,
     };
   }

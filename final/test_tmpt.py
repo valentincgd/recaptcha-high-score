@@ -23,9 +23,11 @@ import requests
 
 # ============================= CONFIG =========================================
 API    = "http://127.0.0.1:3848/api/captcha/tmpt"
-PROXY  = "http://kyzenpro:0637fd1ce4a6b5f3_country-France_session-4m67xOzg@proxy.packetstream.io:31112"     # vide = PROXYLESS (IP directe) ; sinon host:port ou URL
+PROXY  = os.environ.get("T_PROXY", "http://kyzenpro:0637fd1ce4a6b5f3_country-France_session-4m67xOzg@proxy.packetstream.io:31112")     # vide = PROXYLESS (IP directe) ; sinon host:port ou URL ; T_PROXY="" pour proxyless
 WARM   = os.environ.get("T_WARM", "1") == "3"   # pool de fenêtres chaudes à empreinte tournante
 N      = int(os.environ.get("T_N", "1"))   # runs per target (T_N=1 pour éviter la contention jsdom)
+FORCE_FLAT = os.environ.get("T_FLAT")           # "1" force flat, "0" force jsdom, None = défaut serveur (www→jsdom)
+ONLY_TARGETS = [t.strip() for t in os.environ.get("T_TARGETS", "").split(",") if t.strip()]  # filtre les cibles
 
 # --- reCAPTCHA config passée à l'API (Voie B) --------------------------------
 # Domaine enregistré de la sitekey (l'origine reCAPTCHA), PAS forcément l'URL rejouée.
@@ -66,7 +68,7 @@ AUTH_URL = (
 LOGIN_URL      = "https://auth.ticketmaster.com/json/sign-in"
 LOGIN_REFERER  = AUTH_URL
 LOGIN_EMAIL    = "valentincgdpro@gmail.com"
-LOGIN_PASSWORD = "SteV@l1417!!!!!"
+LOGIN_PASSWORD = os.environ.get("T_PW", "Valou12345!!!!!!")
 # Cookies de SESSION capturés (hors captcha). Le login a besoin de tmpt + eps_sid EN PLUS
 # de ceux-ci ; mets-les à jour si la session expire (sinon échec pour raison non-captcha).
 LOGIN_SESSION_COOKIES = (
@@ -145,6 +147,8 @@ def mint(target):
         "warm":             WARM,
         "poolSize":         3,
     }
+    if FORCE_FLAT is not None:
+        payload["flat"] = (FORCE_FLAT == "1")
     if PROXY_URL:
         payload["proxy"] = PROXY_URL
     r = requests.post(API, json=payload, timeout=180)
@@ -160,7 +164,8 @@ def mint(target):
             "url":          target["gen"],
             "sitekey":      target["sitekey"],
             "action":       target["captcha_action"],
-            "isEnterprise": target["enterprise"],
+            # le token du sign-in est ENTERPRISE (cf. captcha_enterprise) ≠ le tmpt (standard)
+            "isEnterprise": target.get("captcha_enterprise", target["enterprise"]),
             "proxy":        PROXY_URL or None,
         }, timeout=180)
         tk.raise_for_status()
@@ -256,8 +261,22 @@ def validate(target, data):
         ok = not captcha_bad
         tag = "CAPTCHA-BLOCK " if captcha_bad else "CAPTCHA-OK "
         return ok, r.status_code, tag + (msg or r.text[:100].replace("\n", " "))
-    r = requests.get(target["url"], headers=headers_for(target, data),
-                     proxies=proxies(), timeout=90, allow_redirects=False)
+    if target["kind"] == "api":
+        # Les API ISMDS (offeradapter) exigent les cookies BID/SID posés en visitant D'ABORD la page
+        # event ; avec juste tmpt → tm-bl:1 {"response":"block"}. On chaîne comme un vrai navigateur :
+        # GET page event (accumule BID/SID) PUIS l'API, avec le jar complet.
+        s = requests.Session()
+        s.proxies = proxies()
+        s.cookies.set("tmpt", data["tmpt"], domain=".ticketmaster.com")
+        if data.get("eps_sid"):
+            s.cookies.set("eps_sid", data["eps_sid"], domain=".ticketmaster.com")
+        ph = headers_for({**target, "kind": "page"}, data); ph.pop("cookie", None)
+        s.get(target["gen"], headers=ph, timeout=90, allow_redirects=True)
+        ah = headers_for(target, data); ah.pop("cookie", None)  # laisse le jar de session gérer les cookies
+        r = s.get(target["url"], headers=ah, timeout=90, allow_redirects=False)
+    else:
+        r = requests.get(target["url"], headers=headers_for(target, data),
+                         proxies=proxies(), timeout=90, allow_redirects=False)
     ok = r.status_code != 403                    # rule: only 403 = blocked
     if r.status_code == 403:
         info = "BLOCKED " + r.text[:60].replace("\n", " ")
@@ -284,7 +303,8 @@ def fmt(name, idx, ok, status, tmpt, info):
 
 
 def main():
-    jobs = [(t, i) for t in TARGETS for i in range(1, N + 1)]
+    targets = [t for t in TARGETS if not ONLY_TARGETS or t["name"] in ONLY_TARGETS]
+    jobs = [(t, i) for t in targets for i in range(1, N + 1)]
     print("%sRunning %d targets x %d = %d jobs in parallel...%s\n"
           % (B, len(TARGETS), N, len(jobs), R))
 
@@ -299,7 +319,7 @@ def main():
 
     print("\n" + B + "Summary" + R)
     all_ok = True
-    for t in TARGETS:
+    for t in targets:
         good = sum(1 for r in results if r[0] == t["name"] and r[2])
         all_ok &= good == N
         col = G if good == N else RED

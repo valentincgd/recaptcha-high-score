@@ -1,10 +1,10 @@
 {
   "fetchedFor": {
-    "siteKey": "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb",
-    "origin": "https://auth.ticketmaster.com",
+    "siteKey": "6LcvL3UrAAAAAO_9u8Seiuf-I6F_tP_jSS-zndXV",
+    "origin": "https://www.ticketmaster.com",
     "hl": "fr"
   },
-  "loaderUrl": "https://www.google.com/recaptcha/enterprise.js?render=6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb",
+  "loaderUrl": "https://www.google.com/recaptcha/enterprise.js?render=6LcvL3UrAAAAAO_9u8Seiuf-I6F_tP_jSS-zndXV",
   "scriptUrl": "https://www.gstatic.com/recaptcha/releases/A7KpaEASfhDcK0nXxgQEyyYv/recaptcha__fr.js",
   "version": "A7KpaEASfhDcK0nXxgQEyyYv",
   "hl": "fr",

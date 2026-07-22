@@ -1,0 +1,57 @@
+{
+ "h38": "function (q, r, w, D, d, A, x, N, C, p, U, f, n, z, E, b, P, G, W, B, T, t, O, Y, F, l, Q, c, V, k, M, I, Z, Ap, N3, dh) {\n        if ((q >> 2 & (N3 = [\"call\", 4096, 24], 6)) == 2) {\n          if (P = (U = (m[b = [0, 1024, 512], 29](43, x), e[39](26, null, x, r, !0, D, d, N)), (n = m[16](64, b[2], b[1], U === lL ? 7 : U[LH] | b[0])) != null ? n : 1024), p) {\n            if (Array.isArray(w)) for (f = w.length, G = b[0]; G < f; G++) U.push(A(w[G], P));else for (z = m[0](20, w), E = z.next(); !E.done; E = z.next()) U.push(A(E.value, P));\n          } else {\n            if (C) throw Error();\n            U.push(A(w, P));\n          }\n          dh = x;\n        }\n        if ((q + 7 & 7) == 1) {\n          if (c = (b = ((n = (A = (O = (Y = g[V = [0, null, 16], 36](5, C, w)) ? 1 : N, !!A) || O === 3, U && !Y), (O === 2 || n) && L[14](3, V[0], C)) && (x = C.Ye, w = x[LH] | V[0]), Z = a[16](17, V[1], d, D, x), z = Z === lL ? 7 : Z[LH] | V[0], h[6](6, 2, z, w)), !(4 & b))) {\n            for ((P = (l = V[0], !!((k = (t = (I = V[0], !0), Z), T = b, M = w, 2) & T))) && (M |= 2), B = !P; I < k.length; I++) W = a[4](12, 2, k[I], M, !1, p), W instanceof p && (P || (G = g[36](6, W), B && (B = !G), t && (t = G)), k[l++] = W);\n            b = (T = (l < (T |= 4, I) && (k.length = l), t) ? T & -4097 : T | N3[1], B ? T | r : T & -9);\n          }\n          if ((b !== z && (H[5](N3[2], Z, b), 2 & b && cI(Z)), n) && !(r & b || !Z.length && (O === 1 || (O !== 4 ? 0 : 2 & b || !(V[2] & b) && 32 & w)))) {\n            for (Ap = (f = (Q = (m[16](1, 4, b) && (Z = e[13](7, Z), b = S[47](52, 2, w, b), w = y[33](21, Z, d, x, w, D)), b), V[0]), Z); f < Ap.length; f++) F = Ap[f], E = m[30](19, !0, F), F !== E && (Ap[f] = E);\n            H[5](19, (b = (Q |= r, Q = Ap.length ? Q | N3[1] : Q & -4097), Z), b);\n          }\n          dh = Z = S[11](3, 2, d, D, x, w, A, c, b, Z, O);\n        }\n        if (!(q - 4 & 7)) {\n          for (N = [].concat(S[21]((C = m[0]((U = (A === void 0 ? 0 : A) % p_.length, p = p_.slice(), 3)), 14), x)), f = r; f < N.length; f++) p[U] = ((p[U] << D ^ Math.pow(C[N3[0]](N[f], r) - p_[U], d)) + (p[U] >> d)) / p_[U] | r, U = (U + w) % p_.length;\n          dh = Ud(p.reduce(function (Ui, wh) {\n            return Ui ^ wh;\n          }, r));\n        }\n        return dh;\n      }",
+ "J22": "function (q, r, w, D, d, A, x, N, C, p, U, f) {\n        if (((f = [0, 42, 4], q) & 45) == q) {\n          for (d = r; d < w.length; d++) A = d + wa(D() * (w.length - d)), x = m[f[0]](f[2], [w[A], w[d]]), w[d] = x.next().value, w[A] = x.next().value;\n          U = w;\n        }\n        return q + 2 >> f[(q ^ 33) >> 3 == 2 && (this.L = r >>> f[0], this.D = w >>> f[0]), 2] || (p = w.D, x = [1, 3, 2], N = w.L, A = N[p + f[0]], d = N[p + x[2]], C = N[p + x[1]], D = N[p + x[f[0]]], v[f[1]](16, f[2], w), U = A << f[0] | D << r | d << 16 | C << 24), U;\n      }",
+ "y5": "function (q, r, w, D, d, A, x, N) {\n        return (q + 2 & ((q & 121) == (x = [3, 40, 27], q) && (A = r, N = function () {\n          return (A = (D * A + w) % d, A) / d;\n        }), x)[2]) < q && (q - x[0] | x[2]) >= q && (D.o = r, e[1](x[1], r, function () {\n          D.o && k9.call(w, d);\n        })), N;\n      }",
+ "h38Test": {
+  "C1": 58604,
+  "C2": 58604
+ },
+ "h38b": {
+  "a": 30350,
+  "b": 32449,
+  "c": 12362
+ },
+ "p_": [
+  3,
+  6,
+  4,
+  11
+ ],
+ "hv": [
+  {
+   "s": 0,
+   "c": [
+    65,
+    66
+   ],
+   "h": 58604
+  },
+  {
+   "s": 0,
+   "c": [
+    65,
+    66,
+    67,
+    68
+   ],
+   "h": 33421
+  },
+  {
+   "s": 123,
+   "c": [
+    10,
+    20,
+    30
+   ],
+   "h": 45032
+  }
+ ],
+ "Ctype": "function",
+ "Ccall": [
+  54,
+  54,
+  50
+ ],
+ "S21": "e:Error: narr",
+ "vDollar": 32
+}

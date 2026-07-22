@@ -1,0 +1,642 @@
+{
+ "source": "genuine XV LoginPage (nodriver capture)",
+ "action": "LoginPage",
+ "field16_raw": "09wqpPL9Ll2X4ewdTIbQ3ww_dcPN_y03Zb_yME-F094PPnTCzP4tZ7G_7RxWoK7cD0WTnc7-NIKMve0ncX-s3BZgbp_PBVNdjr30Qkx9rJnlEtyv-iwukCHkboz_WYNtCDKMCugjPZc1TwW35eQl2G9lgyVjXZgGP5awHmR-hbQVp4ZT6t1G4Tsk_6m4jdC2oIKwds4EUlyNvPdBT3yv5jA-b57VIy1ejcQSHE18twEPPG-l8_4vXpTi7R5NOoW36iuRsIasx12XbWRWA46MWplHBauFkFIP7sSSQUupi724bp-yLLbk5uXHyXe2gBZUZ2kTOYMSS_nozlFCyNfdX8I4ebAuoNddQ2FgGiwqBG7ss3zTPVteVIbIAxi3Jctlt8JskqgvLQ-R8xHDvnwx4G8og308DePCI86FEvEi1Vux1Jp4QviTOGa9A0l3kawGQHMwn4jUBgSS7Nqo-yCG3Stpj7HMJmCPUL-o9CYosrD2qWdU31XAarhHG_ZMmtzvJT-V0ALALxhnlaAJJ33ABihabMcBL_FcSZTGuT9dB71nsnxyyGaBM6TzIPdNm93sJjyW0PvBLBlklnzTeFas8zFzoZ_2MFsgj3jH9XSph94gapy-zSdhiFG8qfUmpN81ZEqjxkCSkMeRU1GD5Vet-Cpwipz3MVghjHnE9ulfsauiK85UuiUvXRe1zAG0ldz6xVtYds0bTXu9vBZQd0CvmOQWQH4hMtGKZL8BR22TrgRCZTKditYH1iBxxB5gptUHDWehxJH86jVn2UL1T5HX-jQ-lNLxwy4bZpRrCCZ8wwE7TW_GACLwX0iXxdQ5V634PkyGnPcxUCGMecT2wSsQtw1nocfyIF6IrtTvSV-Oc97IF0XTPVOqE6Zg5qGG-M-5N5JEgmEWXPLwz1WfumSGROK1b0G4MUN6dOqVJuivhVw-d8owZrC3QOsyJ347qgR6-Lds-6oIChR22Ab8rw2DOXg99MbEVkzKoN7FH2mjxfAOZKLBkv40goy97NolVrDgLm9xt_scuvzjacwWBG2H3iBqnL7NJ2GQUbyp9Sc1ArUPWZ-t5_5Ukq2C7dsmVN5FMlBGnOMhW3Wv5gBCbJqtE0FsMZyJ1Qd5IpTvOWuxy940co1izgRSXI28qfUnqUrxM7HcEePWLJKgzxUvcZfZ7A5wormS_es2ZELwguDiwdwp4HZUQo0a9b-Ve3nb4qy-gLNgv_IgWoi6oFMhVt1PkZu9267Eco0G9WdyQFIoFwTinU-Ng63LtiRadMK1HwnkJegCND7c0mEzbiAZXIKgUzDWwHbNE0l3qdgKOHKsvt1DcYRhzLoFNz1rdhgCGFG0DlCexPcVS42f0hAegKLZow37RnS26AZcouEjTU-l4BLQPyh3pWPBN43QEkSCfNcRQAFsWaTXQWO9qBU38Vet8Dpsjpz3MTwhjHnE9yjb2W-Oa6J0cqyW9RbVA_or5tkGZTOZz03sWog-HFJ1Ku0TUY-WiLpA9w2PPNtCT_3QegBuWMa1V_5YQjwSZLbhfr20DdNyEHKZG1E7GWM1zA3hCrhTmccl-E17_hxSrKMtJ7Vj3dACcJqg15UXZSOuSJ7EaqSfEUwxYI5oKnQ6oS9mDxGnhhBS3FM9Py1X-evuZLq81513TRA6d_q5DiCvcVQNj5mMKkgaWStpJv2TwoxS-Oqlm50_mkx2AM6U8vibYhP-RCKoruiWdW7Nbz37mmP-7WqZa1Grsjg50RtI_t1ntcNOTH3QZ1lTPWQRi_qs0kkO2OfNq5nQOgwmIPdA82XHnVCZ-EL9WxG7ZSMiK-ow3vUzWbrRX4HsFrAO0M7tk0m4bpzKTGKhXwjQAcRONFbIkzjrCawmGHmQWxz63JrNS42UmfRC8KZ0_zGgOeBqmEq8m5mrqVPmjCLtCpD6nZwJY9XvvrT-QTrpH6ZL1oibBG9lW7WHabPSjF5QrsFq0fP2O-KcLv1LjONd3zXP5d0CvJrlc31sDoyCHKKJL3zC9gOyJA5BBpDu6Wv-F1IQYlC-rNd5exYHggRSUTc1fxH3biuidEMI5vUO0h-N4H4Uxu1zEZ8mB03sbrBurMN1FA3oJaDKqG6Y03WL3ff9oApIjzGbeauuK8o8phyXLWrhd-5rjpxLKFqBA8GQOagRh94gZoi6zRM9bFG8qfUnAVNxlBoATmzegDaM2x0vZX_WEC8Ab1in1ZBGrBaNGql3CUgtTArIvzCabXetyCXD0bBvNUMVyzGABbC6QG6AwvDXSbdaI7pMLjB7aUtNuHncZnkulMOJV9oD9rzyfM8os2WP6bt9898hDwDzEUdyPHZM4qSmyZfJ1AHwfpSXFS91A0XDxUed4CZEjoznITwRfGm05sWHyP-147o0MyRzSK-tS6XH1tTegOLxvyoftn9VrAIccozC6RdNf43wIjkSfWq157I4eaf-SHak7u1HgZxx3MoVR8Xn0k_duOsQ_1F2xbtxYJqH-xFDEQrR9_H7siy24FNtK9EQZev6iBr875l79hfWWEJNC113NUQhnEGn3sUTTad9a4Ynue_Sf_ZMktkPLT-V0-7ALxhnlWAeeKoT7mDW0TdSG8ID5uiCtNMdR80gQkiaMB6hY0WTxcgCdBKFP2karTcp2JZ7lew6aJrQ3zVzimPOuAc04tlC9U-R2_ZAPpTS6cMuG2aUm0VvXLAI5z2DyfweLIbA27EfeY_F3MoVRxHkHat6NN7c6rlvIggZ8GV3zhBSiKK9F1FoQayZ5JrxSu40AlQ28KK9B6FnSbNR8MoQQgReqOcdN4Gz3gAePKLQ68EsGWSWdJbgm5HXLW_18Nsos0yvsVANt5oUenjrbTciK4JoeihrSQMhN3orFW-x9A5MXrTzBeNOO4a0nmjLfUsN43K4MqRy0XPZt2ZgSbhWLRuJE5nTzl_6Q_cA13y6pP9Bg7nj7kSClXLdyxXIgjzvPTr9yv2j_m_GvL8Yj3m7QXM1j9oUOoB-4RPRPCl0ptVaxTstRzJoFig7AK99H2FwWZAiPEqRZwU0DjPyQ72n_kCGoOrtR4GQcdzKFUeZO7JIFaSSAMthEtFgBhdyKG5cRrlHKheJ365kZplzTQgFqFXMLjELGUbght0rZZO9zCZgc1C_qdgJVDbpLnjC4SQWAGZvle_2fFdw38kXyoznCTNRs8DHHSeR0-3lAm1apWg6aHq80eyrbcfqECFHnaQSUG5lg7EfXX-GiQNFT6n4GQQhjHqpJ3F_rN8hP32fpzTCvTPp9E5cakjuZJOZO-YLvdx18Ma4S2VbkSfNgHbn-ljLaevCAC6EggEirH7xw2mMZaTSDDdViqloKk-Ce-a1ZoyzMUgyKHXYOp0-hUfVW71z7iknFHZ5IxI7WZiGSPbRO41DVYNeGIsUa0TqyaQZX9nsXkDOZOc472JvnowC1J5ZF9VcLVwOCDKEZ5WnOieeTJpVDyVPaZshUxYzntUjLV6NxBIcTXxq5TM9bpze_T9dZFZQz0mLGOutFDGc1yEvXI_GEB5PfrUDDT5tW9YgLl-Nz-4sTlUPXTdVjBngZwDrORrF406E0t0OPXfBz_0sGpTi7R5MjqzvDRQBqPbcUzCz3ROmP45NEmFW8UbheEWMxrj-mNsxkvWjZhSSgK6I_vUrBgP524agDvl3wc_9L22Pze_3XVuh3_3vgZgmjNMAv_VTrnN54MnlAm1b1iAuX43P7ixOVM8CI7ZTst0GtMrpz0E0MY-GoA75d8HP_S9tj83v9mVbZfd9mGWwQqTmvaNRdCZv0fAh5QJtW9YgLl-Nz-4sTlTLsWe54NYsEij_EagVQCKcjoy7QXOVg6WgUZz2nC-Fc2FPlVRuyBJAByCPefRCTH2v7gxObHelm8H8FtDqfQapQyDkAWxa1SMtXozO7S9NVKn0NpULsctd54ogAcTiTTu2AA4_ba_ODC40-9XgVcht1AcM6yXPrSe588JUYzB3obfBbBZwHtRa1WOZy6I0fmy27CttD9ErjlR9sOowYiVCrZgWYG6fzhAubI6VF9ZQgrTuPT8BP8mTpkCa1Bb4a6nXVkPiQ_bogqmLmW8Rd6oongTipWucy32L7rTeEUqQwoWjDkSSnM39N4GPvOwmcH6v3slHkZ_M_z1fnb_GnHMUztn7gbN2k_7pZ7G_7R9df73f5pSbveeZQGqIJlSmpKfJP6pHkqRvMJqwm11ETbQWWNcNK1jjENfxXErFEx1OfL7dHz1EivhmhQ8o40F4OrQi9JJhd4nPdVvdsFYMGzjC8LfRPCqk8v0uXJ68_x0krrEO9KuYs32jUfSaKNpgklVy3chGkJ7P_lRenL7FL3KE5jiKVMOdz-nIOgAyyUtpK1n__ZPOoH8cprm_UPu5W5pEAjVCzctRJ-JAPtxueUcFJ0Eb3YTO2G8ZbvETHgRGd96MsszTnefxjEXA0oTO8OddBxmziiACiNdlOuEDTlxZ3EdBNojTLbPKeAI4Cy0imVQJf_IAIvD3NLqc6Bo_caRGkMMUz3IHcee-FOp0S2VjBesiPCKMexkCaOLtQAJbqiD2oIKwd5HDLmSyvO4dClULsb-ymCbUhkU7hbwl1FX3ybQOUJ7M8xFHeb_eGB6AssmjDkSSnM39N4GPvO_ZJFYhCqAWbLL1F0FftfP-4RA",
+ "slots": [
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": ""
+  },
+  {
+   "type": "raw",
+   "value": -1
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "signal",
+   "enc": "aH0wxlyQ6LHXcaP+itGs5pzVP2RRFJ+DvqNQDGVX",
+   "value": "¨O7A\u000eâ\"v{¢ÿ°\u0003h?q\u001f×\u0017âíàý\u001f×\u0005Ï"
+  },
+  {
+   "type": "raw",
+   "value": 2
+  },
+  {
+   "type": "raw",
+   "value": "bnF2Y3drMWF0OGp5bQ=="
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "signal",
+   "enc": "bcg51ZXRlnXJzY0dKOnRoZQuXDnU5kwcdWxx1DZZNBncBFmFJBwUSY1sSCpEuKBxLYko1DUVlYUIkdWBPdIp9HC8jjo1kFVsNVMlic8lXmy5UHlM-Dg1dHpYEQ0RiUU6KURwcIkEc",
+   "key": 1761,
+   "timing": 699,
+   "value": "\"https://auth.ticketmaster.com/as/authorization.oauth2?client_id=8bf7204a7e97.web.ticketmaster.us&res\""
+  },
+  {
+   "type": "signal",
+   "enc": "bVmxgOWU",
+   "key": 3741,
+   "timing": 698,
+   "value": "false"
+  },
+  {
+   "type": "signal",
+   "enc": "bWmafGjZ0BQowNw",
+   "key": 3802,
+   "timing": 699,
+   "value": "\"202a957a\""
+  },
+  {
+   "type": "signal",
+   "enc": "bYg",
+   "key": 1633,
+   "timing": 698,
+   "value": "0"
+  },
+  {
+   "type": "signal",
+   "enc": "bShdBdBIpakFAar99",
+   "key": 3802,
+   "timing": 697,
+   "value": "\"BAAAAAAABA\""
+  },
+  {
+   "type": "signal",
+   "enc": "bPYw",
+   "key": 1599,
+   "timing": 697,
+   "value": "\"\""
+  },
+  {
+   "type": "signal",
+   "enc": "b6w",
+   "key": 1784,
+   "timing": 697,
+   "value": "2"
+  },
+  {
+   "type": "signal",
+   "enc": "b68BBoy6IQEFmQEER",
+   "key": 3393,
+   "timing": 697,
+   "value": "\"AAAAAAAAAA\""
+  },
+  {
+   "type": "signal",
+   "enc": "bSdm_QgDZg6llNjdeFr8sZsg",
+   "key": 3438,
+   "timing": 696,
+   "value": "\"0,BODY,30e7e41e\""
+  },
+  {
+   "type": "signal",
+   "enc": "badAyUw",
+   "key": 1641,
+   "timing": 696,
+   "value": "\"h2\""
+  },
+  {
+   "type": "signal",
+   "enc": "bJQY",
+   "key": 1666,
+   "timing": 696,
+   "value": "-1"
+  },
+  {
+   "type": "signal",
+   "enc": "bsA",
+   "key": 1636,
+   "timing": 695,
+   "value": "1"
+  },
+  {
+   "type": "signal",
+   "enc": "bKg",
+   "key": 1570,
+   "timing": 695,
+   "value": "0"
+  },
+  {
+   "type": "signal",
+   "enc": "bZg",
+   "key": 3802,
+   "timing": 695,
+   "value": "0"
+  },
+  {
+   "type": "signal",
+   "enc": "bIWE",
+   "key": 696558742,
+   "timing": 700,
+   "value": "bb"
+  },
+  {
+   "type": "signal",
+   "enc": "byHAKY2UjMzK4c6AbeQr8QE0FLGfbFaJlUgy13fwVnS8bLxzCQRYNeCIzDg7BSgJlCcocZfs2dDPaCGlNvjB4G14",
+   "key": 3521,
+   "timing": 695,
+   "value": "\"13,https://auth.ticketmaster.com/epsf/717364df/asset/eps-gec.js\""
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "signal",
+   "enc": "b--tx-27tOTAWdjZh",
+   "key": 1784,
+   "timing": 699,
+   "value": "\"80461z12wq\""
+  },
+  {
+   "type": "signal",
+   "enc": "bZA",
+   "key": 3802,
+   "timing": 694,
+   "value": "2"
+  },
+  {
+   "type": "signal",
+   "enc": "bxFu1",
+   "key": 1572461543,
+   "timing": 998,
+   "value": "\".\""
+  },
+  {
+   "type": "signal",
+   "enc": "bsQ",
+   "key": 3393,
+   "timing": 694,
+   "value": "0"
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "signal",
+   "enc": "bwS15IHI1",
+   "key": 910605270,
+   "timing": 993,
+   "value": "\"<9 w7"
+  },
+  {
+   "type": "signal",
+   "enc": "bMmEQE1lsUnZIPgRxbOCOEldIIi4uuwwweEmnDTYOLG0jIDVFVMumWFvaDdhYXSBRSNUFTCnrWQRHdU-UXyk0miIuRA",
+   "key": 1323333580,
+   "timing": 992,
+   "value": "\"[1,0,null,1,1,[\\\"80461z12wq\\\"],\\\"eWdqMHpocjE4dmFx\\\",0,null,[[0]]]\""
+  },
+  {
+   "type": "signal",
+   "enc": "bXWNkYSU",
+   "key": 1866238015,
+   "timing": 957,
+   "value": "\"[0]\""
+  },
+  {
+   "type": "signal",
+   "enc": "bfg",
+   "key": 1598,
+   "timing": 699,
+   "value": "0"
+  },
+  {
+   "type": "signal",
+   "enc": "bEQ",
+   "key": 1569,
+   "timing": 699,
+   "value": "5"
+  },
+  {
+   "type": "signal",
+   "enc": "bqmxgv2U",
+   "key": 1784,
+   "timing": 690,
+   "value": "sm`fe"
+  },
+  {
+   "type": "signal",
+   "enc": "bcCwPLw9bUXFRN21ccFwvBiwxLhwwXDEBcHEILBssIjdxX3AxXA_5D3B2NlweXAJRQl0blQ-IUSgiWCI2LP9wW1wvBkt3HDEPAXJbATEEUSIJnBJ-D_hfCF8ILy9xcGN3AXZx-F2IMd5dXHFcSHZcXRxbL1orGkt-DiVxLC4OK37_cF0IIpUscFwlHStrIpVaW3YyhnYodgF2d0L4W3Y4dw7_MWMcW1wwXDZbY0dd-FwiXVuGWxuGlSJxcSUcLF9biIZfP1wCIlwYwV9-cGMlfigs-DAPNi4YLHeGWxxwLEIlK1qVlZVgMkKGdvgs-SxcP34GLBwBIiJ2HIYsQggGXCwocAZxQxsIW4hwARL4fl1cCDZwNogvDvgrZGMIlTEPIg5qfkIlDlsxATh2LF8uXCJaXHdxiDYGdl12iIZHInEPCWpj-QYIXHFcW2b5JQErflErDg9bIoZRL1xHQlFfdyUlBn4PdiLPIjFxcf9wcHGIf_hbX5CGLiwccXkGXf8Jdg9Rdw4lKw75ImUsCQ",
+   "key": 1633,
+   "timing": 100,
+   "value": "\"[[[1,\\\"80\\\"],[1,\\\"20\\\"],[1,\\\"wq\\\"],[1,\\\"78\\\"],[1,\\\"12\\\"],[1,\\\"w4\\\"],[1,\\\"1r\\\"],[1,\\\"wq\\\"],[1,\\\"21\\\"],[1,\\\"80\\\"],[1,\\\"jk\\\"],[1,\\\"1z\\\"],[1,\\\"ky\\\"],[1,\\\"46\\\"],[1,\\\"1u\\\"],[1,\\\"p1\\\"],[1,\\\"13\\\"],[1,\\\"wq\\\"],[1,\\\"wq\\\"],[1,\\\"jk\\\"],[1,\\\"wq\\\"],[1,\\\"1m\\\"],[1,\\\"ea\\\"],[1,\\\"80\\\"],[1,\\\"j1\\\"],[1,\\\"67\\\"],[1,\\\"80\\\"],[1,\\\"14\\\"],[1,\\\"26\\\"],[1,\\\"18\\\"],[1,\\\"1b\\\"],[1,\\\"rx\\\"],[1,\\\"1f\\\"],[1,\\\"80\\\"],[1,\\\"1r\\\"]],\\\"47\\\"]\""
+  },
+  {
+   "type": "signal",
+   "enc": "bMUQNcQXTdA",
+   "key": 3802,
+   "timing": 694,
+   "value": "\"-1,-1\""
+  },
+  {
+   "type": "signal",
+   "enc": "bEftBTkCjCGt0SwhyG0fhcnIA-PvmVwEMbAwMLEII6GV3Y3L8-3cODSwDZStBAgNcaRxyPXc9ZXcK0A0udUEABAhjTmRFCjkbaQhbVjdjAFYN",
+   "key": 1628,
+   "timing": 694,
+   "value": "\"www.gstatic.com,nudata.ticketmaster.com,_,,auth.ticketmaster.com,www.google.com\""
+  },
+  {
+   "type": "signal",
+   "enc": "bNrw8ZYCVIzAk8lGRNFzpMYQxGxRx",
+   "key": 509453244,
+   "timing": 993,
+   "value": "\"rc::d-1784673057121\""
+  },
+  {
+   "type": "signal",
+   "enc": "bI_c",
+   "key": 3228,
+   "timing": 694,
+   "value": "\"\""
+  },
+  {
+   "type": "signal",
+   "enc": "bvratL7wudmj2cE5wf7qqYK1naW9Lba1lOm1zOG_7dTs_rnRgULoxrVNyLi68fmpzdSNjCD1P",
+   "key": 1784,
+   "timing": 694,
+   "value": "\"https://auth.ticketmaster.com,https://www.google.com\""
+  },
+  {
+   "type": "signal",
+   "enc": "bIlwwE0ARERMsQUBwQRMTRh1mckE4ImZabWYjEVxwW0F7Wzg",
+   "key": 3335,
+   "timing": 693,
+   "value": "\"[0,\\\"AAAAAAAAAA\\\",\\\"AAAAAAAAAA\\\"]\""
+  },
+  {
+   "type": "signal",
+   "enc": "bA3A",
+   "key": 1729,
+   "timing": 693,
+   "value": "QQ"
+  },
+  {
+   "type": "signal",
+   "enc": "bWvtd-w",
+   "key": 1784,
+   "timing": 693,
+   "value": "\"[]\""
+  },
+  {
+   "type": "raw",
+   "value": 702
+  },
+  {
+   "type": "signal",
+   "enc": "bIrtK3Vth_GhIwoYj",
+   "key": 1571,
+   "timing": 693,
+   "value": "\"sha384-DMJ\""
+  },
+  {
+   "type": "signal",
+   "enc": "CMW4zajVyYTZuZGU1Mw==",
+   "key": 368299850,
+   "timing": 993,
+   "value": "MW4zajVyYTZuZGU1Mw=="
+  },
+  {
+   "type": "signal",
+   "enc": "bNJQ3ej48NAowMh4iEhF3FSGWlRAwAogGKwYUNSs",
+   "key": 1604,
+   "timing": 692,
+   "value": "\"[1440,900,852,1440,709,852]\""
+  },
+  {
+   "type": "signal",
+   "enc": "bP7CdK0Y1wIZAMiwbBuc3N8gwMceXpKQ2iRp3",
+   "key": 1575,
+   "timing": 692,
+   "value": "\"[-120,null,1784673057136]\""
+  },
+  {
+   "type": "signal",
+   "enc": "CeHhpcHo0MXh2dXc4cg==",
+   "key": 3639,
+   "timing": 99,
+   "value": "eHhpcHo0MXh2dXc4cg=="
+  },
+  {
+   "type": "signal",
+   "enc": "bbwFWHB1sRKCiHpLQIw9QLCIrNNxuYa4",
+   "key": 1617,
+   "timing": 691,
+   "value": "\"[null,null,\\\"\\\",\\\"\\\"]\""
+  },
+  {
+   "type": "signal",
+   "enc": "bkGYsZ2a1WqQ5Mjb-OTD2CZGvGP8ZNOydGzWvHTIskjE",
+   "key": 3654,
+   "timing": 691,
+   "value": "\"[4395630592,25884670,18145194]\""
+  },
+  {
+   "type": "raw",
+   "value": [
+    [
+     [
+      "Not;A=Brand",
+      "8"
+     ],
+     [
+      "Chromium",
+      "150"
+     ],
+     [
+      "Google Chrome",
+      "150"
+     ]
+    ],
+    0,
+    "Windows"
+   ]
+  },
+  {
+   "type": "raw",
+   "value": [
+    [
+     null,
+     1,
+     0,
+     "zQDUwnxpgSpBAwSroPLf9bS+fWY2P1br+7Gcwaedna5qH0AiGDn2q42no+Osp1c2Zz85ICqcj7CPl2VnCP1DGzj6+I9w37fKjUclMFE0SczCnK7bs8KDTAX2FO0Ax8h9bH+NrHp0PCAJ6vnGvHhoRtnlgg=="
+    ],
+    null,
+    null,
+    [
+     null,
+     0,
+     0,
+     "REXkoG/T"
+    ],
+    null,
+    null,
+    null,
+    [
+     null,
+     0,
+     0,
+     "DL624K1FaOWC"
+    ],
+    null,
+    null,
+    [
+     null,
+     0,
+     0,
+     "Q/vd5a5t5Nh0TyArMV1Kr8zkpKOYe2Q6ViYXCTFG2eWC"
+    ],
+    [
+     null,
+     0,
+     0,
+     "pcilhX1+BPUU8zEPu+9g"
+    ],
+    [
+     null,
+     0,
+     0,
+     "45qJe1pnNGCpA2e0"
+    ],
+    [
+     null,
+     0,
+     0,
+     "2cZrHCj1IVZDqQNntA=="
+    ],
+    [
+     null,
+     0,
+     0,
+     "3aBKIzD1+TMgv5atdXWmmjYVIi0zX0ziYHN2lw=="
+    ],
+    [
+     null,
+     0,
+     0,
+     "bSQTNqkDZ7Q="
+    ],
+    [
+     null,
+     0,
+     0,
+     "k26BSqkDZ7Q="
+    ],
+    [
+     null,
+     0,
+     0,
+     "GrizKh66lWZxd6OQ9RIq6uneDbmLnCVmooYrxhnp3xTyCPvt5w=="
+    ],
+    [
+     null,
+     1,
+     0,
+     "6Zmmnp8lQTkQJeor6c3wvJyUaBsMKwoX5BCWh6aFkl+LCPvt5w=="
+    ],
+    null,
+    null,
+    null,
+    [
+     null,
+     0,
+     0,
+     "L5R4+g=="
+    ],
+    [
+     null,
+     0,
+     0,
+     "B7trS1okFFNB6sDSn5nTyGA/TBxFRWjlgg=="
+    ],
+    [
+     null,
+     0,
+     0,
+     "gwFBXS5ACgzIrM5nglJ7L5R4+g=="
+    ],
+    [
+     null,
+     0,
+     0,
+     "xmxfGw1XU5RoGg=="
+    ],
+    [
+     null,
+     6,
+     0,
+     "05nzCK2AllgScIIcwsWWthADmXtJCxQ/S/3R56mDwM6YeXtLCjNJE/T2xoHgpEA8fjj8XUPElriDf9qRXUFX6/I3M9OVnW518pc8Fyj39DYSsIK3pa3VwHYQMujnC07wt56RYYbDazIZDNwN7reBo1lYhWsa/A8Aeo7IrQ=="
+    ]
+   ]
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "signal",
+   "enc": "CaXIwNnN2cjlzZnJ3",
+   "key": 1885123847,
+   "timing": 993,
+   "value": "aXIwNnN2cjlzZnJ3"
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "raw",
+   "value": null
+  },
+  {
+   "type": "signal",
+   "enc": "bIwQ",
+   "key": 1621,
+   "timing": 690,
+   "value": "\"\""
+  }
+ ],
+ "stable": [
+  4,
+  17,
+  27,
+  28,
+  29,
+  33,
+  40,
+  45,
+  47,
+  52,
+  53,
+  56,
+  60,
+  61,
+  65,
+  67,
+  70,
+  72
+ ],
+ "dynamic": [
+  5,
+  16,
+  18,
+  30,
+  31,
+  32,
+  34,
+  35,
+  36,
+  37,
+  38,
+  39,
+  41,
+  42,
+  44,
+  46,
+  49,
+  50,
+  51,
+  54,
+  55,
+  57,
+  58,
+  59,
+  62,
+  63,
+  64,
+  66,
+  68,
+  69,
+  71,
+  73,
+  75,
+  78
+ ]
+}

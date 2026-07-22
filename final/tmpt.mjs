@@ -15,6 +15,8 @@
  */
 import { solveViaJsdom } from "./api/JsdomSolver.mjs";
 import { getPooledToken } from "./api/WarmService.mjs";
+import { solve as solvePure } from "./index.mjs";
+import { solveFlat } from "./flat.mjs";
 import { HttpClient } from "./api/HttpClient.js";
 import { CookieJar } from "./api/CookieJar.js";
 
@@ -133,13 +135,17 @@ export async function fetchTmpt({
   executeTimes, // nb d'execute() jsdom (défaut générateur = 2 ; +1 → +score, +lent)
   warm = false, // true → pool de fenêtres CHAUDES à empreinte tournante (~1,4 s/token vs ~9–13 s)
   poolSize = 3, // nb de profils/fenêtres du pool (empreintes distinctes en rotation)
+  pure = false, // true → field16 VOIE B PURE (index.mjs, zéro jsdom/navigateur) ~0,6-1 s/token
+  flat = false, // true → VOIE FLAT byte-exact (flat.mjs solveFlat, 12 champs, sans jsdom) — RECOMMANDÉ
+  delayMs = null, // délai anchor→reload (ms) pour la voie flat (test timing anti-bot)
   verbose = false,
 }) {
   if (!url) throw new Error("url requis");
-  // HARDCODE mode STANDARD (api2) pour les DEUX sitekeys (6Lcv www + 6Ldo auth). Constaté 2026-07 :
-  // le mode enterprise n'apporte AUCUN gain (même verdict tmpt à IP fixe) et le standard est au moins
-  // aussi tolérant au proxy ; les deux marchent en direct (replay 200). Voir mémoire field16-jsdom-solution.
-  isEnterprise = false;
+  // Le vrai navigateur Event utilise ENTERPRISE, MAIS jsdom-STANDARD passe (200) et jsdom-ENTERPRISE
+  // échoue (403) sur IP propre → le endpoint api2/enterprise ne détermine pas le passage (token quality).
+  // On garde STANDARD par défaut (ce qui passe). RC_FORCE_ENTERPRISE=1 pour forcer enterprise.
+  if (process.env.RC_FORCE_ENTERPRISE === "1") isEnterprise = true;
+  else isEnterprise = false;
   const log = verbose ? (...a) => console.error("[tmpt]", ...a) : () => {};
   const t0 = Date.now();
 
@@ -152,10 +158,43 @@ export async function fetchTmpt({
     siteKey, action: dom.action, origin: dom.origin, pageUrl: url,
     proxy, hl, mode: isEnterprise ? "enterprise" : "standard",
   };
-  const r = warm
-    ? await getPooledToken({ ...solveOpts, poolSize })
-    : await solveViaJsdom({ ...solveOpts, executeTimes, verbose });
-  if (!r.token) throw new Error("token reCAPTCHA null (jsdom)");
+  let r;
+  if (flat) {
+    // VOIE FLAT byte-exact : flat.mjs solveFlat (12 champs, field16/22/5 exacts, telemetry dynamique,
+    // profil câblé partout). ZÉRO jsdom. ~0,5 s/token.
+    // PRIMING : le token LoginPage qui génère le tmpt est le VRAI gate reCAPTCHA du login (le token du
+    // corps /sign-in est ignoré — prouvé : token vide = même signInSimple). On enrichit donc le token du
+    // tmpt avec champ7 (usagePattern) + slot69 (09A) échotés, comme un vrai navigateur. prime=2 pour les
+    // actions signin (LoginPage/login sur ZB). Override RC_TMPT_PRIME.
+    const isSignin = /^6Ldo/i.test(siteKey) || /login|signin/i.test(String(dom.action || ""));
+    const primeN = process.env.RC_TMPT_PRIME != null ? Number(process.env.RC_TMPT_PRIME) : (isSignin ? 2 : 0);
+    const fr = await solveFlat({
+      siteKey, action: dom.action, origin: dom.origin, referer: dom.referer,
+      mode: isEnterprise ? "enterprise" : "api2", proxy, fingerprintId: undefined, delayMs,
+      prime: primeN,
+    });
+    r = { token: fr.token, reloadStatus: fr.success ? 200 : null, field16Len: 0, clientHints: fr.clientHints, profileId: fr.profileId };
+    log("flat", fr.token ? `token=${fr.token.length}o profil=${fr.profileId}` : `KO ${fr.hint || ""}`);
+  } else if (pure) {
+    // VOIE B PURE : field16 assemblé + chiffré à la volée (index.mjs → VmPureReloadBuilder), ZÉRO
+    // jsdom/navigateur. /reload accepté (HTTP 200) pour les 2 sitekeys TM (testé). ~0,6-1 s/token.
+    const pr = await solvePure({
+      siteKey, action: dom.action, origin: dom.origin, referer: dom.referer,
+      mode: isEnterprise ? "enterprise" : "api2", proxy,
+    });
+    r = { token: pr.token, reloadStatus: pr.success ? 200 : null, field16Len: 0, clientHints: pr.clientHints, profileId: pr.profileId };
+    log("pure", pr.token ? `token=${pr.token.length}o profil=${pr.profileId}` : `KO ${pr.hint || ""}`);
+  } else if (warm) {
+    try {
+      r = await getPooledToken({ ...solveOpts, poolSize });
+    } catch (e) {
+      log("warm-ko", `${e?.message || e} → fallback cold spawn`);
+      r = await solveViaJsdom({ ...solveOpts, executeTimes, verbose });
+    }
+  } else {
+    r = await solveViaJsdom({ ...solveOpts, executeTimes, verbose });
+  }
+  if (!r || !r.token) throw new Error("token reCAPTCHA null" + (pure ? " (voie B pure)" : " (jsdom)"));
   log("token", `${r.token.length}o (reload HTTP ${r.reloadStatus}, champ16=${r.field16Len}${r.profileId ? ", profil " + r.profileId : ""})`);
 
   // Client-hints cohérents avec le token (à rejouer sur la requête cible ET les étapes TM).
