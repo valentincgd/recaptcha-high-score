@@ -75,20 +75,23 @@ export class Field20Telemetry {
       //  [3] = [pageHost,"www.google.com","www.gstatic.com"]  (ordre stable)
       //  [4] = [K, 594]   ← K∈{1,2} varie, 594 CONSTANT  (l'ancien [6,~594] = tell)
       // Les valeurs restent DYNAMIQUES (perf différentes à chaque token) → octets variables comme le genuine.
+      // Plages ÉLARGIES pour couvrir la VARIANCE genuine réelle (captures légères type=7/ticks=10 ET
+      // lourdes type=22/ticks=145/ms=12.45 — dépend de la charge perf de la page/machine au moment de la
+      // collecte). L'ancienne plage étroite (7/10 fixes) émettait toujours une "collecte légère" = tell.
       const navs = [
-        [3, rint(100, 116), rint(288, 356)],
-        [1, rint(158, 206), rint(458, 552)],
+        [3, rint(100, 120), rint(288, 780)],
+        [1, rint(158, 210), rint(458, 1150)],
       ];
       const res = [
-        [2, rint(104, 122), perfFloat(228, 256)],
-        [2, rint(82, 94), perfFloat(858, 988)],
+        [2, rint(96, 122), perfFloat(228, 270)],
+        [2, rint(82, 105), perfFloat(858, 1450)],
       ];
       const json = [
         navs,
         res,
-        [null, null, null, [7, perfFloat(3.6, 4.1), perfFloat(0.50, 0.55), 10], [0, null, 0], 0, 0, rint(3, 4)],
+        [null, null, null, [rint(7, 22), perfFloat(3.6, 13), perfFloat(0.50, 0.76), rint(10, 150)], [0, null, 0], 0, 0, rint(3, 4)],
         [pageHost, "www.google.com", "www.gstatic.com"],
-        [rint(1, 2), 594],
+        [rint(1, 5), 594],
       ];
       return Buffer.from(JSON.stringify(json), "utf8").toString("base64").slice(2);
     }
