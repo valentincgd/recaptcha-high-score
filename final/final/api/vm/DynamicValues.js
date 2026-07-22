@@ -25,6 +25,7 @@ const FALLBACK = {
     "6LcvL3UrAAAAAO_9u8Seiuf-I6F_tP_jSS-zndXV": "202a957a", // XV (tmpt/event)
     "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb": "e2b68587", // ZB (login)
   },
+  epsfDeployHash: "717364df", // hash de déploiement epsf TM (partagé par tous les navigateurs à un instant T, mais VARIE par redéploiement TM → harvesté)
 };
 
 let _cache = null;
@@ -58,6 +59,8 @@ export const DynamicValues = {
     const m = load().executeHash29 || FALLBACK.executeHash29;
     return m[siteKey] || FALLBACK.executeHash29[siteKey] || Object.values(m)[0] || FALLBACK.executeHash29["6LcvL3UrAAAAAO_9u8Seiuf-I6F_tP_jSS-zndXV"];
   },
+  /** Hash de déploiement epsf TM (pour l'URL ressource [42]). */
+  epsfDeployHash() { return load().epsfDeployHash || FALLBACK.epsfDeployHash; },
   /** Version du script pour laquelle ces valeurs ont été capturées. */
   version() { return load().version || FALLBACK.version; },
   /** Âge (ms) de la dernière capture harvester (Infinity si jamais capturé). */

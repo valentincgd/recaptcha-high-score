@@ -244,8 +244,9 @@ export class Field16Collector {
       let host = ""; try { host = new URL(ctx.pageUrl || ctx.origin).host; } catch (_) {}
       if (/ticketmaster/i.test(host)) {
         // asset epsf de la page challenge (cross-origin → URL complète, avec le hash de déploiement).
-        // Genuine décodé : "11,https://www.ticketmaster.com/epsf/717364df/asset/abuse-component.js".
-        return '"' + (9 + rnd(4)) + ',https://' + host + '/epsf/717364df/asset/abuse-component.js"';
+        // Genuine décodé : "11,https://www.ticketmaster.com/epsf/<deployHash>/asset/abuse-component.js".
+        // deployHash DYNAMIQUE (harvester) — partagé par tous les navigateurs mais varie par redéploiement TM.
+        return '"' + (9 + rnd(4)) + ',https://' + host + '/epsf/' + DynamicValues.epsfDeployHash() + '/asset/abuse-component.js"';
       }
       const resUrl = "https://www.gstatic.com/recaptcha/releases/" + (ctx.version || "") + "/recaptcha__" + (this.hl || "en") + ".js";
       return '"' + rnd(9) + ',' + domHash8(resUrl + ss.now + rnd(1e6)) + '"';

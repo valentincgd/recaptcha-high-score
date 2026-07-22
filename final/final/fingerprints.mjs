@@ -32,16 +32,36 @@ function randInt(n) {
  * Tire un profil au hasard (copie profonde + jitter léger). Appel suivant = potentiellement
  * un autre profil. Passer `id` pour forcer un profil précis.
  */
-export function pickFingerprint({ id = null } = {}) {
-  const profiles = loadProfiles();
+export function pickFingerprint({ id = null, country = null } = {}) {
+  const profiles = loadProfiles().filter((p) => p.id !== "empty");
+  let pool = profiles;
+  // country : sélectionne un profil dont la locale/timezone matche le PAYS DE L'IP (proxy) → cohérence
+  // tz↔IP↔locale (sinon tell : navigateur US depuis IP FR). Fallback sur tout le pool si aucun match.
+  if (country) {
+    const c = String(country).toUpperCase();
+    const matched = profiles.filter((p) => p.country === c);
+    if (matched.length) pool = matched;
+  }
   const base = id
-    ? profiles.find((p) => p.id === id) ?? profiles[randInt(profiles.length)]
-    : profiles[randInt(profiles.length)];
+    ? profiles.find((p) => p.id === id) ?? pool[randInt(pool.length)]
+    : pool[randInt(pool.length)];
 
   const fp = JSON.parse(JSON.stringify(base)); // copie profonde
   fp.scrollY = (fp.scrollY ?? 0) + randInt(60);
   fp.localStorageLength = (fp.localStorageLength ?? 0) + randInt(6);
   return fp;
+}
+
+/** Déduit le code pays (US/FR/GB/DE/CA/JP) depuis une URL de proxy (packetstream `_country-France`, ou
+ *  `-cc-fr`, etc.). Retourne null si indéterminable → laisse le pool complet. */
+export function countryFromProxy(proxy) {
+  if (!proxy) return null;
+  const s = String(proxy).toLowerCase();
+  const map = { france: "FR", "united-kingdom": "GB", unitedkingdom: "GB", germany: "DE", canada: "CA", japan: "JP", unitedstates: "US", "united-states": "US", us: "US", usa: "US" };
+  for (const [k, v] of Object.entries(map)) if (s.includes(k)) return v;
+  const m = s.match(/(?:country|_cc|-cc|region)[-_=]([a-z]{2})\b/);
+  if (m) return m[1].toUpperCase();
+  return null;
 }
 
 export function listProfileIds() {

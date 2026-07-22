@@ -110,7 +110,8 @@
         ],
         "connectionFlow": 15663105,
         "randomTlsExtensionOrder": true
-      }
+      },
+      "country": "FR"
     },
     {
       "id": "empty",
@@ -214,7 +215,9 @@
       },
       "hardwareConcurrency": 4,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome124_win11_nvidiageforcertx4070_01",
@@ -243,12 +246,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "en-US",
       "languages": [
-        "en-GB",
+        "en-US",
         "en"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "en-US,en;q=0.9",
       "screen": {
         "width": 1536,
         "height": 864,
@@ -272,7 +275,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome120_win10_nvidiageforcegtx1660_02",
@@ -330,7 +335,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 16,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome131_win11_nvidiageforcertx2060_03",
@@ -388,7 +395,9 @@
       },
       "hardwareConcurrency": 12,
       "deviceMemory": 16,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome131_win10_intel(r)uhdgraphics630_04",
@@ -446,7 +455,9 @@
       },
       "hardwareConcurrency": 16,
       "deviceMemory": 32,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "GB"
     },
     {
       "id": "chrome124_win11_intel(r)iris(r)xegraphics_05",
@@ -475,12 +486,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-US",
+      "language": "fr-FR",
       "languages": [
-        "en-US",
-        "en"
+        "fr-FR",
+        "fr"
       ],
-      "acceptLanguage": "en-US,en;q=0.9",
+      "acceptLanguage": "fr-FR,fr;q=0.9",
       "screen": {
         "width": 1600,
         "height": 900,
@@ -504,7 +515,9 @@
       },
       "hardwareConcurrency": 6,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "fr",
+      "country": "FR"
     },
     {
       "id": "chrome120_win10_amdradeonrx6700xt_06",
@@ -533,12 +546,13 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-US",
+      "language": "de-DE",
       "languages": [
-        "en-US",
+        "de-DE",
+        "de",
         "en"
       ],
-      "acceptLanguage": "en-US,en;q=0.9",
+      "acceptLanguage": "de-DE,de;q=0.9,en;q=0.8",
       "screen": {
         "width": 3840,
         "height": 2160,
@@ -562,7 +576,9 @@
       },
       "hardwareConcurrency": 4,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "de",
+      "country": "DE"
     },
     {
       "id": "chrome131_win11_amdradeonrx580_07",
@@ -591,12 +607,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "en-US",
       "languages": [
-        "en-GB",
+        "en-US",
         "en"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "en-US,en;q=0.9",
       "screen": {
         "width": 1680,
         "height": 1050,
@@ -620,7 +636,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome124_macos_applem1_08",
@@ -678,7 +696,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 16,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome131_macos_applem2_09",
@@ -736,7 +756,9 @@
       },
       "hardwareConcurrency": 12,
       "deviceMemory": 16,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome120_macos_applem3_10",
@@ -765,12 +787,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "en-US",
       "languages": [
-        "en-GB",
+        "en-US",
         "en"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "en-US,en;q=0.9",
       "screen": {
         "width": 1512,
         "height": 982,
@@ -794,7 +816,9 @@
       },
       "hardwareConcurrency": 16,
       "deviceMemory": 32,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome131_win11_nvidiageforcertx3060_11",
@@ -852,7 +876,9 @@
       },
       "hardwareConcurrency": 6,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome124_win10_nvidiageforcertx4070_12",
@@ -881,12 +907,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-US",
+      "language": "en-GB",
       "languages": [
-        "en-US",
+        "en-GB",
         "en"
       ],
-      "acceptLanguage": "en-US,en;q=0.9",
+      "acceptLanguage": "en-GB,en;q=0.9",
       "screen": {
         "width": 1920,
         "height": 1080,
@@ -910,7 +936,9 @@
       },
       "hardwareConcurrency": 4,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "GB"
     },
     {
       "id": "chrome131_win11_nvidiageforcegtx1660_13",
@@ -939,12 +967,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "fr-FR",
       "languages": [
-        "en-GB",
-        "en"
+        "fr-FR",
+        "fr"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "fr-FR,fr;q=0.9",
       "screen": {
         "width": 1536,
         "height": 864,
@@ -968,7 +996,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "fr",
+      "country": "FR"
     },
     {
       "id": "chrome131_win10_nvidiageforcertx2060_14",
@@ -997,12 +1027,13 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-US",
+      "language": "de-DE",
       "languages": [
-        "en-US",
+        "de-DE",
+        "de",
         "en"
       ],
-      "acceptLanguage": "en-US,en;q=0.9",
+      "acceptLanguage": "de-DE,de;q=0.9,en;q=0.8",
       "screen": {
         "width": 2560,
         "height": 1440,
@@ -1026,7 +1057,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 16,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "de",
+      "country": "DE"
     },
     {
       "id": "chrome124_win11_intel(r)uhdgraphics630_15",
@@ -1084,7 +1117,9 @@
       },
       "hardwareConcurrency": 12,
       "deviceMemory": 16,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome120_win10_intel(r)iris(r)xegraphics_16",
@@ -1113,12 +1148,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "en-US",
       "languages": [
-        "en-GB",
+        "en-US",
         "en"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "en-US,en;q=0.9",
       "screen": {
         "width": 1440,
         "height": 900,
@@ -1142,7 +1177,9 @@
       },
       "hardwareConcurrency": 16,
       "deviceMemory": 32,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome131_win11_amdradeonrx6700xt_17",
@@ -1200,7 +1237,9 @@
       },
       "hardwareConcurrency": 6,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome131_win10_amdradeonrx580_18",
@@ -1258,7 +1297,9 @@
       },
       "hardwareConcurrency": 4,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     },
     {
       "id": "chrome124_macos_applem1_19",
@@ -1287,12 +1328,12 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "en-US",
       "languages": [
-        "en-GB",
+        "en-US",
         "en"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "en-US,en;q=0.9",
       "screen": {
         "width": 1680,
         "height": 1050,
@@ -1316,7 +1357,9 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "en",
+      "country": "US"
     }
   ]
 }

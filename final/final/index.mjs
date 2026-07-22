@@ -22,7 +22,7 @@ import { AnchorParser } from "./api/AnchorParser.js";
 import { ReloadResponseParser } from "./api/ReloadResponseParser.js";
 import { PureFlatReload } from "./api/vm/PureFlatReload.js";
 import { CookieJar } from "./api/CookieJar.js";
-import { pickFingerprint } from "./fingerprints.mjs";
+import { pickFingerprint, countryFromProxy } from "./fingerprints.mjs";
 
 const require = createRequire(import.meta.url);
 const tls = require("./tlsClient.cjs");
@@ -60,7 +60,8 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
     const j = await solveViaJsdom({ siteKey, action, origin, pageUrl: referer ?? (origin.replace(/\/$/, "") + "/"), proxy: proxy || undefined, hl, mode: enterprise ? "enterprise" : "api2" });
     return { token: j.token ?? null, success: !!j.token, profileId: "jsdom", reloadBytes: 0, reloadStatus: j.reloadStatus ?? (j.token ? 200 : 0), headers: j.clientHints };
   }
-  const fingerprint = pickFingerprint({ id: fingerprintId });
+  // Profil device DIVERS par token (anti-fleet) + COHÉRENT avec le pays de l'IP proxy (tz/locale suivent l'IP).
+  const fingerprint = pickFingerprint({ id: fingerprintId, country: countryFromProxy(proxy) });
   // hl (langue reCAPTCHA) = DÉRIVÉ du profil (fingerprint.hl ou racine de la langue) → cohérent avec
   // accept-language/field16. Le param `hl` ne sert que de dernier fallback.
   const fpHl = fingerprint.hl || (fingerprint.language || "").split("-")[0].toLowerCase() || hl;
