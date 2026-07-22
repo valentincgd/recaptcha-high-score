@@ -62,20 +62,33 @@ export class Field20Telemetry {
     //  [3] = [pageHost,"www.google.com","www.gstatic.com"]  (3 domaines, cet ordre)
     //  [4] = [9, resourceCount~580]
     if (enterprise) {
+      // Aligné BYTE-EXACT sur le 1er reload AUTO du navigateur (contexte du tmpt), 3 captures propres
+      // genuine (_gen_auto, www Event) → len ~282-302. Ce qui est STABLE vs ce qui VARIE :
+      //  [0] = 2 nav-timings  [[3,X0,Y0],[1,X1,Y1]]   (types 3/1 stables ; X/Y varient)
+      //        X0∈~100-115 Y0∈~290-355 ; X1∈~160-205 Y1∈~460-550
+      //  [1] = 2 resource-timings [[2,Xr0,Yr0],[2,Xr1,Yr1]]  (type 2 stable)
+      //        Xr0∈~105-122 Yr0∈~230-255 ; Xr1∈~82-93 Yr1∈~860-985
+      //  [2] = [null,null,null, A, B, 0,0,T]
+      //        A = [7, ms~3.6-4.1, cpu~0.51-0.55, 10]   ← type=7 et ticks=10 CONSTANTS (3/3)
+      //        B = [0,null,0]                            ← SPARSE CONSTANT (l'ancien profil le populait = tell)
+      //        T = trailing ∈ {3,4}                      ← (l'ancien mettait 0 = tell)
+      //  [3] = [pageHost,"www.google.com","www.gstatic.com"]  (ordre stable)
+      //  [4] = [K, 594]   ← K∈{1,2} varie, 594 CONSTANT  (l'ancien [6,~594] = tell)
+      // Les valeurs restent DYNAMIQUES (perf différentes à chaque token) → octets variables comme le genuine.
       const navs = [
-        [3, rint(560, 760), rint(950, 1180)],
-        [1, rint(1250, 1560), rint(1850, 2100)],
-        [2, rint(6400, 7300), rint(3200, 3900)],
+        [3, rint(100, 116), rint(288, 356)],
+        [1, rint(158, 206), rint(458, 552)],
       ];
-      const nRes = rint(4, 6);
-      const res = [];
-      for (let i = 0; i < nRes; i++) res.push([2, rint(45, 500), perfFloat(6400, 8400)]);
+      const res = [
+        [2, rint(104, 122), perfFloat(228, 256)],
+        [2, rint(82, 94), perfFloat(858, 988)],
+      ];
       const json = [
         navs,
         res,
-        [null, null, null, [rint(36, 48), perfFloat(9.5, 12), perfFloat(0.6, 0.9), rint(150, 195)], [0, null, 0], 0, 0, 3],
+        [null, null, null, [7, perfFloat(3.6, 4.1), perfFloat(0.50, 0.55), 10], [0, null, 0], 0, 0, rint(3, 4)],
         [pageHost, "www.google.com", "www.gstatic.com"],
-        [9, rint(540, 620)],
+        [rint(1, 2), 594],
       ];
       return Buffer.from(JSON.stringify(json), "utf8").toString("base64").slice(2);
     }

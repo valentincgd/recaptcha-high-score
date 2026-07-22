@@ -18,6 +18,7 @@ import concurrent.futures as cf
 import os
 import sys
 import threading
+import uuid as _uuid
 
 import requests
 
@@ -28,6 +29,16 @@ WARM   = os.environ.get("T_WARM", "1") == "3"   # pool de fenêtres chaudes à e
 N      = int(os.environ.get("T_N", "1"))   # runs per target (T_N=1 pour éviter la contention jsdom)
 FORCE_FLAT = os.environ.get("T_FLAT")           # "1" force flat, "0" force jsdom, None = défaut serveur (www→jsdom)
 ONLY_TARGETS = [t.strip() for t in os.environ.get("T_TARGETS", "").split(",") if t.strip()]  # filtre les cibles
+
+# --- CLI args : --no-login (ne pas tester le login), --try=N (N runs par cible) -----------------
+_ARGV = sys.argv[1:]
+NO_LOGIN = "--no-login" in _ARGV
+for _a in _ARGV:
+    if _a.startswith("--try="):
+        try:
+            N = max(1, int(_a.split("=", 1)[1]))
+        except ValueError:
+            pass
 
 # --- reCAPTCHA config passée à l'API (Voie B) --------------------------------
 # Domaine enregistré de la sitekey (l'origine reCAPTCHA), PAS forcément l'URL rejouée.
@@ -85,10 +96,12 @@ TM_ENTERPRISE = "6LcvL3UrAAAAAO_9u8Seiuf-I6F_tP_jSS-zndXV"
 TM_AUTH_KEY   = "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb"
 TARGETS = [
     {"name": "quickpicks", "action": "Event",     "gen": EVENT_PAGE, "kind": "api",
-     "site": "same-site",   "sitekey": TM_ENTERPRISE, "enterprise": False,
+     "site": "same-site",   "sitekey": TM_ENTERPRISE, "enterprise": True,
+     "pageTitle": "Let's Get Your Identity Verified",
      "url": QUICKPICKS, "referer": "https://www.ticketmaster.com/"},
     {"name": "event-page", "action": "Event",     "gen": EVENT_PAGE, "kind": "page",
-     "site": "same-origin", "sitekey": TM_ENTERPRISE, "enterprise": False,
+     "site": "same-origin", "sitekey": TM_ENTERPRISE, "enterprise": True,
+     "pageTitle": "Let's Get Your Identity Verified",
      "url": EVENT_PAGE, "referer": "https://www.ticketmaster.com/"},
     {"name": "auth-login", "action": "LoginPage", "gen": AUTH_URL,   "kind": "page",
      "site": "none",        "sitekey": TM_AUTH_KEY,   "enterprise": False,
@@ -142,10 +155,13 @@ def mint(target):
     donc l'origin/hostname du tmpt == le host qu'on va rejouer.
     """
     payload = {
-        "websiteUrl":       target["gen"],          # host-matché (www ou auth)
+        "websiteUrl":       target["gen"],          # host-matché (www ou auth) — URL COMPLÈTE (path inclus)
         "recaptchaSitekey": target["sitekey"],
         "action":           target["action"],
         "isEnterprise":     target["enterprise"],
+        # title de la page où reCAPTCHA s'exécute (dynamique, fourni par l'appelant, aucun hardcode côté API).
+        # www event/quickpicks : le token clear le tm-bl via la page challenge epsf "Let's Get Your Identity Verified".
+        "pageTitle":        target.get("pageTitle", ""),
     }
     if PROXY_URL:
         payload["proxy"] = PROXY_URL
@@ -201,12 +217,14 @@ def headers_for(target, data):
     }
     if target["kind"] == "api":
         h.update({
-            "accept": "*/*",
+            "accept": "application/json, text/plain, */*",
             "origin": "https://www.ticketmaster.com",
             "referer": target["referer"],
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
             "sec-fetch-site": target["site"],
+            # header envoyé par le JS TM sur les appels ISMDS/offeradapter (UUID de corrélation par session)
+            "tmps-correlation-id": str(_uuid.uuid4()),
         })
     elif target["kind"] == "login":
         # POST /json/sign-in : cookies tmpt + eps_sid (requis) + session capturée.
@@ -257,9 +275,21 @@ def login_body(data):
 
 def validate(target, data):
     if target["kind"] == "login":
-        r = requests.post(target["url"], headers=headers_for(target, data),
-                          json=login_body(data), proxies=proxies(),
-                          timeout=90, allow_redirects=False)
+        # Comme un vrai navigateur : session qui VISITE d'abord toute la page auth (authorize 2×,
+        # eps-mgr) pour accumuler les VRAIS cookies auth (ma.paramsToken/SID/GSID…), puis POST sign-in.
+        s = requests.Session()
+        s.proxies = proxies()
+        s.cookies.set("tmpt", data["tmpt"], domain=".ticketmaster.com")
+        if data.get("eps_sid"):
+            s.cookies.set("eps_sid", data["eps_sid"], domain=".ticketmaster.com")
+        nav = headers_for({**target, "kind": "page"}, data); nav.pop("cookie", None)
+        try:
+            s.get(AUTH_URL, headers=nav, timeout=90, allow_redirects=True)   # 1er authorize (bootstrap)
+            s.get(AUTH_URL, headers=nav, timeout=90, allow_redirects=True)   # 2e authorize (pose ma.paramsToken/scope)
+        except Exception:
+            pass
+        ph = headers_for(target, data); ph.pop("cookie", None)              # laisse le jar de session gérer les cookies
+        r = s.post(target["url"], headers=ph, json=login_body(data), timeout=90, allow_redirects=False)
         try:
             j = r.json()
         except ValueError:
@@ -314,9 +344,11 @@ def fmt(name, idx, ok, status, tmpt, info):
 
 def main():
     targets = [t for t in TARGETS if not ONLY_TARGETS or t["name"] in ONLY_TARGETS]
+    if NO_LOGIN:
+        targets = [t for t in targets if t["name"] not in ("login", "auth-login")]
     jobs = [(t, i) for t in targets for i in range(1, N + 1)]
     print("%sRunning %d targets x %d = %d jobs in parallel...%s\n"
-          % (B, len(TARGETS), N, len(jobs), R))
+          % (B, len(targets), N, len(jobs), R))
 
     results = []
     with cf.ThreadPoolExecutor(max_workers=len(jobs)) as ex:

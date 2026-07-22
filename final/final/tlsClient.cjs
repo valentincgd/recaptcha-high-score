@@ -15,11 +15,40 @@ const tlsc = require('node-tls-client');
 try { require('node-tls-client/dist/utils/request').isByteRequest = () => true; }
 catch (_) { try { require('node-tls-client/dist/utils').isByteRequest = () => true; } catch (_) {} }
 
+// ── PROFIL TLS CUSTOM CHROME 150 (reversé via tls.peet.ws) ─────────────────────────────
+// node-tls-client ne fournit pas de profil chrome_150 (max built-in = chrome_131, qui envoie
+// l'ANCIEN codepoint ALPS 17513 = tell "UA Chrome 150 mais TLS 131"). Ce profil custom reproduit
+// le vrai ClientHello Chrome 150 : ALPS NOUVEAU (17613), key share post-quantique X25519MLKEM768
+// (4588), ciphers/sig-algs/ALPN/H2 identiques au genuine. Fingerprint HTTP/2 Akamai IDENTIQUE.
+// Limite lib : compress_certificate (ext 27) injouable en customTlsClient (schéma DLL désaligné) →
+// omis (ja4 1515 vs 1516). GREASE explicite = 2570 ; randomTlsExtensionOrder = shuffle Chrome.
+const CHROME150_PROFILE = {
+  ja3string: '771,2570-4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,2570-17613-11-10-0-65037-43-51-35-23-16-45-13-5-18-65281-2570,2570-4588-29-23-24,0',
+  h2Settings: { HEADER_TABLE_SIZE: 65536, ENABLE_PUSH: 0, INITIAL_WINDOW_SIZE: 6291456, MAX_HEADER_LIST_SIZE: 262144 },
+  h2SettingsOrder: ['HEADER_TABLE_SIZE', 'ENABLE_PUSH', 'INITIAL_WINDOW_SIZE', 'MAX_HEADER_LIST_SIZE'],
+  supportedSignatureAlgorithms: ['ECDSAWithP256AndSHA256', 'PSSWithSHA256', 'PKCS1WithSHA256', 'ECDSAWithP384AndSHA384', 'PSSWithSHA384', 'PKCS1WithSHA384', 'PSSWithSHA512', 'PKCS1WithSHA512'],
+  alpnProtocols: ['h2', 'http/1.1'],
+  alpsProtocols: ['h2'],
+  supportedVersions: ['GREASE', '1.3', '1.2'],
+  keyShareCurves: ['GREASE', 'X25519MLKEM768', 'X25519'],
+  pseudoHeaderOrder: [':method', ':authority', ':scheme', ':path'],
+  connectionFlow: 15663105,
+  randomTlsExtensionOrder: true,
+};
+
 let _initP = null;
 let _session = null;
 let _cfg = { proxy: undefined, clientIdentifier: 'chrome_150' };
 
 function setProxy(proxy) { _cfg.proxy = proxy || undefined; return _cfg.proxy; }
+
+// Construit les options de Session : profil CUSTOM Chrome 150 par défaut (clientIdentifier vide/'chrome_150'/'custom'),
+// sinon un identifiant built-in explicite (ex 'chrome_131' pour un test/fallback).
+function buildSessionOpts(clientIdentifier) {
+  const useCustom = !clientIdentifier || clientIdentifier === 'chrome_150' || clientIdentifier === 'custom';
+  if (useCustom) return { ...CHROME150_PROFILE, timeout: 30000, insecureSkipVerify: false };
+  return { clientIdentifier, timeout: 30000, insecureSkipVerify: false };
+}
 
 async function ensureSession(proxy, clientIdentifier) {
   if (!_initP) _initP = tlsc.initTLS();
@@ -32,11 +61,7 @@ async function ensureSession(proxy, clientIdentifier) {
     if (_session) { try { await _session.close(); } catch (_) {} _session = null; }
   }
   if (!_session) {
-    _session = new tlsc.Session({
-      clientIdentifier: _cfg.clientIdentifier,
-      timeout: 30000,
-      insecureSkipVerify: false, // on VALIDE le vrai cert de Google
-    });
+    _session = new tlsc.Session(buildSessionOpts(_cfg.clientIdentifier));
   }
   return _session;
 }
@@ -45,10 +70,11 @@ async function ensureSession(proxy, clientIdentifier) {
  * tlsFetch(url, {method, headers, body, followRedirects, cookies}) → {ok, status, headers, text(), buffer()}
  * cookies : { name: value } mergés dans le jar de session (permet de forcer un _GRECAPTCHA vieilli).
  */
-async function tlsFetch(url, { method = 'GET', headers = {}, body, followRedirects = true, cookies } = {}) {
+async function tlsFetch(url, { method = 'GET', headers = {}, body, followRedirects = true, cookies, headerOrder } = {}) {
   const s = await ensureSession(_cfg.proxy, _cfg.clientIdentifier);
   const m = String(method).toLowerCase();
   const opts = { proxy: _cfg.proxy, headers, followRedirects };
+  if (headerOrder && headerOrder.length) opts.headerOrder = headerOrder; // ordre des en-têtes = fingerprint Chrome
   if (cookies && Object.keys(cookies).length) opts.cookies = cookies;
   if (body != null) opts.body = (Buffer.isBuffer(body) ? body : Buffer.from(String(body))).toString('base64');
   // Retry sur échec TRANSPORT uniquement (status 0 = pas de réponse reçue : timeout/reset de session

@@ -46,7 +46,9 @@ export function siteConfigFor(url) {
  * Génère un VRAI token reCAPTCHA v3 (flat, byte-exact) — bootstrap → anchor → reload, 100 % JS pur.
  * @returns {Promise<{token, success, profileId, headers, reloadBytes}>}
  */
-export async function solveToken({ siteKey, action = "Event", origin, referer, proxy = null, fingerprintId = null, hl = "fr", enterprise = false, delayMs = 0 }) {
+export async function solveToken({ siteKey, action = "Event", origin, referer, proxy = null, fingerprintId = null, hl = "fr", enterprise = false, delayMs = 0, title = "", pageUrl = null }) {
+  // RC_RELOAD_DELAY : délai (ms) anchor→reload pour matcher l'exec-time genuine (~5s challenge) — test timing.
+  if (!delayMs && process.env.RC_RELOAD_DELAY) delayMs = Number(process.env.RC_RELOAD_DELAY) || 0;
   if (!siteKey) throw new Error("siteKey requis");
   if (!origin) throw new Error("origin requis");
 
@@ -65,13 +67,15 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
   const base = cfg.googleHeaders();
   const apiPath = enterprise ? "enterprise.js" : "api.js";
 
-  // AUCUN cookie _GRECAPTCHA : chaque solve = un visiteur neuf (pas de cookie de réputation partagé/hardcodé).
-  const gCk = () => undefined;
+  // Cookie _GRECAPTCHA = réputation cross-site reCAPTCHA v3. Par défaut aucun (visiteur neuf).
+  // RC_GRECAPTCHA=<val> permet d'injecter un cookie de réputation chaud (TEST score).
+  const gCk = () => (process.env.RC_GRECAPTCHA ? { _GRECAPTCHA: process.env.RC_GRECAPTCHA } : undefined);
 
   tls.setProxy(proxy || undefined);
-  // Empreinte TLS COHÉRENTE avec l'UA du profil (fp.tlsClientId). Défaut chrome_131 = la version
-  // Chrome la plus récente réellement supportée par node-tls-client (chrome_150 n'existe pas → fallback).
-  await tls.ensureSession(proxy || undefined, fingerprint.tlsClientId || "chrome_131");
+  // Empreinte TLS = profil CUSTOM Chrome 150 (tlsClient.cjs) partout : vrai ClientHello Chrome 150
+  // (ALPS 17613, X25519MLKEM768) au lieu du built-in chrome_131 (ALPS 17513 = tell "UA 150/TLS 131").
+  // "chrome_150" → buildSessionOpts() sélectionne le profil custom. RC_TLS_ID override (ex chrome_131 test).
+  await tls.ensureSession(proxy || undefined, process.env.RC_TLS_ID || "chrome_150");
   const gtext = async (url, headers, cookies) => (await tls.tlsFetch(url, { headers, cookies })).text();
 
   // Retry transitoire : les proxies résidentiels renvoient parfois une réponse tronquée/vide
@@ -97,18 +101,28 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
   // 2) Anchor → token + DC (AnchorParser.findDC extrait le BON timestamp = clé cipher field16)
   const anchorHeaders = { ...base, "accept-language": "en", referer: cfg.referer, accept: "*/*", "sec-fetch-storage-access": "none", "sec-fetch-site": "cross-site", "sec-fetch-dest": "iframe", "sec-fetch-mode": "navigate", "upgrade-insecure-requests": "1", priority: "u=0, i" };
   let anchorUrl;
-  const anchor = await withRetry(
-    () => { anchorUrl = cfg.buildAnchorUrl({ apiBase: bootstrap.apiBase, version: bootstrap.version, cb: CallbackGenerator.generate() }); return gtext(anchorUrl, anchorHeaders, gCk()); },
-    (t) => AnchorParser.parse(t),
-    (a) => !!a.anchorToken,
-    "recaptcha-token introuvable dans l'anchor",
-  );
+  let anchor;
+  // TEST : RC_OVERRIDE_ANCHOR_HTML = HTML d'un anchor GENUINE (capturé du navigateur) → isole si le gate
+  // restant est la réputation de l'anchor (exécuté vs fetché). anchorUrl reste le nôtre pour le referer reload.
+  if (process.env.RC_OVERRIDE_ANCHOR_HTML) {
+    const { readFileSync } = await import("fs");
+    anchor = AnchorParser.parse(readFileSync(process.env.RC_OVERRIDE_ANCHOR_HTML, "utf8"));
+    anchorUrl = cfg.buildAnchorUrl({ apiBase: bootstrap.apiBase, version: bootstrap.version, cb: CallbackGenerator.generate() });
+    if (!anchor.anchorToken) throw new Error("anchor override sans anchorToken");
+  } else {
+    anchor = await withRetry(
+      () => { anchorUrl = cfg.buildAnchorUrl({ apiBase: bootstrap.apiBase, version: bootstrap.version, cb: CallbackGenerator.generate() }); return gtext(anchorUrl, anchorHeaders, gCk()); },
+      (t) => AnchorParser.parse(t),
+      (a) => !!a.anchorToken,
+      "recaptcha-token introuvable dans l'anchor",
+    );
+  }
 
   // 3) Reload body FLAT byte-exact (field16 chiffré avec le DC de l'anchor, field20/22/5 cohérents)
   const originHost = new URL(cfg.referer).host;
   const built = PureFlatReload.build({
     version: bootstrap.version, anchorToken: anchor.anchorToken, siteKey, action: cfg.action,
-    originHost, referer: cfg.referer, profile: fingerprint, encryptionKey: anchor.encryptionKey,
+    originHost, referer: cfg.referer, pageUrl: pageUrl || cfg.referer, title, profile: fingerprint, encryptionKey: anchor.encryptionKey,
     anchor, // objet anchor complet (configBytecode) → extraction encKey slot73 botguard
   });
 
@@ -157,11 +171,11 @@ function resolveDomain(pageUrl, action) {
  * Génère le cookie `tmpt` Ticketmaster à partir du token reCAPTCHA (100 % JS pur).
  * @returns {Promise<{tmpt, eps_sid, token, headers, ms}>}
  */
-export async function solveTmpt({ url, action = "Event", siteKey, proxy = null, hl = "fr", enterprise = false, fingerprintId = null }) {
+export async function solveTmpt({ url, action = "Event", siteKey, proxy = null, hl = "fr", enterprise = false, fingerprintId = null, title = "" }) {
   if (!url) throw new Error("url requis");
   const t0 = Date.now();
   const dom = resolveDomain(url, action);
-  const r = await solveToken({ siteKey, action: dom.action, origin: dom.origin, referer: dom.referer, proxy, hl, enterprise, fingerprintId });
+  const r = await solveToken({ siteKey, action: dom.action, origin: dom.origin, referer: dom.referer, pageUrl: dom.referer, title, proxy, hl, enterprise, fingerprintId });
   if (!r.token) throw new Error("token reCAPTCHA null (reload " + r.reloadStatus + ")");
   const h = r.headers;
 

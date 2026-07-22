@@ -52,6 +52,20 @@ function buildField25() {
   return Buffer.from(JSON.stringify([pairs]), "utf8").toString("base64").replace(/=+$/, "");
 }
 
+// field25 EVENT (page www.ticketmaster.com, pas de formulaire) : events de survol/mouvement souris +
+// focus, AUCUNE frappe clavier. Un token event à field25 VIDE "[]" (W10) = aucune interaction = signal
+// bot fort qui pénalise le score du tm-bl de www (contrairement à auth, plus tolérant). Codes reCAPTCHA :
+// 35837=focusin, 5006=pointermove, 64607=pointerdown, 45464=pointerup.
+function buildField25Event() {
+  const pd = Math.floor(Math.random() * 2);            // clics éventuels (souvent 0 au chargement)
+  const pairs = [
+    [35837, 1 + Math.floor(Math.random() * 2)],        // focusin (page prend le focus)
+    [5006, 4 + Math.floor(Math.random() * 8)],         // pointermove (souris qui survole la page)
+  ];
+  if (pd) { pairs.push([64607, pd], [45464, pd]); }    // pointerdown/up si l'utilisateur a cliqué
+  return Buffer.from(JSON.stringify([pairs]), "utf8").toString("base64").replace(/=+$/, "");
+}
+
 export class PureFlatReload {
   /**
    * @param {object} o
@@ -62,7 +76,7 @@ export class PureFlatReload {
    * @param {object} [o.f16opts]  options passées à Field16Builder.build
    * @returns {{body:Buffer, reloadBytes:number, field16:string, field5:string}}
    */
-  static build({ version, anchorToken, siteKey, action, originHost = null, referer = null,
+  static build({ version, anchorToken, siteKey, action, originHost = null, referer = null, pageUrl = null, title = "",
                  anchorMs = 20000, executeMs = 30000, profile = null, encryptionKey = null, anchor = null, f16opts = {} }) {
     if (!version || !anchorToken || !siteKey || action == null) {
       throw new Error("version, anchorToken, siteKey, action requis");
@@ -80,12 +94,12 @@ export class PureFlatReload {
     // Field16Collector pour TOUS les sites : device depuis le profil (écran/UA/WebGL/hardware),
     // URLs/env depuis la requête (origin/host), session + comportement régénérés frais. Le spec ne
     // fournit que la STRUCTURE des 79 slots (spec_signin pour le login, spec_tm sinon).
-    const specPath = isSignin ? join(__dir, "field16_spec_signin.json") : undefined; // undefined → field16_spec_tm
+    const specPath = isSignin ? join(__dir, "field16_spec_signin.json") : undefined; // undefined → field16_spec_tm (event)
     const col = new Field16Collector(specPath);
     // Sign-in : encKey botguard du slot73 = 3ème constante du config anchor (≠ DC field16).
     let slot73EncKey = null;
-    if (isSignin && anchor) { try { slot73EncKey = Slot73Collector.extractEncKey(anchor); } catch (_) {} }
-    const built = col.build({ profile, anchorToken, version, origin: referer || ("https://" + host), pageUrl: referer || ("https://" + host), signin: isSignin, slot73EncKey, now: Date.now(), DC: encryptionKey != null ? Number(encryptionKey) : null });
+    if (anchor) { try { slot73EncKey = Slot73Collector.extractEncKey(anchor); } catch (_) {} }
+    const built = col.build({ profile, anchorToken, version, origin: referer || ("https://" + host), pageUrl: pageUrl || referer || ("https://" + host), signin: isSignin, slot73EncKey, now: Date.now(), DC: encryptionKey != null ? Number(encryptionKey) : null, siteKey, title });
     let field16 = built.field16, session = built.session;
     const slots = Field16Builder.decode(field16);
     const field5 = String(HashUtil.hashString(JSON.stringify(slots)));
@@ -93,16 +107,21 @@ export class PureFlatReload {
     // Télémétrie : profil "heavy" (page lourde) pour www.ticketmaster.com — [0]=[[1,92,40]], perf élevée,
     // sinon profil démo (léger). Un field20 démo envoyé à TM est un tell (perf trop basse). Cf. captures genuine.
     const isTMhost = /ticketmaster/i.test(host);
-    // field20 : flat tourne en mode STANDARD (comme le jsdom qui passe) → structure SIMPLE heavy
-    // ([[1,92,40]],null,...) et PAS enterprise-riche (qui ne correspond pas au mode standard).
-    // enterprise=true seulement si RC_FORCE_ENTERPRISE (cohérence mode/telemetry).
-    const isEnt = process.env.RC_FORCE_ENTERPRISE === "1";
+    // field20 : l'event www.ticketmaster (XV = reCAPTCHA ENTERPRISE) → profil ENTERPRISE riche (aligné
+    // sur la capture genuine challenge : nav+resource timings, 3 hosts). Le "heavy" sparse ([[1,92,40]],
+    // null…) sous-dimensionné (198 vs 352 genuine) = tell. Signin/démo gardent leur profil.
+    const isEnt = process.env.RC_FORCE_ENTERPRISE === "1" || (!isSignin && isTMhost);
     const field20 = Field20Telemetry.build({ pageHost: host, heavy: isTMhost, enterprise: isEnt, signin: isSignin });
     // field22 COHÉRENT avec la session (widget id + g-recaptcha-response-<counter> = mêmes que field16)
     const field22 = session ? Field22Bloom.buildCoherent(session) : Field22Bloom.build(F22_ENUM);
 
     // Champs 7/21 (blobs botguard) : ajoutés en sign-in pour un payload STRUCTURELLEMENT complet
     // (12 champs comme le genuine). Contenu chiffré non-validable serveur (mur botguard) mais forme exacte.
+    // Champs 7 (usagePattern 05A) + 21 (captchaSession 0aA) : le genuine /reload de la page CHALLENGE
+    // (1er reload, session fraîche = celui qui génère le tmpt) ne les a PAS (vérifié capture propre :
+    // f7/f21 ABSENTS). Seule la page CHARGÉE (reloads suivants) les porte. En signin (login) le vrai
+    // navigateur les envoie → on les garde uniquement là. Les ajouter à l'event = template botguard
+    // invalide en trop → flag le token.
     const aux = isSignin ? Field7Aux.build() : null;
 
     const parts = [

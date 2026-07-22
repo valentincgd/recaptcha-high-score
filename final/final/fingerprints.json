@@ -1,88 +1,26 @@
 {
-  "version": 3,
-  "note": "Profils fingerprint. SEULS ces champs entrent dans le payload/headers : userAgent, brands (->sec-ch-ua), platform/uaPlatform (->sec-ch-ua-platform), language/languages (->accept-language), et tlsClientId (empreinte JA3 node-tls-client, DOIT matcher la version Chrome de l'UA). Le reste (webgl, screen, deviceMemory, hardwareConcurrency, devicePixelRatio...) est DECORATIF : field16 ne porte aucun fingerprint device, field16[68] prend la timezone runtime. Contrainte : hl reste 'fr' (field16_spec_tm.json calibre sur recaptcha__fr.js) quelle que soit la langue du profil. tlsClientId valides : chrome_120/124/131 (chrome_150 n'existe PAS dans node-tls-client -> fallback + mismatch UA/JA3).",
+  "version": 4,
+  "note": "Profils fingerprint (20). DEVICE-only (aucune donnee liee a l'action : title/inputIds viennent dynamiquement du body). Aucun proxy dans le profil. Champs qui entrent dans le payload/headers : userAgent, brands, platform/uaPlatform, language/languages, tlsClientId (JA3 node-tls-client, DOIT matcher la version Chrome ; valides chrome_120/124/131). Reste decoratif. hl reste 'fr'.",
   "profiles": [
     {
-      "id": "chrome131_win11_nvidia_rtx3060",
-      "tlsClientId": "chrome_131",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-      "chromeMajor": 131,
-      "brands": [["Google Chrome", "131"], ["Chromium", "131"], ["Not_A Brand", "24"]],
-      "platform": "Win32",
-      "uaPlatform": "Windows",
-      "uaPlatformVersion": "15.0.0",
-      "architecture": "x86",
-      "bitness": "64",
-      "wow64": false,
-      "model": "",
-      "mobile": false,
-      "language": "en-US",
-      "languages": ["en-US", "en"],
-      "acceptLanguage": "en-US,en;q=0.9",
-      "screen": { "width": 1920, "height": 1080, "availWidth": 1920, "availHeight": 1032, "colorDepth": 24, "pixelDepth": 24 },
-      "innerWidth": 1920, "innerHeight": 953, "outerWidth": 1920, "outerHeight": 1040,
-      "devicePixelRatio": 1,
-      "timezone": "America/New_York", "timezoneOffset": 300,
-      "webgl": { "vendor": "Google Inc. (NVIDIA)", "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)", "unmaskedVendor": "Google Inc. (NVIDIA)", "extensionCount": 47 },
-      "hardwareConcurrency": 16, "deviceMemory": 8, "maxTouchPoints": 0,
-      "title": "Sign in", "scrollY": 0, "localStorageLength": 3, "inputIds": ["email", "password"]
-    },
-    {
-      "id": "chrome131_win10_intel_uhd",
-      "tlsClientId": "chrome_131",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-      "chromeMajor": 131,
-      "brands": [["Google Chrome", "131"], ["Chromium", "131"], ["Not_A Brand", "24"]],
-      "platform": "Win32",
-      "uaPlatform": "Windows",
-      "uaPlatformVersion": "10.0.0",
-      "architecture": "x86",
-      "bitness": "64",
-      "wow64": false,
-      "model": "",
-      "mobile": false,
-      "language": "en-US",
-      "languages": ["en-US", "en"],
-      "acceptLanguage": "en-US,en;q=0.9",
-      "screen": { "width": 1536, "height": 864, "availWidth": 1536, "availHeight": 816, "colorDepth": 24, "pixelDepth": 24 },
-      "innerWidth": 1536, "innerHeight": 738, "outerWidth": 1536, "outerHeight": 824,
-      "devicePixelRatio": 1.25,
-      "timezone": "America/Chicago", "timezoneOffset": 360,
-      "webgl": { "vendor": "Google Inc. (Intel)", "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 Direct3D11 vs_5_0 ps_5_0, D3D11)", "unmaskedVendor": "Google Inc. (Intel)", "extensionCount": 46 },
-      "hardwareConcurrency": 8, "deviceMemory": 8, "maxTouchPoints": 0,
-      "title": "Sign in", "scrollY": 0, "localStorageLength": 2, "inputIds": ["email", "password"]
-    },
-    {
-      "id": "chrome131_macos_apple_m2",
-      "tlsClientId": "chrome_131",
-      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-      "chromeMajor": 131,
-      "brands": [["Google Chrome", "131"], ["Chromium", "131"], ["Not_A Brand", "24"]],
-      "platform": "MacIntel",
-      "uaPlatform": "macOS",
-      "uaPlatformVersion": "14.6.1",
-      "architecture": "arm",
-      "bitness": "64",
-      "wow64": false,
-      "model": "",
-      "mobile": false,
-      "language": "en-US",
-      "languages": ["en-US", "en"],
-      "acceptLanguage": "en-US,en;q=0.9",
-      "screen": { "width": 1512, "height": 982, "availWidth": 1512, "availHeight": 944, "colorDepth": 30, "pixelDepth": 30 },
-      "innerWidth": 1512, "innerHeight": 857, "outerWidth": 1512, "outerHeight": 944,
-      "devicePixelRatio": 2,
-      "timezone": "America/Los_Angeles", "timezoneOffset": 480,
-      "webgl": { "vendor": "Google Inc. (Apple)", "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)", "unmaskedVendor": "Google Inc. (Apple)", "extensionCount": 42 },
-      "hardwareConcurrency": 8, "deviceMemory": 8, "maxTouchPoints": 0,
-      "title": "Sign in", "scrollY": 0, "localStorageLength": 3, "inputIds": ["email", "password"]
-    },
-    {
-      "id": "chrome124_win11_amd_radeon",
-      "tlsClientId": "chrome_124",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-      "chromeMajor": 124,
-      "brands": [["Chromium", "124"], ["Google Chrome", "124"], ["Not-A.Brand", "99"]],
+      "id": "chrome150",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
       "platform": "Win32",
       "uaPlatform": "Windows",
       "uaPlatformVersion": "15.0.0",
@@ -92,47 +30,275 @@
       "model": "",
       "mobile": false,
       "language": "en-GB",
-      "languages": ["en-GB", "en"],
+      "languages": [
+        "en-GB",
+        "en"
+      ],
       "acceptLanguage": "en-GB,en;q=0.9",
-      "screen": { "width": 2560, "height": 1440, "availWidth": 2560, "availHeight": 1392, "colorDepth": 24, "pixelDepth": 24 },
-      "innerWidth": 2560, "innerHeight": 1313, "outerWidth": 2560, "outerHeight": 1400,
-      "devicePixelRatio": 1,
-      "timezone": "Europe/London", "timezoneOffset": 0,
-      "webgl": { "vendor": "Google Inc. (AMD)", "renderer": "ANGLE (AMD, AMD Radeon RX 6700 XT Direct3D11 vs_5_0 ps_5_0, D3D11)", "unmaskedVendor": "Google Inc. (AMD)", "extensionCount": 45 },
-      "hardwareConcurrency": 12, "deviceMemory": 16, "maxTouchPoints": 0,
-      "title": "Sign in", "scrollY": 0, "localStorageLength": 4, "inputIds": ["email", "password"]
+      "screen": {
+        "width": 1536,
+        "height": 864,
+        "availWidth": 1536,
+        "availHeight": 816,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1536,
+      "innerHeight": 737,
+      "outerWidth": 1536,
+      "outerHeight": 824,
+      "devicePixelRatio": 1.25,
+      "timezone": "America/Chicago",
+      "timezoneOffset": 360,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
     },
     {
-      "id": "chrome120_win11_nvidia_gtx1660",
-      "tlsClientId": "chrome_120",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      "chromeMajor": 120,
-      "brands": [["Not_A Brand", "8"], ["Chromium", "120"], ["Google Chrome", "120"]],
+      "id": "empty",
+      "tlsClientId": "chrome_131",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+      "chromeMajor": 131,
+      "brands": [
+        [
+          "Google Chrome",
+          "131"
+        ],
+        [
+          "Chromium",
+          "131"
+        ],
+        [
+          "Not_A Brand",
+          "24"
+        ]
+      ],
       "platform": "Win32",
       "uaPlatform": "Windows",
-      "uaPlatformVersion": "15.0.0",
-      "architecture": "x86",
-      "bitness": "64",
+      "uaPlatformVersion": "",
+      "architecture": "",
+      "bitness": "",
       "wow64": false,
       "model": "",
       "mobile": false,
       "language": "en-US",
-      "languages": ["en-US", "en"],
+      "languages": [
+        "en-US",
+        "en"
+      ],
       "acceptLanguage": "en-US,en;q=0.9",
-      "screen": { "width": 1920, "height": 1080, "availWidth": 1920, "availHeight": 1032, "colorDepth": 24, "pixelDepth": 24 },
-      "innerWidth": 1920, "innerHeight": 953, "outerWidth": 1920, "outerHeight": 1040,
+      "screen": {},
+      "innerWidth": 0,
+      "innerHeight": 0,
+      "outerWidth": 0,
+      "outerHeight": 0,
       "devicePixelRatio": 1,
-      "timezone": "America/Denver", "timezoneOffset": 420,
-      "webgl": { "vendor": "Google Inc. (NVIDIA)", "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 Direct3D11 vs_5_0 ps_5_0, D3D11)", "unmaskedVendor": "Google Inc. (NVIDIA)", "extensionCount": 47 },
-      "hardwareConcurrency": 12, "deviceMemory": 16, "maxTouchPoints": 0,
-      "title": "Sign in", "scrollY": 0, "localStorageLength": 3, "inputIds": ["email", "password"]
+      "timezone": "",
+      "timezoneOffset": 0,
+      "webgl": {},
+      "hardwareConcurrency": 0,
+      "deviceMemory": 0,
+      "maxTouchPoints": 0
     },
     {
-      "id": "chrome150_win11_nvidia_rtx3060_legacy",
-      "tlsClientId": "chrome_131",
+      "id": "chrome131_win10_nvidiageforcertx3060_00",
+      "tlsClientId": "chrome_150",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
       "chromeMajor": 150,
-      "brands": [["Not;A=Brand", "8"], ["Chromium", "150"], ["Google Chrome", "150"]],
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1920,
+        "height": 1080,
+        "availWidth": 1920,
+        "availHeight": 1032,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1920,
+      "innerHeight": 953,
+      "outerWidth": 1920,
+      "outerHeight": 1040,
+      "devicePixelRatio": 1,
+      "timezone": "America/New_York",
+      "timezoneOffset": 300,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 4,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome124_win11_nvidiageforcertx4070_01",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1536,
+        "height": 864,
+        "availWidth": 1536,
+        "availHeight": 816,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1536,
+      "innerHeight": 737,
+      "outerWidth": 1536,
+      "outerHeight": 824,
+      "devicePixelRatio": 1.25,
+      "timezone": "America/Chicago",
+      "timezoneOffset": 360,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome120_win10_nvidiageforcegtx1660_02",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 2560,
+        "height": 1440,
+        "availWidth": 2560,
+        "availHeight": 1392,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 2560,
+      "innerHeight": 1313,
+      "outerWidth": 2560,
+      "outerHeight": 1400,
+      "devicePixelRatio": 1,
+      "timezone": "America/Denver",
+      "timezoneOffset": 420,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 16,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win11_nvidiageforcertx2060_03",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
       "platform": "Win32",
       "uaPlatform": "Windows",
       "uaPlatformVersion": "15.0.0",
@@ -142,15 +308,963 @@
       "model": "",
       "mobile": false,
       "language": "en-US",
-      "languages": ["en-US", "en"],
+      "languages": [
+        "en-US",
+        "en"
+      ],
       "acceptLanguage": "en-US,en;q=0.9",
-      "screen": { "width": 1920, "height": 1080, "availWidth": 1920, "availHeight": 1032, "colorDepth": 24, "pixelDepth": 24 },
-      "innerWidth": 1920, "innerHeight": 953, "outerWidth": 1920, "outerHeight": 1040,
+      "screen": {
+        "width": 1366,
+        "height": 768,
+        "availWidth": 1366,
+        "availHeight": 720,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1366,
+      "innerHeight": 641,
+      "outerWidth": 1366,
+      "outerHeight": 728,
       "devicePixelRatio": 1,
-      "timezone": "America/New_York", "timezoneOffset": 300,
-      "webgl": { "vendor": "Google Inc. (NVIDIA)", "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)", "unmaskedVendor": "Google Inc. (NVIDIA)", "extensionCount": 47 },
-      "hardwareConcurrency": 16, "deviceMemory": 8, "maxTouchPoints": 0,
-      "title": "Sign in", "scrollY": 0, "localStorageLength": 3, "inputIds": ["email", "password"]
+      "timezone": "America/Los_Angeles",
+      "timezoneOffset": 480,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 46
+      },
+      "hardwareConcurrency": 12,
+      "deviceMemory": 16,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win10_intel(r)uhdgraphics630_04",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1440,
+        "height": 900,
+        "availWidth": 1440,
+        "availHeight": 852,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1440,
+      "innerHeight": 773,
+      "outerWidth": 1440,
+      "outerHeight": 860,
+      "devicePixelRatio": 1,
+      "timezone": "Europe/London",
+      "timezoneOffset": 0,
+      "webgl": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (Intel)",
+        "extensionCount": 46
+      },
+      "hardwareConcurrency": 16,
+      "deviceMemory": 32,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome124_win11_intel(r)iris(r)xegraphics_05",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1600,
+        "height": 900,
+        "availWidth": 1600,
+        "availHeight": 852,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1600,
+      "innerHeight": 773,
+      "outerWidth": 1600,
+      "outerHeight": 860,
+      "devicePixelRatio": 1,
+      "timezone": "Europe/Paris",
+      "timezoneOffset": -60,
+      "webgl": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (Intel)",
+        "extensionCount": 45
+      },
+      "hardwareConcurrency": 6,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome120_win10_amdradeonrx6700xt_06",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 3840,
+        "height": 2160,
+        "availWidth": 3840,
+        "availHeight": 2112,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 3840,
+      "innerHeight": 2033,
+      "outerWidth": 3840,
+      "outerHeight": 2120,
+      "devicePixelRatio": 1.5,
+      "timezone": "Europe/Berlin",
+      "timezoneOffset": -60,
+      "webgl": {
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon RX 6700 XT Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (AMD)",
+        "extensionCount": 45
+      },
+      "hardwareConcurrency": 4,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win11_amdradeonrx580_07",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1680,
+        "height": 1050,
+        "availWidth": 1680,
+        "availHeight": 1002,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1680,
+      "innerHeight": 923,
+      "outerWidth": 1680,
+      "outerHeight": 1010,
+      "devicePixelRatio": 1,
+      "timezone": "America/Phoenix",
+      "timezoneOffset": 420,
+      "webgl": {
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon RX 580 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (AMD)",
+        "extensionCount": 44
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome124_macos_applem1_08",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "MacIntel",
+      "uaPlatform": "macOS",
+      "uaPlatformVersion": "14.6.1",
+      "architecture": "arm",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1280,
+        "height": 720,
+        "availWidth": 1280,
+        "availHeight": 672,
+        "colorDepth": 30,
+        "pixelDepth": 30
+      },
+      "innerWidth": 1280,
+      "innerHeight": 593,
+      "outerWidth": 1280,
+      "outerHeight": 680,
+      "devicePixelRatio": 1,
+      "timezone": "America/New_York",
+      "timezoneOffset": 300,
+      "webgl": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "extensionCount": 42
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 16,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_macos_applem2_09",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "MacIntel",
+      "uaPlatform": "macOS",
+      "uaPlatformVersion": "14.5",
+      "architecture": "arm",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 2560,
+        "height": 1600,
+        "availWidth": 2560,
+        "availHeight": 1552,
+        "colorDepth": 30,
+        "pixelDepth": 30
+      },
+      "innerWidth": 2560,
+      "innerHeight": 1473,
+      "outerWidth": 2560,
+      "outerHeight": 1560,
+      "devicePixelRatio": 2,
+      "timezone": "America/Chicago",
+      "timezoneOffset": 360,
+      "webgl": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M2, Unspecified Version)",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "extensionCount": 42
+      },
+      "hardwareConcurrency": 12,
+      "deviceMemory": 16,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome120_macos_applem3_10",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "MacIntel",
+      "uaPlatform": "macOS",
+      "uaPlatformVersion": "13.6.7",
+      "architecture": "arm",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1512,
+        "height": 982,
+        "availWidth": 1512,
+        "availHeight": 934,
+        "colorDepth": 30,
+        "pixelDepth": 30
+      },
+      "innerWidth": 1512,
+      "innerHeight": 855,
+      "outerWidth": 1512,
+      "outerHeight": 942,
+      "devicePixelRatio": 2,
+      "timezone": "America/Denver",
+      "timezoneOffset": 420,
+      "webgl": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M3, Unspecified Version)",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "extensionCount": 43
+      },
+      "hardwareConcurrency": 16,
+      "deviceMemory": 32,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win11_nvidiageforcertx3060_11",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1470,
+        "height": 956,
+        "availWidth": 1470,
+        "availHeight": 908,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1470,
+      "innerHeight": 829,
+      "outerWidth": 1470,
+      "outerHeight": 916,
+      "devicePixelRatio": 2,
+      "timezone": "America/Los_Angeles",
+      "timezoneOffset": 480,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 6,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome124_win10_nvidiageforcertx4070_12",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1920,
+        "height": 1080,
+        "availWidth": 1920,
+        "availHeight": 1032,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1920,
+      "innerHeight": 953,
+      "outerWidth": 1920,
+      "outerHeight": 1040,
+      "devicePixelRatio": 1,
+      "timezone": "Europe/London",
+      "timezoneOffset": 0,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 4,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win11_nvidiageforcegtx1660_13",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1536,
+        "height": 864,
+        "availWidth": 1536,
+        "availHeight": 816,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1536,
+      "innerHeight": 737,
+      "outerWidth": 1536,
+      "outerHeight": 824,
+      "devicePixelRatio": 1.25,
+      "timezone": "Europe/Paris",
+      "timezoneOffset": -60,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce GTX 1660 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 47
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win10_nvidiageforcertx2060_14",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 2560,
+        "height": 1440,
+        "availWidth": 2560,
+        "availHeight": 1392,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 2560,
+      "innerHeight": 1313,
+      "outerWidth": 2560,
+      "outerHeight": 1400,
+      "devicePixelRatio": 1,
+      "timezone": "Europe/Berlin",
+      "timezoneOffset": -60,
+      "webgl": {
+        "vendor": "Google Inc. (NVIDIA)",
+        "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 2060 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (NVIDIA)",
+        "extensionCount": 46
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 16,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome124_win11_intel(r)uhdgraphics630_15",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1366,
+        "height": 768,
+        "availWidth": 1366,
+        "availHeight": 720,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1366,
+      "innerHeight": 641,
+      "outerWidth": 1366,
+      "outerHeight": 728,
+      "devicePixelRatio": 1,
+      "timezone": "America/Phoenix",
+      "timezoneOffset": 420,
+      "webgl": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) UHD Graphics 630 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (Intel)",
+        "extensionCount": 46
+      },
+      "hardwareConcurrency": 12,
+      "deviceMemory": 16,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome120_win10_intel(r)iris(r)xegraphics_16",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1440,
+        "height": 900,
+        "availWidth": 1440,
+        "availHeight": 852,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1440,
+      "innerHeight": 773,
+      "outerWidth": 1440,
+      "outerHeight": 860,
+      "devicePixelRatio": 1,
+      "timezone": "America/New_York",
+      "timezoneOffset": 300,
+      "webgl": {
+        "vendor": "Google Inc. (Intel)",
+        "renderer": "ANGLE (Intel, Intel(R) Iris(R) Xe Graphics Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (Intel)",
+        "extensionCount": 45
+      },
+      "hardwareConcurrency": 16,
+      "deviceMemory": 32,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win11_amdradeonrx6700xt_17",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "15.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 1600,
+        "height": 900,
+        "availWidth": 1600,
+        "availHeight": 852,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 1600,
+      "innerHeight": 773,
+      "outerWidth": 1600,
+      "outerHeight": 860,
+      "devicePixelRatio": 1,
+      "timezone": "America/Chicago",
+      "timezoneOffset": 360,
+      "webgl": {
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon RX 6700 XT Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (AMD)",
+        "extensionCount": 45
+      },
+      "hardwareConcurrency": 6,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome131_win10_amdradeonrx580_18",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "Win32",
+      "uaPlatform": "Windows",
+      "uaPlatformVersion": "10.0.0",
+      "architecture": "x86",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-US",
+      "languages": [
+        "en-US",
+        "en"
+      ],
+      "acceptLanguage": "en-US,en;q=0.9",
+      "screen": {
+        "width": 3840,
+        "height": 2160,
+        "availWidth": 3840,
+        "availHeight": 2112,
+        "colorDepth": 24,
+        "pixelDepth": 24
+      },
+      "innerWidth": 3840,
+      "innerHeight": 2033,
+      "outerWidth": 3840,
+      "outerHeight": 2120,
+      "devicePixelRatio": 1.5,
+      "timezone": "America/Denver",
+      "timezoneOffset": 420,
+      "webgl": {
+        "vendor": "Google Inc. (AMD)",
+        "renderer": "ANGLE (AMD, AMD Radeon RX 580 Direct3D11 vs_5_0 ps_5_0, D3D11)",
+        "unmaskedVendor": "Google Inc. (AMD)",
+        "extensionCount": 44
+      },
+      "hardwareConcurrency": 4,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
+    },
+    {
+      "id": "chrome124_macos_applem1_19",
+      "tlsClientId": "chrome_150",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "chromeMajor": 150,
+      "brands": [
+        [
+          "Not;A=Brand",
+          "8"
+        ],
+        [
+          "Chromium",
+          "150"
+        ],
+        [
+          "Google Chrome",
+          "150"
+        ]
+      ],
+      "platform": "MacIntel",
+      "uaPlatform": "macOS",
+      "uaPlatformVersion": "15.1",
+      "architecture": "arm",
+      "bitness": "64",
+      "wow64": false,
+      "model": "",
+      "mobile": false,
+      "language": "en-GB",
+      "languages": [
+        "en-GB",
+        "en"
+      ],
+      "acceptLanguage": "en-GB,en;q=0.9",
+      "screen": {
+        "width": 1680,
+        "height": 1050,
+        "availWidth": 1680,
+        "availHeight": 1002,
+        "colorDepth": 30,
+        "pixelDepth": 30
+      },
+      "innerWidth": 1680,
+      "innerHeight": 923,
+      "outerWidth": 1680,
+      "outerHeight": 1010,
+      "devicePixelRatio": 1,
+      "timezone": "America/Los_Angeles",
+      "timezoneOffset": 480,
+      "webgl": {
+        "vendor": "Google Inc. (Apple)",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1, Unspecified Version)",
+        "unmaskedVendor": "Google Inc. (Apple)",
+        "extensionCount": 42
+      },
+      "hardwareConcurrency": 8,
+      "deviceMemory": 8,
+      "maxTouchPoints": 0
     }
   ]
 }
