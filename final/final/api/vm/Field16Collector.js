@@ -128,17 +128,8 @@ export class Field16Collector {
     if (e.key === 2103480962) return '""'; // [41] : genuine EVENT auto-execute = "" (vide, décrypté field16 genuine), pas 2 chars random.
     // slot 67 = résolution écran [width,height,availHeight,innerW,innerH,outerH] — DÉRIVÉ DU PROFIL
     // (le spec avait un b64 random "signal manquant"). Chaque profil → son écran → device non figé.
-    // [67] = [screen.w, screen.h, availHeight, innerW, innerH, outerHeight]. Le reCAPTCHA tourne dans une
-    // IFRAME → innerW/innerH = viewport iframe (WINDOWED, < écran) et outerHeight = 0 (pas de fenêtre outer).
-    // Genuine décodé : [1440,900,852,1037,739,0]. L'ancien code mettait innerW=screen.width (maximisé) et
-    // outerHeight=824 > availHeight (IMPOSSIBLE physiquement = tell device fake). On émet une viewport
-    // windowed cohérente (< availWidth/availHeight) + outerHeight=0.
-    if (e.i === 67) {
-      const s = ss.profile.screen || {}; const availW = s.availWidth || s.width || 1440; const availH = s.availHeight || 852;
-      const innerW = Math.max(900, availW - (280 + rnd(200)));   // windowed : plus étroit que l'écran dispo
-      const innerH = Math.max(600, availH - (100 + rnd(40)));    // < availHeight (chrome navigateur)
-      return '"' + JSON.stringify([s.width, s.height, availH, innerW, innerH, 0]) + '"';
-    }
+    // [67] = [screen.w, screen.h, availHeight, innerW, innerH, outerHeight] — DÉRIVÉ DU PROFIL.
+    if (e.i === 67) { const s = ss.profile.screen || {}; const p = ss.profile; return '"' + JSON.stringify([s.width, s.height, s.availHeight, p.innerWidth, p.innerHeight, p.outerHeight]) + '"'; }
     // [39] navigation.type (0=navigate/1=reload) et [45] history.length : le spec jsdom FUIT le getter
     // fnToString (`get history(){…}`) ; un vrai navigateur émet des NOMBRES. On aligne (event + signin).
     if (e.i === 39) return "0";                    // [39] performance.navigation.type : chargement FRAIS = navigate (0), pas reload (1). Genuine event = 0.
