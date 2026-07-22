@@ -18,6 +18,7 @@ import { encodeSignalMode } from "./PerSignalCipher.js";
 import { SessionState } from "./SessionState.js";
 import { DeriveSignalCode } from "./DeriveSignalCode.js";
 import { Slot73Collector } from "./Slot73Collector.js";
+import { DynamicValues } from "./DynamicValues.js";
 
 // Hash DOM du vrai script (reversé) : xH = SHA-256 ; signal élément = tagName+","+sha256(tagName+id+className)[:8].
 // Vérifié : sha256("BODY")[:8] === "30e7e41e" (= slot 8 jsdom). Reconstruction GENUINE (pas de template).
@@ -88,7 +89,8 @@ export class Field16Collector {
       // slot 64 = temps d'exécution anchor→reload. Event (rapide, jsdom) ~489-520. SIGN-IN : le vrai
       // navigateur met ~10-15s (l'utilisateur tape email+password) → genuine=13073. Un ~500ms en signin
       // = tell de bot majeur (score bas). On émet un temps humain réaliste en signin.
-      if (e.raw !== undefined && e.i === 64) { slots.push(signin ? (9000 + rnd(7000)) : (600 + rnd(400))); continue; } // [64] exec-time : genuine EVENT auto-execute ~775ms (décrypté field16 genuine), PAS ~5s. Signin (frappe user) ~10s.
+      if (e.raw !== undefined && e.i === 64) { slots.push(signin ? (9000 + rnd(7000)) : (600 + rnd(1000))); continue; } // [64] exec-time : genuine EVENT auto-execute ~775-1411ms (varie). Signin (frappe user) ~10s.
+      if (e.raw !== undefined && e.i === 17) { slots.push(2); continue; } // [17] : genuine = 2 (le spec figeait 1, périmé).
       // slot 77 = timestamp conditionnel : genuine sign-in le porte (ex 1784674053983). spec=null. On l'émet en signin.
       if (e.raw !== undefined && e.i === 77) { slots.push(signin ? ss.now : (e.raw)); continue; }
       // slot 72 = navigator.userAgentData [[brands],mobile,platform] — DÉRIVÉ DU PROFIL (plus de valeur
@@ -126,11 +128,21 @@ export class Field16Collector {
     if (e.key === 2103480962) return '""'; // [41] : genuine EVENT auto-execute = "" (vide, décrypté field16 genuine), pas 2 chars random.
     // slot 67 = résolution écran [width,height,availHeight,innerW,innerH,outerH] — DÉRIVÉ DU PROFIL
     // (le spec avait un b64 random "signal manquant"). Chaque profil → son écran → device non figé.
-    if (e.i === 67) { const s = ss.profile.screen || {}; const p = ss.profile; return '"' + JSON.stringify([s.width, s.height, s.availHeight, p.innerWidth, p.innerHeight, p.outerHeight]) + '"'; }
+    // [67] = [screen.w, screen.h, availHeight, innerW, innerH, outerHeight]. Le reCAPTCHA tourne dans une
+    // IFRAME → innerW/innerH = viewport iframe (WINDOWED, < écran) et outerHeight = 0 (pas de fenêtre outer).
+    // Genuine décodé : [1440,900,852,1037,739,0]. L'ancien code mettait innerW=screen.width (maximisé) et
+    // outerHeight=824 > availHeight (IMPOSSIBLE physiquement = tell device fake). On émet une viewport
+    // windowed cohérente (< availWidth/availHeight) + outerHeight=0.
+    if (e.i === 67) {
+      const s = ss.profile.screen || {}; const availW = s.availWidth || s.width || 1440; const availH = s.availHeight || 852;
+      const innerW = Math.max(900, availW - (280 + rnd(200)));   // windowed : plus étroit que l'écran dispo
+      const innerH = Math.max(600, availH - (100 + rnd(40)));    // < availHeight (chrome navigateur)
+      return '"' + JSON.stringify([s.width, s.height, availH, innerW, innerH, 0]) + '"';
+    }
     // [39] navigation.type (0=navigate/1=reload) et [45] history.length : le spec jsdom FUIT le getter
     // fnToString (`get history(){…}`) ; un vrai navigateur émet des NOMBRES. On aligne (event + signin).
-    if (e.i === 39) return String(rnd(2));
-    if (e.i === 45) return String(2 + rnd(5));
+    if (e.i === 39) return "0";                    // [39] performance.navigation.type : chargement FRAIS = navigate (0), pas reload (1). Genuine event = 0.
+    if (e.i === 45) return String(1 + rnd(3));      // [45] history.length : chargement frais 1-3 (genuine=3), pas 2-6.
     // [36] nextHopProtocol du document : "h2" (le spec avait "" — jsdom sans navigation timing).
     if (e.i === 36) return '"h2"';
     // [27] location.origin : l'origin de la REQUÊTE (le spec fuit "[object Object]" = bug de sérialisation jsdom).
@@ -153,10 +165,11 @@ export class Field16Collector {
     if (e.i === 46) return '"."';
     // [32] = 2e URL : VIDE sur la page challenge (le [27] porte l'URL, pas le [32]).
     if (e.i === 32 && !ctx.signin) return '""';
-    // [50] = méta session : type/compteur + 3 IDs de session FRAIS (idPool) + nonce b64 FRAIS.
+    // [50] = méta session. STRUCTURE EXACTE genuine event (décodé) : [1,0,null,1,1,[primaryId],b64,0,null,[[0]]]
+    // — 1 SEUL id = ss.primaryId (cohérent avec [44]/[55]), b64 d'un id 11-char, dernier = [[0]]. (L'ancien
+    // [3,1000+,null,1,2,[3 ids],...,[[0,0,-1,0]]] était FAUX = 54 octets de trop + incohérence primaryId.)
     if (e.i === 50 && !ctx.signin) {
-      const pid = () => ss.idPool[ctx.poolIdxRef() % ss.idPool.length].slice(0, 10);
-      const arr = [3, 1000 + rnd(600), null, 1, 2, [pid(), pid(), pid()], b64(randB36(11 + rnd(3))), 0, null, [[0, 0, -1, 0]]];
+      const arr = [1, 0, null, 1, 1, [ss.primaryId], b64(randB36(11)), 0, null, [[0]]];
       return '"' + JSON.stringify(arr).replace(/"/g, '\\"') + '"';
     }
     // [57] = hosts des <script> de la page challenge epsf (peu de scripts) : gstatic (recaptcha) + host
@@ -177,15 +190,18 @@ export class Field16Collector {
       // [58] : la capture PROPRE donne "rc::d-<ts>" (= ss.widgetId, valeur d'origine) ; "rc::f" était un
       // artefact de ma page gelée. On laisse passer vers le handler rc:: (ss.widgetId).
       if (e.i === 70) return '"[null,null,\\"\\",\\"\\"]"';     // [null,null,"",""] (challenge + loaded)
-      if (e.i === 51) return '"[0]"';                           // challenge = "[0]"
-      if (e.i === 31) return '"BAAAAAAABA"';                    // bitfield features navigateur (genuine ; spec stale)
-      if (e.i === 65) return '"sha384-pCt"';                    // intégrité/SRI script recaptcha (genuine ; spec stale)
-      if (e.i === 38) return "4";                               // challenge = 4 (spec/loaded = -1/0)
+      if (e.i === 51) return "0";                               // [51] count mots-clés d'erreur (try again|incorrect|invalid|declined) = 0 (page normale). NOMBRE, pas "[0]".
+      if (e.i === 53) { let n = 0; try { n = Array.from(String(ctx.pageUrl || ctx.origin || "")).slice(0, 100).length; } catch (_) {} return String(n % 2 === 0 ? 5 : 4); } // [53] parité longueur location[:100] → 5 (pair) / 4 (impair). CALCULÉ depuis l'URL réelle.
+      if (e.i === 31) return '"' + DynamicValues.bitfield31() + '"';  // [31] bitfield features — DYNAMIQUE (harvester par version script)
+      if (e.i === 65) return '"' + DynamicValues.sri65() + '"';       // [65] hash intégrité — DYNAMIQUE (harvester par version script)
+      if (e.i === 38) return String(rnd(13));                   // [38] DNS timing delta (domainLookup) : petit, VARIE par load (genuine 4/9/10). Pas figé.
       if (e.i === 59) return '""';                              // challenge = "" (chaîne vide quotée)
       if (e.i === 63) return '"[]"';                            // challenge = "[]" (VIDE, pas un tableau de timings)
       // [71] = infos mémoire performance : [totalJSHeapSize, usedJSHeapSize, ...] — 1er ~4.4e9 constant,
       // les suivants VARIENT par solve. (Le spec l'émettait comme un ID base36 = faux.)
-      if (e.i === 71) return '"' + JSON.stringify([4395630592, 20000000 + rnd(8000000), 18000000 + rnd(6000000)]) + '"';
+      // [71] totalJSHeapSize = limite heap V8 (quasi-constante par version Chrome, PAS un discriminant device) →
+      // du profil si présent (fingerprint.jsHeapSizeLimit), sinon la valeur Chrome desktop standard. usedJSHeapSize varie.
+      if (e.i === 71) return '"' + JSON.stringify([ss.profile.jsHeapSizeLimit || 4395630592, 20000000 + rnd(8000000), 18000000 + rnd(6000000)]) + '"';
     }
     // [62] : la capture PROPRE de la page challenge donne "QQ" (= la valeur du spec original). Ce n'est PAS
     // le document.title (le token tmpt s'exécute avant que le title "Let's Get..." soit posé). On garde le
@@ -193,7 +209,9 @@ export class Field16Collector {
     if (e.i === 62 && ctx.title && ctx.signin) return '"' + String(ctx.title).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
     // [29] = hash SHA-256 de grecaptcha.execute (stable par sitekey+version : ZB="e2b68587"). Le handler
     // hex8 générique l'écrasait par ss.hex8 (session, "202a957a"=XV) → FAUX pour ZB. En signin, garder le spec.
-    if (e.i === 29) return v; // [29] = hash SHA-256 de grecaptcha.execute (stable par sitekey+version, VÉRIFIABLE serveur). XV="202a957a" (spec). L'écraser par ss.hex8 aléatoire = tell. Garder le spec (event ET signin).
+    // [29] = hash SHA-256 de grecaptcha.execute — PAR SITEKEY + version (VÉRIFIABLE serveur). DYNAMIQUE
+    // (harvester) : XV="202a957a", ZB="e2b68587". Ne PAS écraser par ss.hex8 aléatoire.
+    if (e.i === 29) return '"' + DynamicValues.executeHash29(ctx.siteKey) + '"';
     // fnToString (getters performance/history) : on GARDE la source exacte du spec (= ce que jsdom émet
     // et qui PASSE), au lieu de forcer "[native code]". RC_NATIVE_FN=1 pour revenir au natif Chrome.
     const fn = /get (\w+)\(\)/.exec(inner);
@@ -205,8 +223,11 @@ export class Field16Collector {
     // = tell d'incohérence. En signin on le RETIRE (vide "") — le genuine XV LoginPage l'a vide aussi
     // (conditionnel GTM). RC_GA_FRESH=1 pour émettre un GA frais à la place.
     if (/^GA1\.\d/.test(inner)) {
-      if (ctx.signin) return process.env.RC_GA_FRESH === "1" ? '"GA1.1.' + (100000000 + rnd(900000000)) + "." + Math.floor(ss.now / 1000) + '"' : '""';
-      return '"' + ss.gaCookie + '"';
+      // [78] cookie GA : notre flow est un VISITEUR FRAIS (aucun cookie _ga) → vide, comme le genuine
+      // event capturé ("\\"/vide). Un GA synthétique qui ne correspond à AUCUNE session GTM = tell.
+      // RC_GA_FRESH=1 pour émettre un GA frais (session réchauffée mono-usage).
+      if (process.env.RC_GA_FRESH === "1") return '"' + ss.gaCookie + '"';
+      return '""';
     }
     // widget id : genuine émet TOUJOURS "rc::d-<timestamp>" (vérifié 2 runs jsdom : rc::d-1784487833415).
     // La spec avait "rc::a" (périmé) → on émet systématiquement ss.widgetId (rc::d-<tWidget>).
@@ -231,9 +252,9 @@ export class Field16Collector {
     if (/^\d+,[0-9a-f]{8}$/.test(inner)) {
       let host = ""; try { host = new URL(ctx.pageUrl || ctx.origin).host; } catch (_) {}
       if (/ticketmaster/i.test(host)) {
-        // assets epsf réels de la page challenge (cross-origin → URL complète). shared.js est sans hash de déploiement.
-        const assets = ["/epsf/asset/shared.js", "/epsf/asset/shared.js", "/epsf/asset/abuse-component.js"];
-        return '"' + (7 + rnd(4)) + ',https://' + host + assets[rnd(assets.length)] + '"';
+        // asset epsf de la page challenge (cross-origin → URL complète, avec le hash de déploiement).
+        // Genuine décodé : "11,https://www.ticketmaster.com/epsf/717364df/asset/abuse-component.js".
+        return '"' + (9 + rnd(4)) + ',https://' + host + '/epsf/717364df/asset/abuse-component.js"';
       }
       const resUrl = "https://www.gstatic.com/recaptcha/releases/" + (ctx.version || "") + "/recaptcha__" + (this.hl || "en") + ".js";
       return '"' + rnd(9) + ',' + domHash8(resUrl + ss.now + rnd(1e6)) + '"';

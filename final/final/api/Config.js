@@ -33,8 +33,9 @@ export class Config {
     mode: "auto",
     anchorMs: "20000",
     executeMs: "30000",
-    userAgent:
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+    // PAS d'UA hardcodé : l'UA vient TOUJOURS du fingerprint (cfg.userAgent = fingerprint.userAgent dans
+    // index.mjs, ou fp.userAgent dans clientHints). null = force l'usage du profil (un UA figé serait un tell).
+    userAgent: null,
   };
 
   constructor(overrides = {}) {

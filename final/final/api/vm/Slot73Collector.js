@@ -63,7 +63,9 @@ export class Slot73Collector {
       const idx = Number(idxStr);
       const value = this.#valueFor(idx, spec.v, profile);
       const enc = SignalEncryptor.encrypt(String(value), Number(encKey), Number(spec.sk));
-      arr[idx] = [null, 0, 0, Buffer.from(enc).toString("base64")];
+      // 2e élément (N) = compteur de collecte du signal — VARIE par signal (genuine décodé : [0]=4, [10]=1,
+      // [26]=5, la plupart=0). L'ancien 0 systématique = tell. spec.n si présent, sinon 0.
+      arr[idx] = [null, spec.n != null ? spec.n : 0, 0, Buffer.from(enc).toString("base64")];
     }
     return arr;
   }

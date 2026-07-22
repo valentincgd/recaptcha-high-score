@@ -29,27 +29,27 @@
       "wow64": false,
       "model": "",
       "mobile": false,
-      "language": "en-GB",
+      "language": "fr-FR",
       "languages": [
-        "en-GB",
-        "en"
+        "fr-FR",
+        "fr"
       ],
-      "acceptLanguage": "en-GB,en;q=0.9",
+      "acceptLanguage": "fr-FR,fr;q=0.9",
       "screen": {
-        "width": 1536,
-        "height": 864,
-        "availWidth": 1536,
-        "availHeight": 816,
+        "width": 1920,
+        "height": 1080,
+        "availWidth": 1920,
+        "availHeight": 1032,
         "colorDepth": 24,
         "pixelDepth": 24
       },
-      "innerWidth": 1536,
-      "innerHeight": 737,
-      "outerWidth": 1536,
-      "outerHeight": 824,
-      "devicePixelRatio": 1.25,
-      "timezone": "America/Chicago",
-      "timezoneOffset": 360,
+      "innerWidth": 1920,
+      "innerHeight": 953,
+      "outerWidth": 1920,
+      "outerHeight": 1032,
+      "devicePixelRatio": 1,
+      "timezone": "Europe/Paris",
+      "timezoneOffset": -120,
       "webgl": {
         "vendor": "Google Inc. (NVIDIA)",
         "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 4070 Direct3D11 vs_5_0 ps_5_0, D3D11)",
@@ -58,7 +58,59 @@
       },
       "hardwareConcurrency": 8,
       "deviceMemory": 8,
-      "maxTouchPoints": 0
+      "maxTouchPoints": 0,
+      "hl": "fr",
+      "tls": {
+        "clientIdentifier": null,
+        "ja3string": "771,2570-4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,2570-17613-11-10-0-65037-43-51-35-23-16-45-13-5-18-65281-2570,2570-4588-29-23-24,0",
+        "h2Settings": {
+          "HEADER_TABLE_SIZE": 65536,
+          "ENABLE_PUSH": 0,
+          "INITIAL_WINDOW_SIZE": 6291456,
+          "MAX_HEADER_LIST_SIZE": 262144
+        },
+        "h2SettingsOrder": [
+          "HEADER_TABLE_SIZE",
+          "ENABLE_PUSH",
+          "INITIAL_WINDOW_SIZE",
+          "MAX_HEADER_LIST_SIZE"
+        ],
+        "supportedSignatureAlgorithms": [
+          "ECDSAWithP256AndSHA256",
+          "PSSWithSHA256",
+          "PKCS1WithSHA256",
+          "ECDSAWithP384AndSHA384",
+          "PSSWithSHA384",
+          "PKCS1WithSHA384",
+          "PSSWithSHA512",
+          "PKCS1WithSHA512"
+        ],
+        "alpnProtocols": [
+          "h2",
+          "http/1.1"
+        ],
+        "alpsProtocols": [
+          "h2"
+        ],
+        "supportedVersions": [
+          "GREASE",
+          "1.3",
+          "1.2"
+        ],
+        "keyShareCurves": [
+          "GREASE",
+          "X25519MLKEM768",
+          "X25519"
+        ],
+        "pseudoHeaderOrder": [
+          ":method",
+          ":authority",
+          ":scheme",
+          ":path"
+        ],
+        "connectionFlow": 15663105,
+        "randomTlsExtensionOrder": true
+      }
     },
     {
       "id": "empty",

@@ -38,30 +38,49 @@ const CHROME150_PROFILE = {
 
 let _initP = null;
 let _session = null;
-let _cfg = { proxy: undefined, clientIdentifier: 'chrome_150' };
+let _cfg = { proxy: undefined, tlsSpec: 'chrome_150', tlsKey: 'chrome_150' };
 
 function setProxy(proxy) { _cfg.proxy = proxy || undefined; return _cfg.proxy; }
 
-// Construit les options de Session : profil CUSTOM Chrome 150 par défaut (clientIdentifier vide/'chrome_150'/'custom'),
-// sinon un identifiant built-in explicite (ex 'chrome_131' pour un test/fallback).
-function buildSessionOpts(clientIdentifier) {
-  const useCustom = !clientIdentifier || clientIdentifier === 'chrome_150' || clientIdentifier === 'custom';
-  if (useCustom) return { ...CHROME150_PROFILE, timeout: 30000, insecureSkipVerify: false };
-  return { clientIdentifier, timeout: 30000, insecureSkipVerify: false };
+// Clé d'identité d'un profil TLS (pour détecter un changement → recréer la session).
+function tlsKeyOf(spec) {
+  if (spec && typeof spec === 'object') return 'custom:' + (spec.ja3string || JSON.stringify(spec)).slice(0, 80);
+  return String(spec || 'chrome_150');
 }
 
-async function ensureSession(proxy, clientIdentifier) {
+// Construit les options de Session à partir d'un profil TLS qui peut être :
+//   - un OBJET (le champ `tls` d'un fingerprint : ja3string/h2Settings/keyShareCurves… → customTlsClient) ;
+//   - un identifiant string built-in ('chrome_131', 'chrome_124'…) qui correspond à l'UA du profil ;
+//   - 'chrome_150'/'custom'/vide → fallback profil Chrome 150 (CHROME150_PROFILE) pour les profils pas
+//     encore migrés vers un objet `tls`.
+// Le profil TLS DOIT correspondre à la version Chrome de l'UA (ex Chrome 150 → ALPS 17613 ; Chrome 131 → built-in).
+function buildSessionOpts(spec) {
+  if (spec && typeof spec === 'object' && spec.ja3string) {
+    const { clientIdentifier: _drop, ...tls } = spec; // le champ `tls` peut porter clientIdentifier:null
+    return { ...tls, timeout: 30000, insecureSkipVerify: false };
+  }
+  if (typeof spec === 'string' && spec && spec !== 'chrome_150' && spec !== 'custom') {
+    return { clientIdentifier: spec, timeout: 30000, insecureSkipVerify: false };
+  }
+  return { ...CHROME150_PROFILE, timeout: 30000, insecureSkipVerify: false };
+}
+
+// tlsSpec = objet `tls` du fingerprint OU identifiant string OU vide (défaut Chrome 150).
+async function ensureSession(proxy, tlsSpec) {
   if (!_initP) _initP = tlsc.initTLS();
   await _initP;
   if (proxy !== undefined) _cfg.proxy = proxy;
-  // Changement d'identifiant TLS (profil différent) → on recrée la session pour que le JA3
-  // corresponde bien à la nouvelle empreinte (sinon le singleton garderait l'ancienne).
-  if (clientIdentifier && clientIdentifier !== _cfg.clientIdentifier) {
-    _cfg.clientIdentifier = clientIdentifier;
-    if (_session) { try { await _session.close(); } catch (_) {} _session = null; }
+  // Changement de profil TLS → on recrée la session pour que le JA3/H2 corresponde bien à la nouvelle
+  // empreinte (sinon le singleton garderait l'ancienne).
+  if (tlsSpec !== undefined) {
+    const key = tlsKeyOf(tlsSpec);
+    if (key !== _cfg.tlsKey) {
+      _cfg.tlsSpec = tlsSpec; _cfg.tlsKey = key;
+      if (_session) { try { await _session.close(); } catch (_) {} _session = null; }
+    }
   }
   if (!_session) {
-    _session = new tlsc.Session(buildSessionOpts(_cfg.clientIdentifier));
+    _session = new tlsc.Session(buildSessionOpts(_cfg.tlsSpec));
   }
   return _session;
 }
@@ -71,7 +90,7 @@ async function ensureSession(proxy, clientIdentifier) {
  * cookies : { name: value } mergés dans le jar de session (permet de forcer un _GRECAPTCHA vieilli).
  */
 async function tlsFetch(url, { method = 'GET', headers = {}, body, followRedirects = true, cookies, headerOrder } = {}) {
-  const s = await ensureSession(_cfg.proxy, _cfg.clientIdentifier);
+  const s = await ensureSession(_cfg.proxy); // garde le profil TLS courant (tlsSpec déjà fixé)
   const m = String(method).toLowerCase();
   const opts = { proxy: _cfg.proxy, headers, followRedirects };
   if (headerOrder && headerOrder.length) opts.headerOrder = headerOrder; // ordre des en-têtes = fingerprint Chrome

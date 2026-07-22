@@ -61,10 +61,15 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
     return { token: j.token ?? null, success: !!j.token, profileId: "jsdom", reloadBytes: 0, reloadStatus: j.reloadStatus ?? (j.token ? 200 : 0), headers: j.clientHints };
   }
   const fingerprint = pickFingerprint({ id: fingerprintId });
-  const cfg = new Config({ siteKey, action, origin, referer: referer ?? origin.replace(/\/$/, "") + "/", mode: enterprise ? "enterprise" : "api2", preserveOrigin: true, hl });
+  // hl (langue reCAPTCHA) = DÉRIVÉ du profil (fingerprint.hl ou racine de la langue) → cohérent avec
+  // accept-language/field16. Le param `hl` ne sert que de dernier fallback.
+  const fpHl = fingerprint.hl || (fingerprint.language || "").split("-")[0].toLowerCase() || hl;
+  const cfg = new Config({ siteKey, action, origin, referer: referer ?? origin.replace(/\/$/, "") + "/", mode: enterprise ? "enterprise" : "api2", preserveOrigin: true, hl: fpHl });
   cfg.fingerprint = fingerprint;
   cfg.userAgent = fingerprint.userAgent;
-  const base = cfg.googleHeaders();
+  const base = cfg.googleHeaders(); // base["accept-language"] = acceptLanguage DU PROFIL
+  // accept-language des requêtes reCAPTCHA (anchor/reload) = celle du profil (plus de "en" hardcodé).
+  const acceptLang = base["accept-language"] || fingerprint.acceptLanguage || "en-US,en;q=0.9";
   const apiPath = enterprise ? "enterprise.js" : "api.js";
 
   // Cookie _GRECAPTCHA = réputation cross-site reCAPTCHA v3. Par défaut aucun (visiteur neuf).
@@ -72,11 +77,13 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
   const gCk = () => (process.env.RC_GRECAPTCHA ? { _GRECAPTCHA: process.env.RC_GRECAPTCHA } : undefined);
 
   tls.setProxy(proxy || undefined);
-  // Empreinte TLS = profil CUSTOM Chrome 150 (tlsClient.cjs) partout : vrai ClientHello Chrome 150
-  // (ALPS 17613, X25519MLKEM768) au lieu du built-in chrome_131 (ALPS 17513 = tell "UA 150/TLS 131").
-  // "chrome_150" → buildSessionOpts() sélectionne le profil custom. RC_TLS_ID override (ex chrome_131 test).
-  await tls.ensureSession(proxy || undefined, process.env.RC_TLS_ID || "chrome_150");
-  const gtext = async (url, headers, cookies) => (await tls.tlsFetch(url, { headers, cookies })).text();
+  // Empreinte TLS = le profil `tls` DU FINGERPRINT (correspondant à l'UA : Chrome 150 → ALPS 17613,
+  // X25519MLKEM768). Si le profil n'a pas d'objet `tls`, fallback sur son `tlsClientId` (built-in),
+  // sinon défaut Chrome 150. RC_TLS_ID force un identifiant (test). PLUS de hardcode global.
+  await tls.ensureSession(proxy || undefined, process.env.RC_TLS_ID || fingerprint.tls || fingerprint.tlsClientId || undefined);
+  const gtext = async (url, headers, cookies, headerOrder) => (await tls.tlsFetch(url, { headers, cookies, headerOrder })).text();
+  // Ordre des headers Chrome pour l'anchor GET (navigation iframe cross-site) — SCORÉ par Google.
+  const anchorOrder = ["sec-ch-ua", "sec-ch-ua-mobile", "sec-ch-ua-platform", "upgrade-insecure-requests", "user-agent", "accept", "sec-fetch-storage-access", "sec-fetch-site", "sec-fetch-mode", "sec-fetch-dest", "referer", "accept-encoding", "accept-language", "priority"];
 
   // Retry transitoire : les proxies résidentiels renvoient parfois une réponse tronquée/vide
   // (le status peut être 200 mais le corps incomplet) → le parse échoue. On re-fetch jusqu'à 4×.
@@ -99,7 +106,12 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
   );
 
   // 2) Anchor → token + DC (AnchorParser.findDC extrait le BON timestamp = clé cipher field16)
-  const anchorHeaders = { ...base, "accept-language": "en", referer: cfg.referer, accept: "*/*", "sec-fetch-storage-access": "none", "sec-fetch-site": "cross-site", "sec-fetch-dest": "iframe", "sec-fetch-mode": "navigate", "upgrade-insecure-requests": "1", priority: "u=0, i" };
+  const anchorHeaders = {
+    "sec-ch-ua": base["sec-ch-ua"], "sec-ch-ua-mobile": base["sec-ch-ua-mobile"], "sec-ch-ua-platform": base["sec-ch-ua-platform"],
+    "upgrade-insecure-requests": "1", "user-agent": base["user-agent"], accept: "*/*",
+    "sec-fetch-storage-access": "none", "sec-fetch-site": "cross-site", "sec-fetch-mode": "navigate", "sec-fetch-dest": "iframe",
+    referer: cfg.referer, "accept-encoding": "gzip, deflate, br, zstd", "accept-language": acceptLang, priority: "u=0, i",
+  };
   let anchorUrl;
   let anchor;
   // TEST : RC_OVERRIDE_ANCHOR_HTML = HTML d'un anchor GENUINE (capturé du navigateur) → isole si le gate
@@ -111,7 +123,7 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
     if (!anchor.anchorToken) throw new Error("anchor override sans anchorToken");
   } else {
     anchor = await withRetry(
-      () => { anchorUrl = cfg.buildAnchorUrl({ apiBase: bootstrap.apiBase, version: bootstrap.version, cb: CallbackGenerator.generate() }); return gtext(anchorUrl, anchorHeaders, gCk()); },
+      () => { anchorUrl = cfg.buildAnchorUrl({ apiBase: bootstrap.apiBase, version: bootstrap.version, cb: CallbackGenerator.generate() }); return gtext(anchorUrl, anchorHeaders, gCk(), anchorOrder); },
       (t) => AnchorParser.parse(t),
       (a) => !!a.anchorToken,
       "recaptcha-token introuvable dans l'anchor",
@@ -129,15 +141,18 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
   if (process.env.RC_DUMP_CLEAN_RELOAD) { try { const { writeFileSync } = await import("fs"); writeFileSync(process.env.RC_DUMP_CLEAN_RELOAD, built.body); } catch (_) {} }
   if (delayMs > 0) await new Promise((r) => setTimeout(r, delayMs));
 
-  // 4) POST /reload → token. Ordre des headers = fingerprint HTTP/2 ; cookie _GRECAPTCHA vieilli en position 6.
+  // 4) POST /reload → token. ⭐ L'ORDRE DES HEADERS (reloadOrder) est SCORÉ par Google : un ordre non-Chrome
+  // sur le reload = token de score plus bas → tm-bl www bloque (prouvé : même field16, seul l'ordre change le
+  // verdict quickpicks 403↔200). On force l'ordre exact d'un fetch Chrome (client-hints groupés, sec-fetch, priority en dernier).
   const reloadHeaders = {
-    "content-type": "application/x-protobuffer", referer: anchorUrl, "user-agent": base["user-agent"],
-    "accept-language": "en", accept: "*/*",
+    "content-type": "application/x-protobuffer",
     "sec-ch-ua": base["sec-ch-ua"], "sec-ch-ua-mobile": base["sec-ch-ua-mobile"], "sec-ch-ua-platform": base["sec-ch-ua-platform"],
-    "sec-fetch-storage-access": "none", "sec-fetch-site": "same-origin", "sec-fetch-mode": "cors", "sec-fetch-dest": "empty",
-    origin: GOOGLE, priority: "u=1, i",
+    "user-agent": base["user-agent"], accept: "*/*", "accept-encoding": "gzip, deflate, br, zstd", "accept-language": acceptLang,
+    origin: GOOGLE, "sec-fetch-site": "same-origin", "sec-fetch-mode": "cors", "sec-fetch-dest": "empty",
+    referer: anchorUrl, priority: "u=1, i",
   };
-  const resp = await tls.tlsFetch(`${bootstrap.apiBase}reload?k=${siteKey}`, { method: "POST", headers: reloadHeaders, body: built.body, cookies: gCk() });
+  const reloadOrder = ["content-type", "sec-ch-ua", "sec-ch-ua-mobile", "sec-ch-ua-platform", "user-agent", "accept", "accept-encoding", "accept-language", "origin", "sec-fetch-site", "sec-fetch-mode", "sec-fetch-dest", "referer", "priority"];
+  const resp = await tls.tlsFetch(`${bootstrap.apiBase}reload?k=${siteKey}`, { method: "POST", headers: reloadHeaders, headerOrder: reloadOrder, body: built.body, cookies: gCk() });
   const parsed = ReloadResponseParser.parse(resp.buffer().toString("utf8"));
 
   const ch = cfg.clientHints();
