@@ -22,7 +22,7 @@ import threading
 import requests
 
 # ============================= CONFIG =========================================
-API    = "http://127.0.0.1:3848/api/captcha/tmpt"
+API    = "http://127.0.0.1:3000/tmpt"
 PROXY  = os.environ.get("T_PROXY", "http://kyzenpro:0637fd1ce4a6b5f3_country-France_session-4m67xOzg@proxy.packetstream.io:31112")     # vide = PROXYLESS (IP directe) ; sinon host:port ou URL ; T_PROXY="" pour proxyless
 WARM   = os.environ.get("T_WARM", "1") == "3"   # pool de fenêtres chaudes à empreinte tournante
 N      = int(os.environ.get("T_N", "1"))   # runs per target (T_N=1 pour éviter la contention jsdom)
@@ -35,9 +35,11 @@ RECAPTCHA_ORIGIN  = "https://auth.ticketmaster.com"
 RECAPTCHA_SITEKEY = "6LdoaXQrAAAAADQviABd-eByJu6kPL8awKDyc1zb"  # in TM = api2 (pas enterprise)
 IS_ENTERPRISE     = False
 TITLE             = "Let's Get Your Identity Verified"
-EVENT_ID   = "1E0064620FE4DD7A"
-EVENT_PAGE = ("https://www.ticketmaster.com/"
-              "charley-crockett-age-of-the-ram-casper-wyoming-07-08-2026/event/" + EVENT_ID)
+import re as _re
+EVENT_PAGE = os.environ.get("T_EVENT_URL") or ("https://www.ticketmaster.com/"
+              "charley-crockett-age-of-the-ram-casper-wyoming-07-08-2026/event/1E0064620FE4DD7A")
+_m = _re.search(r"/event/([0-9A-Za-z]+)", EVENT_PAGE)
+EVENT_ID   = _m.group(1) if _m else "1E0064620FE4DD7A"
 EXTRA_COOKIES = ""               # e.g. "BID=...; SID=..." if an endpoint needs them
 # ==============================================================================
 
@@ -100,7 +102,7 @@ TARGETS = [
      "url": LOGIN_URL,  "referer": LOGIN_REFERER},
 ]
 
-TOKEN_API = "http://127.0.0.1:3848/api/captcha/token"
+TOKEN_API = "http://127.0.0.1:3000/token"
 
 # ----- colors -----------------------------------------------------------------
 if os.name == "nt":
@@ -144,11 +146,7 @@ def mint(target):
         "recaptchaSitekey": target["sitekey"],
         "action":           target["action"],
         "isEnterprise":     target["enterprise"],
-        "warm":             WARM,
-        "poolSize":         3,
     }
-    if FORCE_FLAT is not None:
-        payload["flat"] = (FORCE_FLAT == "1")
     if PROXY_URL:
         payload["proxy"] = PROXY_URL
     r = requests.post(API, json=payload, timeout=180)
@@ -156,23 +154,35 @@ def mint(target):
     body = r.json()
     if body.get("status") != "success":
         raise RuntimeError(body.get("error") or body)
-    data = body["data"]
+    # Nouvelle API : data = { tmpt, epsSid, gResponseToken, header:{userAgent,secChUa,secChUaPlatform,
+    # secChUaMobile,acceptLang} }. On remet à plat vers les clés utilisées par le reste du fichier.
+    d = body["data"]
+    h = d.get("header", {})
+    data = {
+        "tmpt":               d.get("tmpt"),
+        "eps_sid":            d.get("epsSid"),
+        "token":              d.get("gResponseToken"),
+        "user_agent":         h.get("userAgent", ""),
+        "accept_lang":        h.get("acceptLang", "en-US,en;q=0.9"),
+        "sec_ch_ua":          h.get("secChUa", ""),
+        "sec_ch_ua_mobile":   h.get("secChUaMobile", "?0"),
+        "sec_ch_ua_platform": h.get("secChUaPlatform", '"Windows"'),
+    }
 
     # 2e exécution reCAPTCHA pour le corps (ex. login) : token d'une AUTRE action que le tmpt.
     if target.get("captcha_action"):
         tk = requests.post(TOKEN_API, json={
-            "url":          target["gen"],
-            "sitekey":      target["sitekey"],
-            "action":       target["captcha_action"],
-            # le token du sign-in est ENTERPRISE (cf. captcha_enterprise) ≠ le tmpt (standard)
-            "isEnterprise": target.get("captcha_enterprise", target["enterprise"]),
-            "proxy":        PROXY_URL or None,
+            "websiteUrl":       target["gen"],
+            "recaptchaSitekey": target["sitekey"],
+            "action":           target["captcha_action"],
+            "isEnterprise":     target.get("captcha_enterprise", target["enterprise"]),
+            "proxy":            PROXY_URL or None,
         }, timeout=180)
         tk.raise_for_status()
         tb = tk.json()
         if tb.get("status") != "success":
             raise RuntimeError("token(" + target["captcha_action"] + "): " + str(tb.get("error") or tb))
-        data["token"] = tb["data"]["token"]   # remplace par le token action=login
+        data["token"] = tb["data"]["gResponseToken"]   # remplace par le token action=login
 
     return data
 

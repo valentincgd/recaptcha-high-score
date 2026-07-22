@@ -68,36 +68,51 @@ export class Slot73Collector {
     return arr;
   }
 
-  // Valeur du signal : device depuis le profil, comportement/flags depuis le template (frais/jitter).
+  // Valeur du signal :
+  //  - DEVICE (idx0=UA/sk417, idx26=WebGL/sk1310, idx25=hardware/sk1994) → depuis le profil fingerprint
+  //    (varie en tournant de profil ; c'est de l'empreinte device, pas du comportement).
+  //  - COMPORTEMENTAL + TIMING (souris sk352, clavier sk549, pressed sk659, scroll sk959, perf sk1092,
+  //    clearTimeout sk41/43, visibilité sk895, runtime VM…) → RÉGÉNÉRÉ FRAIS à CHAQUE solve. Le template
+  //    ne sert QUE de forme ; toutes les valeurs (timestamps, coordonnées, durées, timings ms) sont
+  //    tirées neuves → deux solves n'ont JAMAIS les mêmes signaux (sinon = tell de replay évident).
   #valueFor(idx, tplValue, profile) {
     switch (idx) {
-      case 0: // UA
+      case 0:
         return profile.userAgent || tplValue;
-      case 26: { // WebGL ["vendor","renderer",extCount]
+      case 26: {
         const w = profile.webgl;
         if (w && w.unmaskedVendor && w.renderer) return JSON.stringify([w.unmaskedVendor, w.renderer, w.extensionCount ?? 35]);
         return tplValue;
       }
-      case 25: { // [hardwareConcurrency, deviceMemory-ish, memoryBytes]
+      case 25: {
         const hc = profile.hardwareConcurrency, dm = profile.deviceMemory;
         if (hc != null && dm != null) return JSON.stringify([hc, dm * 2, dm * 1073741824]);
         return tplValue;
       }
-      case 18: // événements souris : jitter léger des timings/coords pour ne pas rejouer à l'identique
-        return this.#jitterMouse(tplValue);
-      case 11: case 14: case 17: // perf/timing : jitter léger
-        return this.#jitterNums(tplValue);
       default:
-        return tplValue; // flags/compteurs : template (structure stable)
+        return this.#fresh(tplValue); // comportemental/timing/flags → valeurs neuves (forme préservée)
     }
   }
 
-  #jitterNums(v) {
-    try { const a = JSON.parse(v); const j = JSON.parse(JSON.stringify(a)); this.#walkJitter(j); return JSON.stringify(j); }
-    catch { return v; }
+  /** Régénère un signal en gardant sa FORME (structure du template) mais avec des valeurs NEUVES.
+   *  Chaque nombre est retiré selon sa magnitude : timestamps/ids (≥1000) ±30 %, coords/durées (≥20) ±15,
+   *  petits entiers (flags/index) et non-finis (Infinity) inchangés, floats (timings ms) ±20 %. */
+  #fresh(v) {
+    try { return JSON.stringify(this.#walk(JSON.parse(v))); } catch { return v; }
   }
-  #jitterMouse(v) { return this.#jitterNums(v); }
-  #walkJitter(x) {
-    if (Array.isArray(x)) { for (let i = 0; i < x.length; i++) { if (typeof x[i] === "number" && x[i] > 100 && Number.isFinite(x[i])) x[i] = x[i] + rnd(20) - 10; else this.#walkJitter(x[i]); } }
+  #walk(x) {
+    if (Array.isArray(x)) return x.map((e) => this.#walk(e));
+    if (typeof x === "number") return this.#freshVal(x);
+    return x;
+  }
+  #freshVal(v) {
+    if (!Number.isFinite(v) || v === 0) return v;         // Infinity / 0 (structure) → gardés
+    const a = Math.abs(v);
+    if (Number.isInteger(v)) {
+      if (a >= 1000) return Math.max(1, Math.round(v * (0.7 + Math.random() * 0.6))); // timestamps/ids
+      if (a >= 20) return v + rnd(31) - 15;                                            // coords/durées
+      return v;                                                                        // petits (flags/index)
+    }
+    return v * (0.8 + Math.random() * 0.4);                                            // floats (timings ms)
   }
 }

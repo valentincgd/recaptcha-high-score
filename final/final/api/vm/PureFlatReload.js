@@ -32,15 +32,6 @@ import { Field7Aux } from "./Field7Aux.js";
 const __dir = dirname(fileURLToPath(import.meta.url));
 const F22_ENUM = JSON.parse(readFileSync(join(__dir, "field22_enum_values.json"), "utf8"));
 
-// Template field16 par host : TM utilise un template capturé sur www.ticketmaster.com (script
-// enterprise), sinon le template démo. Le contexte du template doit matcher la cible.
-function pickTemplate(host) {
-  const isTM = /ticketmaster/i.test(host || "");
-  const path = join(__dir, isTM ? "field16_template_tm.json" : "field16_template.json");
-  try { return JSON.parse(readFileSync(path, "utf8")); }
-  catch { return JSON.parse(readFileSync(join(__dir, "field16_template.json"), "utf8")); }
-}
-
 // field25 (sign-in) = table de fréquence de 6 codes FIXES (session-invariants, vérifiés 2 sessions) +
 // compteurs comportementaux plausibles. Format : base64(JSON [[[code,count],...]]).
 // field25 = compteurs d'events du VRAI login (genuine : focusin=6, pointermove=3, pointerdown=3,
@@ -85,21 +76,17 @@ export class PureFlatReload {
     // Contexte SIGN-IN (auth TM, sitekey ZB, action login) → spec dédié capturé du browser genuine
     // (valeurs auth : URL oauth, titre "Ticketmaster Sign In", écran, hosts nudata…). Sinon spec event.
     const isSignin = /auth\.ticketmaster/i.test(host) || String(siteKey).startsWith("6LdoaXQr") || /^login$/i.test(String(action));
-    let field16, session = null;
-    if (profile && /ticketmaster/i.test(host)) {
-      const specPath = isSignin ? join(__dir, "field16_spec_signin.json") : undefined;
-      const col = new Field16Collector(specPath);
-      // Sign-in : encKey botguard du slot73 = 3ème constante du config anchor (≠ DC field16).
-      let slot73EncKey = null;
-      if (isSignin && anchor) { try { slot73EncKey = Slot73Collector.extractEncKey(anchor); } catch (_) {} }
-      const built = col.build({ profile, anchorToken, version, origin: referer || ("https://" + host), pageUrl: referer || ("https://" + host), signin: isSignin, slot73EncKey, now: Date.now(), DC: encryptionKey != null ? Number(encryptionKey) : null });
-      field16 = built.field16; session = built.session;
-    } else {
-      const builder = new Field16Builder(pickTemplate(host));
-      const f16o = { profile, ...f16opts };
-      if (encryptionKey != null && f16o.DC == null) f16o.DC = Number(encryptionKey);
-      field16 = builder.build(f16o);
-    }
+    if (!profile) throw new Error("profile requis (field16)");
+    // Field16Collector pour TOUS les sites : device depuis le profil (écran/UA/WebGL/hardware),
+    // URLs/env depuis la requête (origin/host), session + comportement régénérés frais. Le spec ne
+    // fournit que la STRUCTURE des 79 slots (spec_signin pour le login, spec_tm sinon).
+    const specPath = isSignin ? join(__dir, "field16_spec_signin.json") : undefined; // undefined → field16_spec_tm
+    const col = new Field16Collector(specPath);
+    // Sign-in : encKey botguard du slot73 = 3ème constante du config anchor (≠ DC field16).
+    let slot73EncKey = null;
+    if (isSignin && anchor) { try { slot73EncKey = Slot73Collector.extractEncKey(anchor); } catch (_) {} }
+    const built = col.build({ profile, anchorToken, version, origin: referer || ("https://" + host), pageUrl: referer || ("https://" + host), signin: isSignin, slot73EncKey, now: Date.now(), DC: encryptionKey != null ? Number(encryptionKey) : null });
+    let field16 = built.field16, session = built.session;
     const slots = Field16Builder.decode(field16);
     const field5 = String(HashUtil.hashString(JSON.stringify(slots)));
 

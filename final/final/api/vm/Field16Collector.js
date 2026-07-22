@@ -86,6 +86,13 @@ export class Field16Collector {
       if (e.raw !== undefined && e.i === 64) { slots.push(signin ? (9000 + rnd(7000)) : (485 + rnd(40))); continue; }
       // slot 77 = timestamp conditionnel : genuine sign-in le porte (ex 1784674053983). spec=null. On l'émet en signin.
       if (e.raw !== undefined && e.i === 77) { slots.push(signin ? ss.now : (e.raw)); continue; }
+      // slot 72 = navigator.userAgentData [[brands],mobile,platform] — DÉRIVÉ DU PROFIL (plus de valeur
+      // figée du spec : sinon tous les profils émettraient le même device = fingerprint hardcodé).
+      if (e.raw !== undefined && e.i === 72) { slots.push([profile.brands || [], profile.mobile ? 1 : 0, profile.uaPlatform || "Windows"]); continue; }
+      // slot 18 = valeur aléatoire base64 (clé) → FRAÎCHE à chaque solve (le spec la figeait = tell de replay).
+      if (e.raw !== undefined && e.i === 18) { slots.push(b64(randB36(13 + rnd(2)))); continue; }
+      // slot 4 = HMAC(rc::a, siteKey)[:4] : rc::a est aléatoire par session → 4-hex frais (le spec figeait "18d1").
+      if (e.raw !== undefined && e.i === 4) { slots.push(randHex(4)); continue; }
       if (e.raw !== undefined) { slots.push(e.raw); continue; }
       let v = this.#coherentValue(e, ss, { tzOff, version, origin, pageUrl: pageUrl || origin, signin, poolIdxRef: () => poolIdx++ });
       // Clé : fraîche par session pour les signaux dynamiques (anti-replay), sinon la clé stable du spec.
@@ -110,6 +117,28 @@ export class Field16Collector {
     // Vérifié sur 2 runs jsdom frais : slot 41 émet STABLEMENT "" (vide). L'ancienne règle (doublé "cc")
     // produisait une valeur que jsdom n'émet pas → on aligne sur le stable observé.
     if (e.key === 2103480962) return '""';
+    // slot 67 = résolution écran [width,height,availHeight,innerW,innerH,outerH] — DÉRIVÉ DU PROFIL
+    // (le spec avait un b64 random "signal manquant"). Chaque profil → son écran → device non figé.
+    if (e.i === 67) { const s = ss.profile.screen || {}; const p = ss.profile; return '"' + JSON.stringify([s.width, s.height, s.availHeight, p.innerWidth, p.innerHeight, p.outerHeight]) + '"'; }
+    // [39] navigation.type (0=navigate/1=reload) et [45] history.length : le spec jsdom FUIT le getter
+    // fnToString (`get history(){…}`) ; un vrai navigateur émet des NOMBRES. On aligne (event + signin).
+    if (e.i === 39) return String(rnd(2));
+    if (e.i === 45) return String(2 + rnd(5));
+    // [36] nextHopProtocol du document : "h2" (le spec avait "" — jsdom sans navigation timing).
+    if (e.i === 36) return '"h2"';
+    // [27] location.origin : l'origin de la REQUÊTE (le spec fuit "[object Object]" = bug de sérialisation jsdom).
+    if (e.i === 27) return '"' + String(ctx.origin || "").replace(/\/$/, "") + '"';
+    // [52] userActivation = 10*isActive+hasBeenActive : event = 0 (chargement, aucun geste), signin = 11
+    // (l'utilisateur a saisi email+mot de passe → isActive & hasBeenActive vrais). Le spec fuit
+    // "NaN[object Object]" (navigator.userActivation absent en jsdom).
+    if (e.i === 52) return ctx.signin ? '"11"' : '"0"';
+    // [46] error line:col : aucune erreur → "" ; [49] resourceTiming recaptcha "proto-isZero" → "h2-0".
+    // (Le spec jsdom émet "." pour les deux = artefact.)
+    if (e.i === 46) return '""';
+    if (e.i === 49) return '"h2-0"';
+    // [57] hosts des <script> de la page : gstatic + host de la page + hosts courants (le spec figeait
+    // "www.gstatic.com,_," de la capture). Approximation cohérente avec la requête.
+    if (e.i === 57) { let host = ""; try { host = new URL(ctx.origin).host; } catch (_) {} return '"www.gstatic.com,_,' + host + ',www.google.com,www.googletagmanager.com"'; }
     // [29] = hash SHA-256 de grecaptcha.execute (stable par sitekey+version : ZB="e2b68587"). Le handler
     // hex8 générique l'écrasait par ss.hex8 (session, "202a957a"=XV) → FAUX pour ZB. En signin, garder le spec.
     if (ctx.signin && e.i === 29) return v;

@@ -104,9 +104,8 @@ server.mjs         API HTTP : POST /token, POST /login, GET /health
 constants.json     TOUTES les constantes/IDs (versions, URLs Google, sitekeys, config OAuth des sites)
 index.mjs          cœur : solveToken() + solveTmpt() + solveLogin() + siteConfigFor()
 tlsClient.cjs      client TLS Chrome-150 (node-tls-client) — le seul truc externe
-fingerprints.mjs   profils navigateur (UA + client hints)
+fingerprints.mjs   profils navigateur (UA + client hints) — tirés au hasard à chaque solve
 fingerprints.json
-cookie_jar.json    cookie _GRECAPTCHA vieilli (réputation) présenté à Google
 api/               parsers (anchor/bootstrap/reload) + Config + HttpClient + protobuf/hash
 api/vm/            reconstruction field16 (cipher, deriveSignalCode, collecteur, bloom field22, télémétrie field20)
                    + JSON de spec/enum/identité
@@ -116,8 +115,9 @@ api/vm/            reconstruction field16 (cipher, deriveSignalCode, collecteur,
 
 - **DC field16** : la clé de chiffrement de field16 est le timestamp de l'anchor **suivi du motif `,0,0,[collectorIndexes]`** (pas le dernier timestamp). `api/AnchorParser.js` l'extrait via `findDC`. C'était LE bug qui faisait échouer les anciennes versions (Google déchiffrait en garbage → score bas → 403).
 - **Réputation IP** : le facteur limitant est l'IP, pas le payload. Les IP datacenter et les résidentielles brûlées sont bloquées par tm-bl (Akamai). Utiliser des IP résidentielles propres et ne pas les surcharger.
-- **cookie_jar.json** : contient un `_GRECAPTCHA` « vieilli » (client de confiance). À laisser vieillir / rafraîchir comme un vrai cookie-store.
-- **Version du script** : `field16_spec_tm.json` / `flat_identity.json` sont calés sur une version de `recaptcha__fr.js`. Si Google met à jour le script, ces données (et éventuellement le template slot 55) sont à re-capturer.
+- **Aucun cookie** : pas de `_GRECAPTCHA` envoyé — chaque solve est un visiteur neuf.
+- **Unicité par solve (anti-replay)** : rien n'est rejoué à l'identique. À CHAQUE token sont régénérés frais : le **profil device** (UA/WebGL/écran, tiré au hasard), l'**identité de session** (`SessionState` : session-id, cookie GA, hex, timings — plus de fichier `flat_identity.json` statique), et **tous les signaux comportementaux du slot 73** (souris/clavier/scroll/perf — `Slot73Collector` régénère les valeurs, le `slot73_template.json` ne sert que de forme). Option `RC_IDENTITY_FILE=<chemin>` pour figer une identité « vieillie » (usage mono-session à haut score), sinon frais par défaut.
+- **Version du script** : `field16_spec_tm.json` / `field16_spec_signin.json` sont calés sur une version de `recaptcha__fr.js`. Si Google met à jour le script, ces specs (structure des slots) sont à re-capturer.
 
 ## Contextes supportés (sélection automatique)
 

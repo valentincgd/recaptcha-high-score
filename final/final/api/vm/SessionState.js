@@ -9,8 +9,6 @@
  * (timezone, UA, écran…).
  */
 import { readFileSync, writeFileSync } from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
 
 function rnd(n) { return Math.floor(Math.random() * n); }
 function b36(len) { const A = "abcdefghijklmnopqrstuvwxyz0123456789"; let s = ""; for (let i = 0; i < len; i++) s += A[rnd(36)]; return s; }
@@ -22,20 +20,26 @@ function hex(len) { const A = "0123456789abcdef"; let s = ""; for (let i = 0; i 
 // paraît un visiteur neuf → score bas. On persiste donc une identité stable (générée 1×, réutilisée),
 // SANS hardcode : générée aléatoirement au 1er run puis vieillie. RC_IDENTITY_FILE = chemin ; RC_NO_IDENTITY=1 coupe.
 let _identity = null;
-function loadIdentity(now) {
-  if (_identity) return _identity;
-  if (process.env.RC_NO_IDENTITY === "1") return null;
-  let file;
-  try { file = process.env.RC_IDENTITY_FILE || join(dirname(fileURLToPath(import.meta.url)), "flat_identity.json"); } catch { file = null; }
-  if (file) { try { _identity = JSON.parse(readFileSync(file, "utf8")); return _identity; } catch (_) {} }
-  // 1er run : génère une identité fraîche puis la persiste (elle « vieillit » aux runs suivants)
-  _identity = {
+function freshIdentity(now) {
+  return {
     primaryId: b36(10), embeddedId: b36(13), domHex: hex(8), hex8: hex(8),
     gaCookie: "GA1.1." + rnd(2147483647) + "." + (Math.floor(now / 1000) - rnd(30000000)),
     idPool: Array.from({ length: 8 }, () => b36(13 + rnd(2))), // 13-14 chars (observé jsdom)
     timingArray: [10, 77000 + rnd(2000), 78000 + rnd(600), 77800 + rnd(500)],
   };
-  if (file) { try { writeFileSync(file, JSON.stringify(_identity, null, 1)); } catch (_) {} }
+}
+function loadIdentity(now) {
+  if (process.env.RC_NO_IDENTITY === "1") return null;
+  // DÉFAUT : identité FRAÎCHE à CHAQUE token — chaque token = un utilisateur unique (session-id, GA, hex8,
+  // timing tous nouveaux), comme un vrai navigateur. Sinon TOUS les tokens partageraient la même identité
+  // = tell de replay évident à l'échelle (reCAPTCHA flag). RC_IDENTITY_FILE=<chemin> → identité PERSISTÉE
+  // (un seul "client vieilli", utile pour un usage mono-session à haut score, PAS pour du volume).
+  const file = process.env.RC_IDENTITY_FILE || null;
+  if (!file) return freshIdentity(now);
+  if (_identity) return _identity;
+  try { _identity = JSON.parse(readFileSync(file, "utf8")); return _identity; } catch (_) {}
+  _identity = freshIdentity(now);
+  try { writeFileSync(file, JSON.stringify(_identity, null, 1)); } catch (_) {}
   return _identity;
 }
 
@@ -50,11 +54,13 @@ export class SessionState {
     this.profile = profile;
     this.anchorToken = anchorToken;
     this.now = now;
-    // Timezone du field16 [68] = timezone RÉELLE du runtime (comme jsdom qui émet sa tz système, ex -120
-    // = UTC+2 CEST). Le profil hardcodait 300 (US) → incohérent. On prend la vraie tz système (genuine,
-    // pas de hardcode). RC_TZ force une valeur (test). Fallback profil si getTimezoneOffset indispo.
+    // Timezone du field16 [68] = celle du PROFIL (`timezoneOffset`, style getTimezoneOffset : 480 pour
+    // America/Los_Angeles, -120 pour Europe/Paris été). Le fingerprint doit être cohérent : un profil macOS
+    // Los Angeles doit émettre sa tz, pas celle du serveur. RC_TZ force une valeur (ex si le proxy impose
+    // une géoloc). Fallback runtime puis 0 si le profil n'a pas de tz.
     let runtimeTz; try { runtimeTz = new Date().getTimezoneOffset(); } catch { runtimeTz = null; }
-    this.tzOffset = runtimeTz != null ? runtimeTz : (profile.timezoneOffset ?? 0);
+    this.tzOffset = process.env.RC_TZ != null && process.env.RC_TZ !== "" ? Number(process.env.RC_TZ)
+      : (profile.timezoneOffset != null ? profile.timezoneOffset : (runtimeTz != null ? runtimeTz : 0));
 
     // Timeline COHÉRENTE (observé : [58] widget T, [68] event T+~37ms, reload T+~356ms).
     // On modélise une base T = now, puis des offsets ms réalistes distincts (jamais le même partout).

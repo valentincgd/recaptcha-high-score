@@ -42,15 +42,6 @@ export function siteConfigFor(url) {
   return null;
 }
 
-/** _GRECAPTCHA vieilli (réputation) depuis cookie_jar.json — présenté sur toutes les requêtes Google. */
-function agedGrecaptcha() {
-  try {
-    const jar = JSON.parse(readFileSync(join(__dir, "cookie_jar.json"), "utf8"));
-    const c = (jar.cookies || []).find((x) => x.key === "_GRECAPTCHA" && /google\.com$/.test(x.domain || ""));
-    return c ? c.value : null;
-  } catch { return null; }
-}
-
 /**
  * Génère un VRAI token reCAPTCHA v3 (flat, byte-exact) — bootstrap → anchor → reload, 100 % JS pur.
  * @returns {Promise<{token, success, profileId, headers, reloadBytes}>}
@@ -58,6 +49,15 @@ function agedGrecaptcha() {
 export async function solveToken({ siteKey, action = "Event", origin, referer, proxy = null, fingerprintId = null, hl = "fr", enterprise = false, delayMs = 0 }) {
   if (!siteKey) throw new Error("siteKey requis");
   if (!origin) throw new Error("origin requis");
+
+  // Hook de VÉRIFICATION uniquement (env-gated RC_USE_JSDOM=1) : minter le token via la référence jsdom
+  // du dossier parent au lieu du flat pur, pour ISOLER field16-content vs réputation IP/anchor sur le
+  // replay www. La prod reste 100 % pure : import dynamique, jamais chargé sans le flag.
+  if (process.env.RC_USE_JSDOM === "1") {
+    const { solveViaJsdom } = await import("../api/JsdomSolver.mjs");
+    const j = await solveViaJsdom({ siteKey, action, origin, pageUrl: referer ?? (origin.replace(/\/$/, "") + "/"), proxy: proxy || undefined, hl, mode: enterprise ? "enterprise" : "api2" });
+    return { token: j.token ?? null, success: !!j.token, profileId: "jsdom", reloadBytes: 0, reloadStatus: j.reloadStatus ?? (j.token ? 200 : 0), headers: j.clientHints };
+  }
   const fingerprint = pickFingerprint({ id: fingerprintId });
   const cfg = new Config({ siteKey, action, origin, referer: referer ?? origin.replace(/\/$/, "") + "/", mode: enterprise ? "enterprise" : "api2", preserveOrigin: true, hl });
   cfg.fingerprint = fingerprint;
@@ -65,8 +65,8 @@ export async function solveToken({ siteKey, action = "Event", origin, referer, p
   const base = cfg.googleHeaders();
   const apiPath = enterprise ? "enterprise.js" : "api.js";
 
-  const gval = agedGrecaptcha();
-  const gCk = () => (gval ? { _GRECAPTCHA: gval } : undefined);
+  // AUCUN cookie _GRECAPTCHA : chaque solve = un visiteur neuf (pas de cookie de réputation partagé/hardcodé).
+  const gCk = () => undefined;
 
   tls.setProxy(proxy || undefined);
   // Empreinte TLS COHÉRENTE avec l'UA du profil (fp.tlsClientId). Défaut chrome_131 = la version

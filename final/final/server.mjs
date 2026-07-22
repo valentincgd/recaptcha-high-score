@@ -3,14 +3,14 @@
  *
  *   POST /token   body: { websiteUrl, recaptchaSitekey, proxy?, action?, isEnterprise? }
  *                 → { status, version, solveMethod, data: { gResponseToken, header {...} } }
- *   POST /login   body: { websiteUrl, email, password, proxy? }   (login Ticketmaster complet)
+ *   POST /tmpt    body: idem /token  → { ..., data: { tmpt, epsSid, gResponseToken, header } }
  *   GET  /health  → { status: "ok", version }
  *
  * Toutes les constantes/IDs sont dans constants.json — aucun hardcode dans le code.
  * Config serveur : PORT (défaut 3000).
  */
 import http from "http";
-import { solveToken, solveTmpt, solveLogin, siteConfigFor, CONST } from "./index.mjs";
+import { solveToken, solveTmpt, CONST } from "./index.mjs";
 
 const PORT = Number(process.env.PORT) || 3000;
 const originOf = (url) => { try { return new URL(url).origin; } catch { return String(url || ""); } };
@@ -90,15 +90,6 @@ async function handleTmpt(b) {
   };
 }
 
-/** POST /login — login complet (site OAuth connu, ex. Ticketmaster) : 2 tokens + session + POST sign-in. */
-async function handleLogin(b) {
-  if (!b.email || !b.password) throw new Error("email et password requis");
-  const cfg = siteConfigFor(b.websiteUrl || "");
-  const site = cfg ? Object.keys(CONST.sites).find((k) => CONST.sites[k] === cfg) : "ticketmaster";
-  const r = await solveLogin({ email: b.email, password: b.password, proxy: b.proxy || null, fingerprintId: b.fingerprintId || null, site });
-  return { status: r.ok ? "success" : "blocked", version: CONST.version, solveMethod: CONST.solveMethod, data: { httpStatus: r.status, body: r.body, tmpt: r.tmpt } };
-}
-
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://x");
   if (req.method === "GET" && url.pathname === "/health") return send(res, 200, { status: "ok", version: CONST.version });
@@ -108,8 +99,7 @@ const server = http.createServer(async (req, res) => {
   try {
     if (url.pathname === "/token") return send(res, 200, await handleToken(body));
     if (url.pathname === "/tmpt") return send(res, 200, await handleTmpt(body));
-    if (url.pathname === "/login") return send(res, 200, await handleLogin(body));
-    return send(res, 404, { status: "error", error: "route inconnue (POST /token | /tmpt | /login)" });
+    return send(res, 404, { status: "error", error: "route inconnue (POST /token | /tmpt)" });
   } catch (e) {
     return send(res, 500, { status: "error", version: CONST.version, error: String(e?.message || e) });
   }
@@ -118,6 +108,6 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`API reCAPTCHA — http://127.0.0.1:${PORT}`);
   console.log(`  POST /token   { websiteUrl, recaptchaSitekey, proxy?, action?, isEnterprise? }`);
-  console.log(`  POST /login   { websiteUrl, email, password, proxy? }`);
+  console.log(`  POST /tmpt    (idem, + cookie tmpt)`);
   console.log(`  GET  /health`);
 });
